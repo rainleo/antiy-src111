@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antiy.dao.user.UserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.antiy.entity.user.User">
+        <result column="bh" property="bh"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="status" property="status"/>
+        <result column="user_type" property="userType"/>
+        <result column="error_count" property="errorCount"/>
+        <result column="locked_time" property="lockedTime"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="last_modified_password" property="lastModifiedPassword"/>
+        <result column="create_user" property="createUser"/>
+        <result column="gmt_create" property="gmtCreate"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        bh, username, password, name, email, status, user_type, error_count, locked_time, last_login_time, last_modified_password, create_user, gmt_create
+    </sql>
+
+    <sql id="Table_Name">
+        user
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+        <if test=" bh != null">
+            bh,
+        </if>
+        <if test=" username != null">
+            username,
+        </if>
+        <if test=" password != null">
+            password,
+        </if>
+        <if test=" name != null">
+            name,
+        </if>
+        <if test=" email != null">
+            email,
+        </if>
+        <if test=" status != null">
+            status,
+        </if>
+        <if test=" userType != null">
+            user_type,
+        </if>
+        <if test=" errorCount != null">
+            error_count,
+        </if>
+        <if test=" lockedTime != null">
+            locked_time,
+        </if>
+        <if test=" lastLoginTime != null">
+            last_login_time,
+        </if>
+        <if test=" lastModifiedPassword != null">
+            last_modified_password,
+        </if>
+        <if test=" createUser != null">
+            create_user,
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" bh != null">
+            #{bh },
+        </if>
+        <if test=" username != null">
+            #{username },
+        </if>
+        <if test=" password != null">
+            #{password },
+        </if>
+        <if test=" name != null">
+            #{name },
+        </if>
+        <if test=" email != null">
+            #{email },
+        </if>
+        <if test=" status != null">
+            #{status },
+        </if>
+        <if test=" userType != null">
+            #{userType },
+        </if>
+        <if test=" errorCount != null">
+            #{errorCount },
+        </if>
+        <if test=" lockedTime != null">
+            #{lockedTime },
+        </if>
+        <if test=" lastLoginTime != null">
+            #{lastLoginTime },
+        </if>
+        <if test=" lastModifiedPassword != null">
+            #{lastModifiedPassword },
+        </if>
+        <if test=" createUser != null">
+            #{createUser },
+        </if>
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" username != null">
+            username = #{username },
+        </if>
+        <if test=" password != null">
+            password = #{password },
+        </if>
+        <if test=" name != null">
+            name = #{name },
+        </if>
+        <if test=" email != null">
+            email = #{email },
+        </if>
+        <if test=" status != null">
+            status = #{status },
+        </if>
+        <if test=" userType != null">
+            user_type = #{userType },
+        </if>
+        <if test=" errorCount != null">
+            error_count = #{errorCount },
+        </if>
+        <if test=" lockedTime != null">
+            locked_time = #{lockedTime },
+        </if>
+        <if test=" lastLoginTime != null">
+            last_login_time = #{lastLoginTime },
+        </if>
+        <if test=" lastModifiedPassword != null">
+            last_modified_password = #{lastModifiedPassword },
+        </if>
+        <if test=" createUser != null">
+            create_user = #{createUser },
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" bh != null">
+            and bh = #{bh }
+        </if>
+        <if test=" username != null">
+            and username = #{username }
+        </if>
+        <if test=" password != null">
+            and password = #{password }
+        </if>
+        <if test=" name != null">
+            and name = #{name }
+        </if>
+        <if test=" email != null">
+            and email = #{email }
+        </if>
+        <if test=" status != null">
+            and status = #{status }
+        </if>
+        <if test=" userType != null">
+            and user_type = #{userType }
+        </if>
+        <if test=" errorCount != null">
+            and error_count = #{errorCount }
+        </if>
+        <if test=" lockedTime != null">
+            and locked_time = #{lockedTime }
+        </if>
+        <if test=" lastLoginTime != null">
+            and last_login_time = #{lastLoginTime }
+        </if>
+        <if test=" lastModifiedPassword != null">
+            and last_modified_password = #{lastModifiedPassword }
+        </if>
+        <if test=" createUser != null">
+            and create_user = #{createUser }
+        </if>
+        <if test=" gmtCreate != null">
+            and gmt_create = #{gmtCreate }
+        </if>
+    </sql>
+
+    <insert id="insert" parameterType="com.antiy.entity.user.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into
+        <include refid="Table_Name"></include>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="IF_Base_Column_List"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="IF_Value_Column_List"></include>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.antiy.entity.user.User" >
+        update
+        <include refid="Table_Name"></include>
+        <trim prefix="SET" suffixOverrides=",">
+            <include refid="Set_Column_List"></include>
+        </trim>
+        where bh = #{bh}
+    </update>
+
+    <!-- 根据主键查询 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        where bh = #{bh}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from
+        <include refid="Table_Name"></include>
+        where bh = #{bh}
+    </delete>
+
+    <select id="getByWhere" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+        </trim>
+    </select>
+
+    <select id="findCount" resultType="int" parameterType="com.antiy.query.user.UserQuery">
+        select count(1)
+        from
+        <include refid="Table_Name"></include>
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test=" username != null and username != ''">
+                <bind name="_username" value="'%' + username + '%'"/>
+                and username like #{_username}
+            </if>
+            <if test=" name != null and name != ''">
+                <bind name="_name" value="'%' + name + '%'"/>
+                and name like #{_name}
+            </if>
+        </trim>
+    </select>
+
+    <select id="findQuery" resultType="com.antiy.response.user.UserResponse" parameterType="com.antiy.query.user.UserQuery">
+        select bh, username, name, email, status, gmt_create from
+        <include refid="Table_Name"></include>
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test=" username != null and username != ''">
+                <bind name="_username" value="'%' + username + '%'"/>
+                and username like #{_username}
+            </if>
+            <if test=" name != null and name != ''">
+                <bind name="_name" value="'%' + name + '%'"/>
+                and name like #{_name}
+            </if>
+        </trim>
+        <choose>
+            <!-- 支持多字段排序 -->
+            <when test="sortSql != null">
+                order by
+                <foreach collection="sortSql" item="s" separator=",">
+                    ${s}
+                </foreach>
+            </when>
+            <otherwise>
+                order by gmt_create desc
+            </otherwise>
+        </choose>
+        LIMIT #{pageSize} offset #{pageOffset}
+    </select>
+    <select id="findByUsername" resultType="java.lang.Integer">
+    select count(id) from user where username = #{username}
+    </select>
+    <insert id="saveUserMenu" parameterType="map">
+        insert into user_menu(user_bh, menu_bh) values
+        <foreach collection="menuBhs" separator="," item="mbh">
+            (#{bh}, #{mbh})
+        </foreach>
+    </insert>
+    <delete id="deleteUserMenu">
+        delete from user_menu where user_bh = #{bh}
+    </delete>
+    <update id="updateUserStatus">
+        update user set status = #{status} where bh = #{bh}
+    </update>
+    <update id="updateUserPassword">
+      update user set password = #{encodePwd} where bh = #{bh}
+    </update>
+    <select id="getUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+            where   username = #{username }
+    </select>
+    <select id="findMenuBhsByUserBh" resultType="string">
+        select menu_bh from user_menu where user_bh = #{bh}
+    </select>
+
+</mapper>

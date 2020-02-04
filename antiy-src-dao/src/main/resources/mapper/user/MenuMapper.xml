@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antiy.dao.user.MenuDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.antiy.entity.user.Menu">
+        <result column="bh" property="bh"/>
+        <result column="parent_bh" property="parentBh"/>
+        <result column="name" property="name"/>
+        <result column="tag" property="tag"/>
+        <result column="type" property="type"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        bh, parent_bh, name, tag, type
+    </sql>
+
+    <sql id="Table_Name">
+        menu
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+        <if test=" bh != null">
+            bh,
+        </if>
+        <if test=" parentBh != null">
+            parent_bh,
+        </if>
+        <if test=" name != null">
+            name,
+        </if>
+        <if test=" tag != null">
+            tag,
+        </if>
+        <if test=" type != null">
+            type,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" bh != null">
+            #{bh },
+        </if>
+        <if test=" parentBh != null">
+            #{parentBh },
+        </if>
+        <if test=" name != null">
+            #{name },
+        </if>
+        <if test=" tag != null">
+            #{tag },
+        </if>
+        <if test=" type != null">
+            #{type },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" bh != null">
+            bh = #{bh },
+        </if>
+        <if test=" parentBh != null">
+            parent_bh = #{parentBh },
+        </if>
+        <if test=" name != null">
+            name = #{name },
+        </if>
+        <if test=" tag != null">
+            tag = #{tag },
+        </if>
+        <if test=" type != null">
+            type = #{type },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" bh != null">
+            and bh = #{bh }
+        </if>
+        <if test=" parentBh != null">
+            and parent_bh = #{parentBh }
+        </if>
+        <if test=" name != null">
+            and name = #{name }
+        </if>
+        <if test=" tag != null">
+            and tag = #{tag }
+        </if>
+        <if test=" type != null">
+            and type = #{type }
+        </if>
+    </sql>
+
+    <insert id="insert" parameterType="com.antiy.entity.user.Menu" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into
+        <include refid="Table_Name"></include>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="IF_Base_Column_List"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="IF_Value_Column_List"></include>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.antiy.entity.user.Menu" >
+        update
+        <include refid="Table_Name"></include>
+        <trim prefix="SET" suffixOverrides=",">
+            <include refid="Set_Column_List"></include>
+        </trim>
+        where bh = #{bh}
+    </update>
+
+    <!-- 根据主键查询 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        where bh = #{bh}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from
+        <include refid="Table_Name"></include>
+        where bh = #{bh}
+    </delete>
+
+    <select id="getByWhere" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+        </trim>
+    </select>
+
+    <select id="findCount" resultType="int" parameterType="com.antiy.base.ObjectQuery">
+        select count(1)
+        from
+        <include refid="Table_Name"></include>
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+                </trim>
+    </select>
+
+    <select id="findQuery" resultMap="BaseResultMap" parameterType="com.antiy.base.ObjectQuery">
+        select * from
+        <include refid="Table_Name"></include>
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+        </trim>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+    <select id="getAll" resultType="com.antiy.entity.user.Menu">
+        select * from menu order by id;
+    </select>
+    <select id="findMenusOfUser" resultType="string">
+        select m.tag from user_menu um, menu m where um.user_bh = #{bh} and um.menu_bh = m.bh
+    </select>
+</mapper>

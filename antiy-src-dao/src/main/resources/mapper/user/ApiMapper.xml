@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antiy.dao.user.ApiDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.antiy.entity.user.Api">
+        <result column="bh" property="bh"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="method" property="method"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        bh, name, url, method
+    </sql>
+
+    <sql id="Table_Name">
+        api
+    </sql>
+
+    <sql id="IF_Base_Column_List">
+        <if test=" bh != null">
+            bh,
+        </if>
+        <if test=" name != null">
+            name,
+        </if>
+        <if test=" url != null">
+            url,
+        </if>
+        <if test=" method != null">
+            method,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" bh != null">
+            #{bh },
+        </if>
+        <if test=" name != null">
+            #{name },
+        </if>
+        <if test=" url != null">
+            #{url },
+        </if>
+        <if test=" method != null">
+            #{method },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" bh != null">
+            bh = #{bh },
+        </if>
+        <if test=" name != null">
+            name = #{name },
+        </if>
+        <if test=" url != null">
+            url = #{url },
+        </if>
+        <if test=" method != null">
+            method = #{method },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" bh != null">
+            and bh = #{bh }
+        </if>
+        <if test=" name != null">
+            and name = #{name }
+        </if>
+        <if test=" url != null">
+            and url = #{url }
+        </if>
+        <if test=" method != null">
+            and method = #{method }
+        </if>
+    </sql>
+
+    <insert id="insert" parameterType="com.antiy.entity.user.Api" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        insert into
+        <include refid="Table_Name"></include>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="IF_Base_Column_List"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="IF_Value_Column_List"></include>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.antiy.entity.user.Api">
+        update
+        <include refid="Table_Name"></include>
+        <trim prefix="SET" suffixOverrides=",">
+            <include refid="Set_Column_List"></include>
+        </trim>
+        where bh = #{bh}
+    </update>
+
+    <!-- 根据主键查询 -->
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        wherebh = #{bh}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from
+        <include refid="Table_Name"></include>
+        where bh = #{bh}
+    </delete>
+
+    <select id="getByWhere" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+        </trim>
+    </select>
+
+    <select id="findCount" resultType="int" parameterType="com.antiy.base.ObjectQuery">
+        select count(1)
+        from
+        <include refid="Table_Name"></include>
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+        </trim>
+    </select>
+
+    <select id="findQuery" resultMap="BaseResultMap" parameterType="com.antiy.base.ObjectQuery">
+        select * from
+        <include refid="Table_Name"></include>
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+        </trim>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ResultMap" type="com.antiy.entity.user.Api">
+        <result column="a_bh" property="bh"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="method" property="method"/>
+    </resultMap>
+    <!--查询列结果-->
+    <sql id="Column_List">
+        a.bh a_bh, a.name, a.url, a.method
+    </sql>
+
+    <select id="findApiByUser" resultMap="ResultMap" parameterType="string">
+        select
+        <include refid="Column_List"/>
+        FROM api a, menu_api ma, menu m
+        WHERE m.bh = ma.menu_bh AND a.bh = ma.api_bh AND m.bh in (SELECT  m.bh m_bh FROM user u, menu m, user_menu um WHERE u.bh = um.user_bh AND m.bh = um.menu_bh AND u.bh = #{ub})
+    </select>
+</mapper>

@@ -1,22 +1,21 @@
 package com.antiy.response.user;
 
-import io.swagger.annotations.ApiModelProperty;
-
-import java.util.List;
-
 /**
- * @author wangqian
- * created on 2019-07-25
- * @version 1.0.0
- * @program kbms-parent
- * @description 用户响应
+ * <p>
+ * UserResponse 响应对象
+ * </p>
+ *
+ * @author zhangyajun
+ * @since 2018-12-27
  */
+
 public class UserResponse {
 
+
     /**
-     * 用户标识
+     * 业务编号
      */
-    private String bh;
+    private Long businessId;
     /**
      * 用户名
      */
@@ -26,36 +25,35 @@ public class UserResponse {
      * 姓名
      */
     private String name;
-
-    @ApiModelProperty("状态")
+    /**
+     * 所属单位
+     */
+    private Integer department;
+    /**
+     * 身份证号
+     */
+    private String idcard;
+    /**
+     * 联系电话
+     */
+    private String phone;
+    /**
+     * 状态 1、可用 2、锁定 3、禁用
+     */
     private Integer status;
 
-    /**
-     * 电子邮箱
-     */
-    private String email;
+    private Long gmtCreate;
+    private Long createUser;
 
-    /**
-     * 最后一次登陆时间
-     */
     private Long lastLoginTime;
 
-    /**
-     * 创建时间
-     */
-    private Long gmtCreate;
 
-    /**
-     * 菜单编号集合
-     */
-    private List<String> menuBhs;
-
-    public String getBh() {
-        return bh;
+    public Long getBusinessId() {
+        return businessId;
     }
 
-    public void setBh(String bh) {
-        this.bh = bh;
+    public void setBusinessId(Long businessId) {
+        this.businessId = businessId;
     }
 
     public String getUsername() {
@@ -74,28 +72,36 @@ public class UserResponse {
         this.name = name;
     }
 
+    public Integer getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Integer department) {
+        this.department = department;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Long lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
     }
 
     public Long getGmtCreate() {
@@ -106,11 +112,19 @@ public class UserResponse {
         this.gmtCreate = gmtCreate;
     }
 
-    public List<String> getMenuBhs() {
-        return menuBhs;
+    public Long getCreateUser() {
+        return createUser;
     }
 
-    public void setMenuBhs(List<String> menuBhs) {
-        this.menuBhs = menuBhs;
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
+    }
+
+    public Long getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Long lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }

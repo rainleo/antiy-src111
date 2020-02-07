@@ -13,7 +13,7 @@ public class UserBasicResponse {
 	/**
 	 * 用户标识
 	 */
-	private String bh;
+	private Long businessId;
 	/**
 	 * 用户名
 	 */
@@ -28,9 +28,14 @@ public class UserBasicResponse {
 	private Integer status;
 
 	/**
-	 * 电子邮箱
+	 * 所属单位
 	 */
-	private String email;
+	private String corp;
+
+    /**
+     * 联系电话
+	 */
+	private String phone;
 
 	/**
 	 * 最后一次登陆时间
@@ -43,16 +48,33 @@ public class UserBasicResponse {
 	private Long gmtCreate;
 
 	/**
-	 * 菜单编号集合
+	 * 菜单标识集合
 	 */
 	private List<String> menus;
 
-	public String getBh() {
-		return bh;
+
+	public String getCorp() {
+		return corp;
 	}
 
-	public void setBh(String bh) {
-		this.bh = bh;
+	public void setCorp(String corp) {
+		this.corp = corp;
+	}
+
+	public Long getBusinessId() {
+		return businessId;
+	}
+
+	public void setBusinessId(Long businessId) {
+		this.businessId = businessId;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getUsername() {
@@ -79,13 +101,6 @@ public class UserBasicResponse {
 		this.status = status;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public Long getLastLoginTime() {
 		return lastLoginTime;
@@ -114,11 +129,12 @@ public class UserBasicResponse {
 	@Override
 	public String toString() {
 		return "UserBasicResponse{" +
-				"bh='" + bh + '\'' +
+				"businessId='" + businessId + '\'' +
 				", username='" + username + '\'' +
 				", name='" + name + '\'' +
+				", corp='" + corp + '\'' +
 				", status=" + status +
-				", email='" + email + '\'' +
+				", phone='" + phone + '\'' +
 				", lastLoginTime=" + lastLoginTime +
 				", gmtCreate=" + gmtCreate +
 				", menus=" + menus +

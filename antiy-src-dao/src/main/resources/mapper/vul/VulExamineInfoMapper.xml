@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antiy.dao.vul.VulExamineInfoDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.antiy.entity.vul.VulExamineInfo">
+        <id column="id" property="id"/>
+        <result column="vul_no" property="vulNo"/>
+        <result column="examiner" property="examiner"/>
+        <result column="result" property="result"/>
+        <result column="reason" property="reason"/>
+        <result column="examine_material_name" property="examineMaterialName"/>
+        <result column="examine_material_url" property="examineMaterialUrl"/>
+        <result column="examine_date" property="examineDate"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, vul_no, examiner, result, reason, examine_material_name, examine_material_url, examine_date
+    </sql>
+
+    <sql id="Table_Name">
+        vul_examine_info
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+        <if test=" vulNo != null">
+            vul_no,
+        </if>
+        <if test=" examiner != null">
+            examiner,
+        </if>
+        <if test=" result != null">
+            result,
+        </if>
+        <if test=" reason != null">
+            reason,
+        </if>
+        <if test=" examineMaterialName != null">
+            examine_material_name,
+        </if>
+        <if test=" examineMaterialUrl != null">
+            examine_material_url,
+        </if>
+        <if test=" examineDate != null">
+            examine_date,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" vulNo != null">
+            #{vulNo },
+        </if>
+        <if test=" examiner != null">
+            #{examiner },
+        </if>
+        <if test=" result != null">
+            #{result },
+        </if>
+        <if test=" reason != null">
+            #{reason },
+        </if>
+        <if test=" examineMaterialName != null">
+            #{examineMaterialName },
+        </if>
+        <if test=" examineMaterialUrl != null">
+            #{examineMaterialUrl },
+        </if>
+        <if test=" examineDate != null">
+            #{examineDate },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" vulNo != null">
+            vul_no = #{vulNo },
+        </if>
+        <if test=" examiner != null">
+            examiner = #{examiner },
+        </if>
+        <if test=" result != null">
+            result = #{result },
+        </if>
+        <if test=" reason != null">
+            reason = #{reason },
+        </if>
+        <if test=" examineMaterialName != null">
+            examine_material_name = #{examineMaterialName },
+        </if>
+        <if test=" examineMaterialUrl != null">
+            examine_material_url = #{examineMaterialUrl },
+        </if>
+        <if test=" examineDate != null">
+            examine_date = #{examineDate },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" vulNo != null">
+            and vul_no = #{vulNo }
+        </if>
+        <if test=" examiner != null">
+            and examiner = #{examiner }
+        </if>
+        <if test=" result != null">
+            and result = #{result }
+        </if>
+        <if test=" reason != null">
+            and reason = #{reason }
+        </if>
+        <if test=" examineMaterialName != null">
+            and examine_material_name = #{examineMaterialName }
+        </if>
+        <if test=" examineMaterialUrl != null">
+            and examine_material_url = #{examineMaterialUrl }
+        </if>
+        <if test=" examineDate != null">
+            and examine_date = #{examineDate }
+        </if>
+    </sql>
+
+
+</mapper>

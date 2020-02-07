@@ -3,12 +3,10 @@ package com.antiy.controller.user;
 import com.alibaba.fastjson.JSON;
 import com.antiy.base.ActionResponse;
 import com.antiy.common.utils.AesEncryptUtil;
-import com.antiy.entity.user.Menu;
-import com.antiy.query.user.BhQuery;
+import com.antiy.query.user.BusinessIdQuery;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.UserPasswordRequest;
 import com.antiy.request.user.UserRequest;
-import com.antiy.request.user.UserStatusRequest;
 import com.antiy.response.user.UserResponse;
 import com.antiy.service.user.IUserService;
 import io.swagger.annotations.Api;
@@ -38,10 +36,9 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @ApiOperation("增加用户")
+    @ApiOperation("用户注册")
     @PostMapping("/save")
     public ActionResponse addUser(@RequestBody UserRequest request) throws Exception {
-        logger.info("增加用户入参:{}", JSON.toJSONString(request));
         AesEncryptUtil.aesDecrypt(request.getPassword());
         userService.saveUser(request);
         return ActionResponse.success();
@@ -49,7 +46,7 @@ public class UserController {
 
     @ApiOperation("修改用户")
     @PostMapping("/update")
-    public ActionResponse updateUser(@RequestBody UserRequest request) {
+    public ActionResponse updateUser(@RequestBody UserRequest request) throws Exception {
         logger.info("修改用户入参:{}", JSON.toJSONString(request));
         userService.updateUser(request);
         return ActionResponse.success();
@@ -57,18 +54,10 @@ public class UserController {
 
     @ApiOperation("查看用户")
     @PostMapping("/detail")
-    public ActionResponse viewUser(@RequestBody BhQuery bhQuery) {
-        logger.info("查看用户入参:{}", JSON.toJSONString(bhQuery));
-        UserResponse response = userService.getUserByBh(bhQuery.getBh());
+    public ActionResponse viewUser(@RequestBody BusinessIdQuery query) throws Exception {
+        logger.info("查看用户入参:{}", JSON.toJSONString(query));
+        UserResponse response = userService.queryUserByBussinessId(query.getBussinessId());
         return ActionResponse.success(response);
-    }
-
-    @ApiOperation("禁用/启用用户")
-    @PostMapping("/updateStatus")
-    public ActionResponse updateStatus(@RequestBody UserStatusRequest request) {
-        logger.info("禁用/启用用户入参:{}", JSON.toJSONString(request));
-        userService.updateUserStatus(request.getBh(), request.getStatus());
-        return ActionResponse.success();
     }
 
     @ApiOperation("管理员重置用户密码(只传新密码)")
@@ -76,7 +65,7 @@ public class UserController {
     public ActionResponse adminResetPwd(@RequestBody UserPasswordRequest request) throws Exception {
         logger.info("管理员重置用户密码(只传新密码)入参:{}", JSON.toJSONString(request));
         AesEncryptUtil.aesDecrypt(request.getNewPassword());
-        userService.updatePassword(request.getBh(), request.getNewPassword());
+        userService.updatePassword(request.getBusinessId(), request.getNewPassword());
         return ActionResponse.success();
     }
 
@@ -86,7 +75,7 @@ public class UserController {
         logger.info("用户自己修改密码(新旧密码都传)入参:{}", JSON.toJSONString(request));
         AesEncryptUtil.aesDecrypt(request.getNewPassword());
         AesEncryptUtil.aesDecrypt(request.getOldPassword());
-        userService.updatePassword(request.getBh(), request.getOldPassword(), request.getNewPassword());
+        userService.updatePassword(request.getBusinessId(), request.getOldPassword(), request.getNewPassword());
         return ActionResponse.success();
     }
 
@@ -97,10 +86,11 @@ public class UserController {
         return ActionResponse.success(userService.findPage(query));
     }
 
-    @ApiOperation("菜单树查询")
-    @PostMapping("/menuTree")
-    public ActionResponse menuTree() {
-        Menu menu = userService.getMenuTree();
-        return ActionResponse.success(menu);
+
+    @ApiOperation("部门下拉列表")
+    @PostMapping("/getDepartmentList")
+    public ActionResponse getDepartmentList() {
+        return ActionResponse.success(userService.getDepartmentList());
     }
+
 }

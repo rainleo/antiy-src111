@@ -1,9 +1,7 @@
 package com.antiy.request;
 
 import com.antiy.base.BasicRequest;
-import com.antiy.base.DataTypeUtils;
 import io.swagger.annotations.ApiModelProperty;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * 描述:
@@ -14,22 +12,13 @@ import org.apache.commons.lang.StringUtils;
 public class BaseRequest extends BasicRequest {
 
     @ApiModelProperty("主键Id")
-    private String stringId;
+    private Integer id;
 
-    public String getStringId() {
-        return stringId;
-    }
-
-    public void setStringId(String stringId) {
-        this.stringId = stringId;
-    }
-
-    /**
-     * 数据拷贝会根据类型和方法拷贝，类型不正确则无法拷贝
-     * @return
-     */
     public Integer getId() {
-        return StringUtils.isNotBlank(stringId) ? DataTypeUtils.stringToInteger(stringId) : null;
+        return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

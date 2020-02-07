@@ -1,7 +1,7 @@
 package com.antiy.query.user;
 
-
 import com.antiy.base.ObjectQuery;
+
 /**
  * <p>
  * Menu 查询条件

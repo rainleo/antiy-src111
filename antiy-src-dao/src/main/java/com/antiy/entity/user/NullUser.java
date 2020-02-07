@@ -10,12 +10,10 @@ public class NullUser extends User {
 	public NullUser() {
 		this.setUsername("");
 		this.setName("");
-		this.setBh("");
 	}
 	public NullUser(String username, String name, String bh) {
 		this.setUsername(username);
 		this.setName(name);
-		this.setBh(bh);
 	}
 
 	@Override

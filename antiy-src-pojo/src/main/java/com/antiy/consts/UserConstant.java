@@ -37,4 +37,25 @@ public interface UserConstant {
      * 用户状态-禁用
      */
     Integer USER_STATUS_FORBIDDEN = 0;
+    /**
+     * 角色-超级管理员
+     */
+    Integer ROLE_TYPE_SUPERADMIN = 1;
+    /**
+     * 角色-普通管理员
+     */
+    Integer ROLE_TYPE_ADMIN = 2;
+    /**
+     * 角色-审核员
+     */
+    Integer ROLE_TYPE_SH = 3;
+    /**
+     * 角色-普通用户
+     */
+    Integer ROLE_TYPE_NORMAL = 4;
+
+    /**
+     * token过期时间半小时
+     */
+    Long EXPIRE = 60 * 30L * 1000;
 }

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antiy.dao.vul.VulIntegralInfoDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.antiy.entity.vul.VulIntegralInfo">
+        <id column="id" property="id"/>
+        <result column="task_id" property="taskId"/>
+        <result column="intergral_event" property="intergralEvent"/>
+        <result column="vul_no" property="vulNo"/>
+        <result column="vul_name" property="vulName"/>
+        <result column="ip" property="ip"/>
+        <result column="vul_port" property="vulPort"/>
+        <result column="commit_date" property="commitDate"/>
+        <result column="grade" property="grade"/>
+        <result column="commit_user" property="commitUser"/>
+        <result column="department" property="department"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, task_id, intergral_event, vul_no, vul_name, ip, vul_port, commit_date, grade, commit_user, department
+    </sql>
+
+    <sql id="Table_Name">
+        vul_integral_info
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+        <if test=" taskId != null">
+            task_id,
+        </if>
+        <if test=" intergralEvent != null">
+            intergral_event,
+        </if>
+        <if test=" vulNo != null">
+            vul_no,
+        </if>
+        <if test=" vulName != null">
+            vul_name,
+        </if>
+        <if test=" ip != null">
+            ip,
+        </if>
+        <if test=" vulPort != null">
+            vul_port,
+        </if>
+        <if test=" commitDate != null">
+            commit_date,
+        </if>
+        <if test=" grade != null">
+            grade,
+        </if>
+        <if test=" commitUser != null">
+            commit_user,
+        </if>
+        <if test=" department != null">
+            department,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" taskId != null">
+            #{taskId },
+        </if>
+        <if test=" intergralEvent != null">
+            #{intergralEvent },
+        </if>
+        <if test=" vulNo != null">
+            #{vulNo },
+        </if>
+        <if test=" vulName != null">
+            #{vulName },
+        </if>
+        <if test=" ip != null">
+            #{ip },
+        </if>
+        <if test=" vulPort != null">
+            #{vulPort },
+        </if>
+        <if test=" commitDate != null">
+            #{commitDate },
+        </if>
+        <if test=" grade != null">
+            #{grade },
+        </if>
+        <if test=" commitUser != null">
+            #{commitUser },
+        </if>
+        <if test=" department != null">
+            #{department },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" taskId != null">
+            task_id = #{taskId },
+        </if>
+        <if test=" intergralEvent != null">
+            intergral_event = #{intergralEvent },
+        </if>
+        <if test=" vulNo != null">
+            vul_no = #{vulNo },
+        </if>
+        <if test=" vulName != null">
+            vul_name = #{vulName },
+        </if>
+        <if test=" ip != null">
+            ip = #{ip },
+        </if>
+        <if test=" vulPort != null">
+            vul_port = #{vulPort },
+        </if>
+        <if test=" commitDate != null">
+            commit_date = #{commitDate },
+        </if>
+        <if test=" grade != null">
+            grade = #{grade },
+        </if>
+        <if test=" commitUser != null">
+            commit_user = #{commitUser },
+        </if>
+        <if test=" department != null">
+            department = #{department },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" taskId != null">
+            and task_id = #{taskId }
+        </if>
+        <if test=" intergralEvent != null">
+            and intergral_event = #{intergralEvent }
+        </if>
+        <if test=" vulNo != null">
+            and vul_no = #{vulNo }
+        </if>
+        <if test=" vulName != null">
+            and vul_name = #{vulName }
+        </if>
+        <if test=" ip != null">
+            and ip = #{ip }
+        </if>
+        <if test=" vulPort != null">
+            and vul_port = #{vulPort }
+        </if>
+        <if test=" commitDate != null">
+            and commit_date = #{commitDate }
+        </if>
+        <if test=" grade != null">
+            and grade = #{grade }
+        </if>
+        <if test=" commitUser != null">
+            and commit_user = #{commitUser }
+        </if>
+        <if test=" department != null">
+            and department = #{department }
+        </if>
+    </sql>
+
+
+</mapper>

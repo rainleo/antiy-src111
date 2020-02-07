@@ -2,84 +2,76 @@ package com.antiy.entity.user;
 
 
 /**
- * <p>用户</p>
+ * <p>用户表</p>
  *
- * @author wangqian
- * @since 2019-07-25
+ * @author wq
+ * @since 2020-02-05
  */
 
 public class User {
-    public User() {
-    }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
+    private Integer id;
+
     /**
-     * 用户标识
+     * 业务编号
      */
-    private String bh;
+    private Long businessId;
     /**
-     * 用户名
-     */
+    *  用户名
+    */
     private String username;
     /**
-     * 密码
-     */
+    *  密码
+    */
     private String password;
     /**
-     * 姓名
-     */
+    *  姓名
+    */
     private String name;
     /**
-     * 电子邮箱
-     */
-    private String email;
+    *  所属单位
+    */
+    private Integer department;
     /**
-     * 状态
-     */
+    *  身份证号
+    */
+    private String idcard;
+    /**
+    *  联系电话
+    */
+    private String phone;
+    /**
+    *  状态 1、可用 2、锁定 3、禁用
+    */
     private Integer status;
-    /**
-     * 1、系统用户 2、外部用户
-     */
-    private Integer userType;
-    /**
-     * 已输错次数
-     */
+
     private Integer errorCount;
-    /**
-     * 锁定时间
-     */
+
     private Long lockedTime;
-    /**
-     * 最后一次登陆时间
-     */
-    private Long lastLoginTime;
-    /**
-     * 密码最后修改时间
-     */
-    private Long lastModifiedPassword;
-    /**
-     * 创建人
-     */
-    private String createUser;
-    /**
-     * 创建时间
-     */
+
     private Long gmtCreate;
+    private Long createUser;
+    private Long gmtModified;
+    private Long modifiedUser;
+    private Long lastLoginTime;
 
-
-    public String getBh() {
-        return bh;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBh(String bh) {
-        this.bh = bh;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
+    public Long getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Long businessId) {
+        this.businessId = businessId;
+    }
 
     public String getUsername() {
         return username;
@@ -108,12 +100,29 @@ public class User {
     }
 
 
-    public String getEmail() {
-        return email;
+    public Integer getDepartment() {
+        return department;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDepartment(Integer department) {
+        this.department = department;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 
@@ -125,16 +134,6 @@ public class User {
         this.status = status;
     }
 
-
-    public Integer getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
-
-
     public Integer getErrorCount() {
         return errorCount;
     }
@@ -143,39 +142,12 @@ public class User {
         this.errorCount = errorCount;
     }
 
-
     public Long getLockedTime() {
         return lockedTime;
     }
 
     public void setLockedTime(Long lockedTime) {
         this.lockedTime = lockedTime;
-    }
-
-
-    public Long getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Long lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-
-    public Long getLastModifiedPassword() {
-        return lastModifiedPassword;
-    }
-
-    public void setLastModifiedPassword(Long lastModifiedPassword) {
-        this.lastModifiedPassword = lastModifiedPassword;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
     }
 
     public Long getGmtCreate() {
@@ -186,22 +158,48 @@ public class User {
         this.gmtCreate = gmtCreate;
     }
 
+    public Long getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
+    }
+
+    public Long getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Long gmtModified) {
+        this.gmtModified = gmtModified;
+    }
+
+    public Long getModifiedUser() {
+        return modifiedUser;
+    }
+
+    public void setModifiedUser(Long modifiedUser) {
+        this.modifiedUser = modifiedUser;
+    }
+
+    public Long getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Long lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                ", bh=" + bh +
-                ", username=" + username +
-                ", password=" + password +
-                ", name=" + name +
-                ", email=" + email +
-                ", status=" + status +
-                ", userType=" + userType +
-                ", errorCount=" + errorCount +
-                ", lockedTime=" + lockedTime +
-                ", lastLoginTime=" + lastLoginTime +
-                ", lastModifiedPassword=" + lastModifiedPassword +
-                ", createUser=" + createUser +
-                ", gmtCreate=" + gmtCreate +
-                "}";
+            return "User{" +
+                        ", username=" + username +
+                        ", password=" + password +
+                        ", name=" + name +
+                        ", department=" + department +
+                        ", idcard=" + idcard +
+                        ", phone=" + phone +
+                        ", status=" + status +
+            "}";
     }
 }

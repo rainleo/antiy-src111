@@ -1,60 +1,50 @@
 package com.antiy.entity.user;
 
 
-import java.util.List;
-import java.util.Objects;
-
 /**
- * <p>功能权限</p>
+ * <p>菜单表</p>
  *
- * @author wangqian
- * @since 2019-07-25
+ * @author wq
+ * @since 2020-02-05
  */
 
 public class Menu {
 
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
+    private Integer id;
     /**
-     * 功能编号
-     */
-    private String bh;
+    *  父id
+    */
+    private Integer parentId;
     /**
-     * 父编号
-     */
-    private String parentBh;
-    /**
-     * 功能名称
-     */
+    *  名称
+    */
     private String name;
     /**
-     * 功能标识
-     */
+    *  菜单标识
+    */
     private String tag;
     /**
-     * 功能类型1、菜单 2、功能按钮
-     */
+    *  菜单类型 1、菜单 2、按钮
+    */
     private Integer type;
 
-    private List<Menu> childs;
-
-
-    public String getBh() {
-        return bh;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBh(String bh) {
-        this.bh = bh;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-
-    public String getParentBh() {
-        return parentBh;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setParentBh(String parentBh) {
-        this.parentBh = parentBh;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
 
@@ -84,39 +74,14 @@ public class Menu {
         this.type = type;
     }
 
-    public List<Menu> getChilds() {
-        return childs;
-    }
-
-    public void setChilds(List<Menu> childs) {
-        this.childs = childs;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) {return false;}
-        Menu menu = (Menu) o;
-        return Objects.equals(bh, menu.bh) &&
-                Objects.equals(parentBh, menu.parentBh) &&
-                Objects.equals(name, menu.name) &&
-                Objects.equals(tag, menu.tag) &&
-                Objects.equals(type, menu.type);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(bh, parentBh, name, tag, type);
-    }
 
     @Override
     public String toString() {
-        return "Menu{" +
-                ", bh=" + bh +
-                ", parentBh=" + parentBh +
-                ", name=" + name +
-                ", tag=" + tag +
-                ", type=" + type +
-                "}";
+            return "Menu{" +
+                        ", parentId=" + parentId +
+                        ", name=" + name +
+                        ", tag=" + tag +
+                        ", type=" + type +
+            "}";
     }
 }

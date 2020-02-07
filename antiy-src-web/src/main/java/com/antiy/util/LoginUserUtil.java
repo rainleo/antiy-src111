@@ -45,7 +45,7 @@ public class LoginUserUtil {
 		Logger log = LogUtils.get(this.getClass());
 		LoginUser result=threadLocal.get();
 		if ( result == null) {
-			result = new NullLoginUser("SYSTEM", "系统", "0");
+			result = new NullLoginUser("SYSTEM", "系统", 0L);
 			threadLocal.set(result);
 		}
 		log.debug("业务代码获取当前登录用户:{}信息",result);

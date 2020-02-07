@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.antiy.dao.vul.VulInfoDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.antiy.entity.vul.VulInfo">
+        <id column="id" property="id"/>
+        <result column="vul_no" property="vulNo"/>
+        <result column="vul_name" property="vulName"/>
+        <result column="type" property="type"/>
+        <result column="ip" property="ip"/>
+        <result column="vul_port" property="vulPort"/>
+        <result column="vul_address" property="vulAddress"/>
+        <result column="address_owner" property="addressOwner"/>
+        <result column="vul_type" property="vulType"/>
+        <result column="vul_level" property="vulLevel"/>
+        <result column="event_level" property="eventLevel"/>
+        <result column="vul_desc" property="vulDesc"/>
+        <result column="repair_suggest" property="repairSuggest"/>
+        <result column="vul_material_name" property="vulMaterialName"/>
+        <result column="vul_material_url" property="vulMaterialUrl"/>
+        <result column="vul_status" property="vulStatus"/>
+        <result column="task_id" property="taskId"/>
+        <result column="system_type" property="systemType"/>
+        <result column="create_user" property="createUser"/>
+        <result column="modify_user" property="modifyUser"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modify" property="gmtModify"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, vul_no, vul_name, type, ip, vul_port, vul_address, address_owner, vul_type, vul_level, event_level, vul_desc, repair_suggest, vul_material_name, vul_material_url, vul_status, task_id, system_type, create_user, modify_user, gmt_create, gmt_modify, status
+    </sql>
+
+    <sql id="Table_Name">
+        vul_info
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+        <if test=" vulNo != null">
+            vul_no,
+        </if>
+        <if test=" vulName != null">
+            vul_name,
+        </if>
+        <if test=" type != null">
+            type,
+        </if>
+        <if test=" ip != null">
+            ip,
+        </if>
+        <if test=" vulPort != null">
+            vul_port,
+        </if>
+        <if test=" vulAddress != null">
+            vul_address,
+        </if>
+        <if test=" addressOwner != null">
+            address_owner,
+        </if>
+        <if test=" vulType != null">
+            vul_type,
+        </if>
+        <if test=" vulLevel != null">
+            vul_level,
+        </if>
+        <if test=" eventLevel != null">
+            event_level,
+        </if>
+        <if test=" vulDesc != null">
+            vul_desc,
+        </if>
+        <if test=" repairSuggest != null">
+            repair_suggest,
+        </if>
+        <if test=" vulMaterialName != null">
+            vul_material_name,
+        </if>
+        <if test=" vulMaterialUrl != null">
+            vul_material_url,
+        </if>
+        <if test=" vulStatus != null">
+            vul_status,
+        </if>
+        <if test=" taskId != null">
+            task_id,
+        </if>
+        <if test=" systemType != null">
+            system_type,
+        </if>
+        <if test=" createUser != null">
+            create_user,
+        </if>
+        <if test=" modifyUser != null">
+            modify_user,
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create,
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify,
+        </if>
+        <if test=" status != null">
+            status,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" vulNo != null">
+            #{vulNo },
+        </if>
+        <if test=" vulName != null">
+            #{vulName },
+        </if>
+        <if test=" type != null">
+            #{type },
+        </if>
+        <if test=" ip != null">
+            #{ip },
+        </if>
+        <if test=" vulPort != null">
+            #{vulPort },
+        </if>
+        <if test=" vulAddress != null">
+            #{vulAddress },
+        </if>
+        <if test=" addressOwner != null">
+            #{addressOwner },
+        </if>
+        <if test=" vulType != null">
+            #{vulType },
+        </if>
+        <if test=" vulLevel != null">
+            #{vulLevel },
+        </if>
+        <if test=" eventLevel != null">
+            #{eventLevel },
+        </if>
+        <if test=" vulDesc != null">
+            #{vulDesc },
+        </if>
+        <if test=" repairSuggest != null">
+            #{repairSuggest },
+        </if>
+        <if test=" vulMaterialName != null">
+            #{vulMaterialName },
+        </if>
+        <if test=" vulMaterialUrl != null">
+            #{vulMaterialUrl },
+        </if>
+        <if test=" vulStatus != null">
+            #{vulStatus },
+        </if>
+        <if test=" taskId != null">
+            #{taskId },
+        </if>
+        <if test=" systemType != null">
+            #{systemType },
+        </if>
+        <if test=" createUser != null">
+            #{createUser },
+        </if>
+        <if test=" modifyUser != null">
+            #{modifyUser },
+        </if>
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            #{gmtModify },
+        </if>
+        <if test=" status != null">
+            #{status },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" vulNo != null">
+            vul_no = #{vulNo },
+        </if>
+        <if test=" vulName != null">
+            vul_name = #{vulName },
+        </if>
+        <if test=" type != null">
+            type = #{type },
+        </if>
+        <if test=" ip != null">
+            ip = #{ip },
+        </if>
+        <if test=" vulPort != null">
+            vul_port = #{vulPort },
+        </if>
+        <if test=" vulAddress != null">
+            vul_address = #{vulAddress },
+        </if>
+        <if test=" addressOwner != null">
+            address_owner = #{addressOwner },
+        </if>
+        <if test=" vulType != null">
+            vul_type = #{vulType },
+        </if>
+        <if test=" vulLevel != null">
+            vul_level = #{vulLevel },
+        </if>
+        <if test=" eventLevel != null">
+            event_level = #{eventLevel },
+        </if>
+        <if test=" vulDesc != null">
+            vul_desc = #{vulDesc },
+        </if>
+        <if test=" repairSuggest != null">
+            repair_suggest = #{repairSuggest },
+        </if>
+        <if test=" vulMaterialName != null">
+            vul_material_name = #{vulMaterialName },
+        </if>
+        <if test=" vulMaterialUrl != null">
+            vul_material_url = #{vulMaterialUrl },
+        </if>
+        <if test=" vulStatus != null">
+            vul_status = #{vulStatus },
+        </if>
+        <if test=" taskId != null">
+            task_id = #{taskId },
+        </if>
+        <if test=" systemType != null">
+            system_type = #{systemType },
+        </if>
+        <if test=" createUser != null">
+            create_user = #{createUser },
+        </if>
+        <if test=" modifyUser != null">
+            modify_user = #{modifyUser },
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify = #{gmtModify },
+        </if>
+        <if test=" status != null">
+            status = #{status },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" vulNo != null">
+            and vul_no = #{vulNo }
+        </if>
+        <if test=" vulName != null">
+            and vul_name = #{vulName }
+        </if>
+        <if test=" type != null">
+            and type = #{type }
+        </if>
+        <if test=" ip != null">
+            and ip = #{ip }
+        </if>
+        <if test=" vulPort != null">
+            and vul_port = #{vulPort }
+        </if>
+        <if test=" vulAddress != null">
+            and vul_address = #{vulAddress }
+        </if>
+        <if test=" addressOwner != null">
+            and address_owner = #{addressOwner }
+        </if>
+        <if test=" vulType != null">
+            and vul_type = #{vulType }
+        </if>
+        <if test=" vulLevel != null">
+            and vul_level = #{vulLevel }
+        </if>
+        <if test=" eventLevel != null">
+            and event_level = #{eventLevel }
+        </if>
+        <if test=" vulDesc != null">
+            and vul_desc = #{vulDesc }
+        </if>
+        <if test=" repairSuggest != null">
+            and repair_suggest = #{repairSuggest }
+        </if>
+        <if test=" vulMaterialName != null">
+            and vul_material_name = #{vulMaterialName }
+        </if>
+        <if test=" vulMaterialUrl != null">
+            and vul_material_url = #{vulMaterialUrl }
+        </if>
+        <if test=" vulStatus != null">
+            and vul_status = #{vulStatus }
+        </if>
+        <if test=" taskId != null">
+            and task_id = #{taskId }
+        </if>
+        <if test=" systemType != null">
+            and system_type = #{systemType }
+        </if>
+        <if test=" createUser != null">
+            and create_user = #{createUser }
+        </if>
+        <if test=" modifyUser != null">
+            and modify_user = #{modifyUser }
+        </if>
+        <if test=" gmtCreate != null">
+            and gmt_create = #{gmtCreate }
+        </if>
+        <if test=" gmtModify != null">
+            and gmt_modify = #{gmtModify }
+        </if>
+        <if test=" status != null">
+            and status = #{status }
+        </if>
+    </sql>
+
+
+</mapper>

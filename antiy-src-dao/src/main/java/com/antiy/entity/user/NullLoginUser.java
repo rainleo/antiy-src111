@@ -10,12 +10,11 @@ public class NullLoginUser extends LoginUser {
 	public NullLoginUser() {
 		this.setUsername("");
 		this.setName("");
-		this.setBh("");
 	}
-	public NullLoginUser(String username, String name, String bh) {
+	public NullLoginUser(String username, String name, Long businessId) {
 		this.setUsername(username);
 		this.setName(name);
-		this.setBh(bh);
+		this.setBusinessId(businessId);
 	}
 
 	@Override

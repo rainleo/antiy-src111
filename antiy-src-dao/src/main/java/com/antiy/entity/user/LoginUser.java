@@ -9,8 +9,8 @@ public class LoginUser {
 	public LoginUser() {
 	}
 
-	public LoginUser(String bh, String username, String name) {
-		this.bh = bh;
+	public LoginUser(Long businessId, String username, String name) {
+		this.businessId = businessId;
 		this.username = username;
 		this.name = name;
 	}
@@ -18,7 +18,7 @@ public class LoginUser {
 	/**
 	 * 用户标识
 	 */
-	private String bh;
+	private Long businessId;
 	/**
 	 * 用户名
 	 */
@@ -29,12 +29,12 @@ public class LoginUser {
 	 */
 	private String name;
 
-	public String getBh() {
-		return bh;
+	public Long getBusinessId() {
+		return businessId;
 	}
 
-	public void setBh(String bh) {
-		this.bh = bh;
+	public void setBusinessId(Long businessId) {
+		this.businessId = businessId;
 	}
 
 	public String getUsername() {
@@ -56,7 +56,7 @@ public class LoginUser {
 	@Override
 	public String toString() {
 		return "LoginUser{" +
-				"bh='" + bh + '\'' +
+				"bh='" + businessId + '\'' +
 				", username='" + username + '\'' +
 				", name='" + name + '\'' +
 				'}';

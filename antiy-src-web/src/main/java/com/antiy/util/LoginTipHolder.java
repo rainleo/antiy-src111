@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LoginTipHolder {
 
-    private final static ConcurrentHashMap<String, String> USER_TIP = new ConcurrentHashMap<>();
+    private final static ConcurrentHashMap<Long, String> USER_TIP = new ConcurrentHashMap<>();
 
     /**
     * 通过用户编号获取提示信息
@@ -20,7 +20,7 @@ public class LoginTipHolder {
     * @author wangqian
     * @date 2019/7/31
     */
-    public static String getTip(String userBh) {
+    public static String getTip(Long userBh) {
         String tip = USER_TIP.get(userBh);
         USER_TIP.remove(userBh);
         return tip;
@@ -28,13 +28,13 @@ public class LoginTipHolder {
 
     /** 
     * 移除某个用户的提示信息 
-    * @param userBh 用户编号
+    * @param userId 用户编号
     * @return void 
     * @author wangqian
     * @date 2019/7/31 
     */ 
-    public static void removeTip(String userBh) {
-        USER_TIP.remove(userBh);
+    public static void removeTip(Long userId) {
+        USER_TIP.remove(userId);
     }
 
     /** 
@@ -50,14 +50,14 @@ public class LoginTipHolder {
 
     /**
     * 放提示信息
-    * @param userBh 用户编号
+    * @param userId 用户编号
     * @param  tip 提示语
     * @return void
     * @author wangqian
     * @date 2019/7/31
     */
-    public static void putTip(String userBh, String tip) {
-        USER_TIP.put(userBh, tip);
+    public static void putTip(Long userId, String tip) {
+        USER_TIP.put(userId, tip);
     }
 
     public static boolean containsKey(Object key) {

@@ -7,19 +7,13 @@ import java.util.List;
 
 /**
  * <p>
- * 功能权限 Mapper 接口
+ * 菜单表 Mapper 接口
  * </p>
  *
- * @author wangqian
- * @since 2019-07-25
+ * @author wq
+ * @since 2020-02-05
  */
 public interface MenuDao extends IBaseDao<Menu> {
 
-   /**
-   * @param bh 用户编号
-   * @return java.util.List<java.lang.String>
-   * @author wangqian
-   * @date 2019/7/31
-   */
-    List<String> findMenusOfUser(String bh);
+    List<String> findMenusOfUser(Long businessId);
 }

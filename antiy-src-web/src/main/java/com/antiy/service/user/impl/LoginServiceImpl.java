@@ -4,17 +4,20 @@ import com.antiy.base.ActionResponse;
 import com.antiy.base.RespBasicCode;
 import com.antiy.common.utils.AesEncryptUtil;
 import com.antiy.common.utils.LogUtils;
+import com.antiy.consts.UserConstant;
 import com.antiy.dao.user.MenuDao;
 import com.antiy.dao.user.UserDao;
-import com.antiy.entity.user.*;
+import com.antiy.entity.user.LoginUser;
+import com.antiy.entity.user.NullUser;
+import com.antiy.entity.user.User;
 import com.antiy.enums.user.UserStatus;
 import com.antiy.response.user.UserBasicResponse;
 import com.antiy.service.user.ILoginService;
 import com.antiy.util.LoginTipHolder;
 import com.antiy.util.LoginUserUtil;
 import com.antiy.util.MapUtil;
+import com.antiy.util.TokenStoreUtil;
 import com.antiy.util.jwt.JwtUtil;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -42,14 +45,12 @@ public class LoginServiceImpl implements ILoginService {
 	private JwtUtil jwtUtil;
 	@Resource
 	private LoginUserUtil loginUserUtil;
-	private final String REDIS_KEY = "kbToken";
-	private static final Long EXPIRY = 60 * 30L;
 
 	@Override
 	public ActionResponse login(User user) {
-		List dbUsers = userDao.getUserByUsername(user.getUsername());
+		List<User> dbUsers = userDao.getUsersByUsername(user.getUsername());
 		ActionResponse<Object> actionResponse = ActionResponse.success();
-		User currentUser = new NullUser();
+		User currentUser = new User();
 		boolean isAuthentication = false;
 		String encodePassword;
 
@@ -61,13 +62,13 @@ public class LoginServiceImpl implements ILoginService {
 
 		if (dbUsers.size() == 1) {
 			currentUser = (User) dbUsers.get(0);
-			Integer curUserStatus = currentUser.getStatus();
+			/*Integer curUserStatus = currentUser.getStatus();
 			//账号是否不可用
 			if (UserStatus.forbidden.getCode().equals(curUserStatus) || isLockedAndUpdateStatus(currentUser)) {
 				actionResponse = ActionResponse.fail(RespBasicCode.ACCOUNT_FORBIDDEN_OR_LOCKED, RespBasicCode.ACCOUNT_FORBIDDEN_OR_LOCKED.getResultDes());
 				log.warn("用户{}账号被锁定/禁用，登录失败",currentUser.getUsername());
 				return actionResponse;
-			}
+			}*/
 			try {
 				encodePassword = AesEncryptUtil.aesEncrypt(user.getPassword());
 				String currPassword = currentUser.getPassword();
@@ -82,34 +83,41 @@ public class LoginServiceImpl implements ILoginService {
 		//如果账户不存在，或者密码输入错误
 		if (dbUsers.isEmpty() || (dbUsers.size() == 1 && !passwordCompareResult)) {
 			log.warn("用户名或密码有误{}", user);
-			actionResponse = updatePasswordErrorCount(currentUser);
+			//actionResponse = updatePasswordErrorCount(currentUser);
+			actionResponse = ActionResponse.fail(RespBasicCode.ACCOUNT_LOGIN_ERROR, "用户名或密码错误");
 		}
 		if (isAuthentication) {
 			String token;
-			String tokenKey = currentUser.getBh();
+			Long tokenKey = currentUser.getBusinessId();
 
 			token = jwtUtil.getToken(tokenKey, currentUser.getUsername(), currentUser.getName());
 
 			currentUser.setLastLoginTime(System.currentTimeMillis());
 			currentUser.setErrorCount(0);
 			if (LoginTipHolder.containsKey(tokenKey)) {
-				LoginTipHolder.removeTip(currentUser.getBh());
+				LoginTipHolder.removeTip(currentUser.getBusinessId());
 				log.info("用户{}重新登录后，清除存在的强制提出tip", currentUser.getUsername());
 			}
 			userDao.update(currentUser);
 			Map<String, Object> result = mapUtil.getMap("token", token);
 			UserBasicResponse userResponse = new UserBasicResponse();
 			BeanUtils.copyProperties(currentUser, userResponse);
-			userResponse.setMenus(menuDao.findMenusOfUser(currentUser.getBh()));
+			userResponse.setMenus(menuDao.findMenusOfUser(currentUser.getBusinessId()));
 			result.put("userInfo", userResponse);
 			actionResponse.setBody(result);
+			if (TokenStoreUtil.existToken(tokenKey)) {
+				log.info("当前用户{}已登录，踢出之前登录客户端权限", currentUser.getUsername());
+			}
+			LoginUser userinfo = new LoginUser(userResponse.getBusinessId(),
+					userResponse.getUsername(), userResponse.getName());
+			TokenStoreUtil.put(token, System.currentTimeMillis() + UserConstant.EXPIRE, userinfo);
 		}
 		return actionResponse;
 	}
 
 	@Override
 	public ActionResponse logout(String token) {
-		String tokenKey = loginUserUtil.getUser().getBh();
+		TokenStoreUtil.removeToken(token);
 		return ActionResponse.success();
 	}
 

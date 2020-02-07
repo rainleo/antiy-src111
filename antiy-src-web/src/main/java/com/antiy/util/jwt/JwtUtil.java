@@ -34,10 +34,10 @@ public class JwtUtil {
      * @param username 用户名
      * @return 访问凭证
      */
-    public  String getToken( String uuid, String username,String name){
+    public  String getToken(Long userId, String username,String name){
         long time = System.currentTimeMillis();
         return Jwts.builder()
-                .claim("uuid", uuid)
+                .claim("userId", userId)
                 .claim("name", name)
                 .claim("username", username)
                 //签发时间

@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserPasswordRequest {
 
     @ApiModelProperty("业务主键")
-    private String bh;
+    private Long businessId;
 
     @ApiModelProperty("旧密码")
     private String oldPassword;
@@ -20,12 +20,12 @@ public class UserPasswordRequest {
     @ApiModelProperty("新密码")
     private String newPassword;
 
-    public String getBh() {
-        return bh;
+    public Long getBusinessId() {
+        return businessId;
     }
 
-    public void setBh(String bh) {
-        this.bh = bh;
+    public void setBusinessId(Long businessId) {
+        this.businessId = businessId;
     }
 
     public String getOldPassword() {

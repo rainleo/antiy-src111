@@ -1,20 +1,24 @@
 package com.antiy.service.user;
 
 import com.antiy.base.PageResult;
+import com.antiy.base.QueryCondition;
 import com.antiy.common.base.IBaseService;
 import com.antiy.entity.user.Menu;
 import com.antiy.query.user.MenuQuery;
+import com.antiy.request.BaseRequest;
+import com.antiy.request.user.MenuRequest;
+import com.antiy.response.user.MenuResponse;
 
 import java.util.List;
 
 
 /**
  * <p>
- * 功能权限 服务类
+ * 菜单表 服务类
  * </p>
  *
- * @author wangqian
- * @since 2019-07-25
+ * @author wq
+ * @since 2020-02-05
  */
 public interface IMenuService extends IBaseService<Menu> {
 
@@ -24,7 +28,7 @@ public interface IMenuService extends IBaseService<Menu> {
      * @param request
      * @return
      */
-    void saveMenu(Menu request);
+    Integer saveMenu(MenuRequest request) throws Exception;
 
     /**
      * 修改
@@ -32,7 +36,7 @@ public interface IMenuService extends IBaseService<Menu> {
      * @param request
      * @return
      */
-    void updateMenu(Menu request);
+    String updateMenu(MenuRequest request) throws Exception;
 
     /**
      * 查询对象集合
@@ -40,7 +44,7 @@ public interface IMenuService extends IBaseService<Menu> {
      * @param query
      * @return
      */
-    List<Menu> queryListMenu(MenuQuery query);
+    List<MenuResponse> queryListMenu(MenuQuery query) throws Exception;
 
     /**
      * 分页查询
@@ -48,6 +52,22 @@ public interface IMenuService extends IBaseService<Menu> {
      * @param query
      * @return
      */
-    PageResult<Menu> queryPageMenu(MenuQuery query);
+    PageResult<MenuResponse> queryPageMenu(MenuQuery query) throws Exception;
+
+    /**
+     * 通过ID查询
+     *
+     * @param queryCondition
+     * @return
+     */
+    MenuResponse queryMenuById(QueryCondition queryCondition) throws Exception;
+
+    /**
+     * 通过ID删除
+     *
+     * @param baseRequest
+     * @return
+     */
+    String deleteMenuById(BaseRequest baseRequest) throws Exception;
 
 }

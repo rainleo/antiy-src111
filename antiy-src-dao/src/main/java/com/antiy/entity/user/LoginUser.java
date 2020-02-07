@@ -9,10 +9,11 @@ public class LoginUser {
 	public LoginUser() {
 	}
 
-	public LoginUser(Long businessId, String username, String name) {
+	public LoginUser(Long businessId, String username, String name, Integer departmentId) {
 		this.businessId = businessId;
 		this.username = username;
 		this.name = name;
+		this.departmentId = departmentId;
 	}
 
 	/**
@@ -28,6 +29,8 @@ public class LoginUser {
 	 * 姓名
 	 */
 	private String name;
+
+	private Integer departmentId;
 
 	public Long getBusinessId() {
 		return businessId;
@@ -51,6 +54,14 @@ public class LoginUser {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
 	}
 
 	@Override

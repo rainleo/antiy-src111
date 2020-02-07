@@ -11,7 +11,6 @@ package com.antiy.entity.vul;
 public class VulInfo {
 
 
-    private static final long serialVersionUID = 1L;
     private Integer id;
     private String vulNo;
     private String vulName;
@@ -48,8 +47,8 @@ public class VulInfo {
      * 1.普通系统2.重要或设计用户敏感信息系统
      */
     private Integer systemType;
-    private Integer createUser;
-    private Integer modifyUser;
+    private Long createUser;
+    private Long modifyUser;
     private Long gmtCreate;
     private Long gmtModify;
     /**
@@ -218,23 +217,21 @@ public class VulInfo {
     }
 
 
-    public Integer getCreateUser() {
+    public Long getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(Integer createUser) {
+    public void setCreateUser(Long createUser) {
         this.createUser = createUser;
     }
 
-
-    public Integer getModifyUser() {
+    public Long getModifyUser() {
         return modifyUser;
     }
 
-    public void setModifyUser(Integer modifyUser) {
+    public void setModifyUser(Long modifyUser) {
         this.modifyUser = modifyUser;
     }
-
 
     public Long getGmtCreate() {
         return gmtCreate;

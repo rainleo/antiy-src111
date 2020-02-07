@@ -11,7 +11,6 @@ package com.antiy.entity.vul;
 public class VulIntegralInfo {
 
 
-    private static final long serialVersionUID = 1L;
     private Integer id;
     private String taskId;
     private String intergralEvent;
@@ -21,7 +20,7 @@ public class VulIntegralInfo {
     private Integer vulPort;
     private Long commitDate;
     private Integer grade;
-    private Integer commitUser;
+    private Long commitUser;
     private Integer department;
 
     public Integer getId() {
@@ -104,14 +103,13 @@ public class VulIntegralInfo {
     }
 
 
-    public Integer getCommitUser() {
+    public Long getCommitUser() {
         return commitUser;
     }
 
-    public void setCommitUser(Integer commitUser) {
+    public void setCommitUser(Long commitUser) {
         this.commitUser = commitUser;
     }
-
 
     public Integer getDepartment() {
         return department;

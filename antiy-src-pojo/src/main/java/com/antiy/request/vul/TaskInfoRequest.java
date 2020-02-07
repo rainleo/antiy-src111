@@ -5,46 +5,35 @@ import com.antiy.exception.RequestParamValidateException;
 import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * TaskInfoRequest 请求对象
  * </p>
  *
- * @author zhangyajun
- * @since 2018-12-27
+ * @author lvliang
+ * @since 2020-02-06
  */
 
 public class TaskInfoRequest implements ObjectValidator {
 
-    @ApiModelProperty("")
+    @ApiModelProperty("任务名")
+    @NotBlank(message = "任务名不能为空")
     private String taskName;
     /**
      * 1.排雷2.扫雷
      */
     @ApiModelProperty("1.排雷2.扫雷")
+    @NotNull(message = "任务类型不能为空")
     private Integer taskType;
-    @ApiModelProperty("")
-    private String taskNo;
-    @ApiModelProperty("")
+    @NotNull(message = "开始时间不能为空")
+    @ApiModelProperty("开始时间")
     private Long startTime;
-    @ApiModelProperty("")
+    @NotNull(message = "结束时间不能为空")
+    @ApiModelProperty("结束时间")
     private Long endTime;
-    /**
-     * 1.进行中2.已关闭
-     */
-    @ApiModelProperty("1.进行中2.已关闭")
-    private Integer taskStatus;
-    @ApiModelProperty("")
-    private Integer createUser;
-    @ApiModelProperty("")
-    private Integer modifyUser;
-    @ApiModelProperty("")
-    private Long gmtCreate;
-    @ApiModelProperty("")
-    private Long gmtModify;
-    @ApiModelProperty("")
-    private Integer status;
-
 
     public String getTaskName() {
         return taskName;
@@ -54,7 +43,6 @@ public class TaskInfoRequest implements ObjectValidator {
         this.taskName = taskName;
     }
 
-
     public Integer getTaskType() {
         return taskType;
     }
@@ -62,16 +50,6 @@ public class TaskInfoRequest implements ObjectValidator {
     public void setTaskType(Integer taskType) {
         this.taskType = taskType;
     }
-
-
-    public String getTaskNo() {
-        return taskNo;
-    }
-
-    public void setTaskNo(String taskNo) {
-        this.taskNo = taskNo;
-    }
-
 
     public Long getStartTime() {
         return startTime;
@@ -81,7 +59,6 @@ public class TaskInfoRequest implements ObjectValidator {
         this.startTime = startTime;
     }
 
-
     public Long getEndTime() {
         return endTime;
     }
@@ -90,60 +67,15 @@ public class TaskInfoRequest implements ObjectValidator {
         this.endTime = endTime;
     }
 
-
-    public Integer getTaskStatus() {
-        return taskStatus;
+    @Override
+    public String toString() {
+        return "TaskInfoRequest{" +
+                "taskName='" + taskName + '\'' +
+                ", taskType=" + taskType +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
     }
-
-    public void setTaskStatus(Integer taskStatus) {
-        this.taskStatus = taskStatus;
-    }
-
-
-    public Integer getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Integer createUser) {
-        this.createUser = createUser;
-    }
-
-
-    public Integer getModifyUser() {
-        return modifyUser;
-    }
-
-    public void setModifyUser(Integer modifyUser) {
-        this.modifyUser = modifyUser;
-    }
-
-
-    public Long getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Long gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-
-    public Long getGmtModify() {
-        return gmtModify;
-    }
-
-    public void setGmtModify(Long gmtModify) {
-        this.gmtModify = gmtModify;
-    }
-
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
 
     @Override
     public void validate() throws RequestParamValidateException {

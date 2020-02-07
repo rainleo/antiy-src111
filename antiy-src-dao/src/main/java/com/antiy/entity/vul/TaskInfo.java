@@ -1,6 +1,5 @@
 package com.antiy.entity.vul;
 
-
 /**
  * <p></p>
  *
@@ -10,25 +9,23 @@ package com.antiy.entity.vul;
 
 public class TaskInfo {
 
-
-    private static final long serialVersionUID = 1L;
     private Integer id;
-    private String taskName;
+    private String  taskName;
     /**
      * 1.排雷2.扫雷
      */
     private Integer taskType;
-    private String taskNo;
-    private Long startTime;
-    private Long endTime;
+    private String  taskNo;
+    private Long    startTime;
+    private Long    endTime;
     /**
      * 1.进行中2.已关闭
      */
     private Integer taskStatus;
-    private Integer createUser;
-    private Integer modifyUser;
-    private Long gmtCreate;
-    private Long gmtModify;
+    private Long    createUser;
+    private Long    modifyUser;
+    private Long    gmtCreate;
+    private Long    gmtModify;
     private Integer status;
 
     public Integer getId() {
@@ -47,7 +44,6 @@ public class TaskInfo {
         this.taskName = taskName;
     }
 
-
     public Integer getTaskType() {
         return taskType;
     }
@@ -55,7 +51,6 @@ public class TaskInfo {
     public void setTaskType(Integer taskType) {
         this.taskType = taskType;
     }
-
 
     public String getTaskNo() {
         return taskNo;
@@ -65,7 +60,6 @@ public class TaskInfo {
         this.taskNo = taskNo;
     }
 
-
     public Long getStartTime() {
         return startTime;
     }
@@ -73,7 +67,6 @@ public class TaskInfo {
     public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
-
 
     public Long getEndTime() {
         return endTime;
@@ -83,7 +76,6 @@ public class TaskInfo {
         this.endTime = endTime;
     }
 
-
     public Integer getTaskStatus() {
         return taskStatus;
     }
@@ -92,24 +84,21 @@ public class TaskInfo {
         this.taskStatus = taskStatus;
     }
 
-
-    public Integer getCreateUser() {
+    public Long getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(Integer createUser) {
+    public void setCreateUser(Long createUser) {
         this.createUser = createUser;
     }
 
-
-    public Integer getModifyUser() {
+    public Long getModifyUser() {
         return modifyUser;
     }
 
-    public void setModifyUser(Integer modifyUser) {
+    public void setModifyUser(Long modifyUser) {
         this.modifyUser = modifyUser;
     }
-
 
     public Long getGmtCreate() {
         return gmtCreate;
@@ -119,7 +108,6 @@ public class TaskInfo {
         this.gmtCreate = gmtCreate;
     }
 
-
     public Long getGmtModify() {
         return gmtModify;
     }
@@ -127,7 +115,6 @@ public class TaskInfo {
     public void setGmtModify(Long gmtModify) {
         this.gmtModify = gmtModify;
     }
-
 
     public Integer getStatus() {
         return status;
@@ -139,19 +126,9 @@ public class TaskInfo {
 
     @Override
     public String toString() {
-        return "TaskInfo{" +
-                "id=" + id +
-                ", taskName='" + taskName + '\'' +
-                ", taskType=" + taskType +
-                ", taskNo='" + taskNo + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", taskStatus=" + taskStatus +
-                ", createUser=" + createUser +
-                ", modifyUser=" + modifyUser +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", status=" + status +
-                '}';
+        return "TaskInfo{" + "id=" + id + ", taskName='" + taskName + '\'' + ", taskType=" + taskType + ", taskNo='"
+               + taskNo + '\'' + ", startTime=" + startTime + ", endTime=" + endTime + ", taskStatus=" + taskStatus
+               + ", createUser=" + createUser + ", modifyUser=" + modifyUser + ", gmtCreate=" + gmtCreate
+               + ", gmtModify=" + gmtModify + ", status=" + status + '}';
     }
 }

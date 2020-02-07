@@ -30,7 +30,7 @@ public class UserBasicResponse {
 	/**
 	 * 所属单位
 	 */
-	private String corp;
+	private Integer department;
 
     /**
      * 联系电话
@@ -53,12 +53,12 @@ public class UserBasicResponse {
 	private List<String> menus;
 
 
-	public String getCorp() {
-		return corp;
+	public Integer getDepartment() {
+		return department;
 	}
 
-	public void setCorp(String corp) {
-		this.corp = corp;
+	public void setDepartment(Integer department) {
+		this.department = department;
 	}
 
 	public Long getBusinessId() {
@@ -132,7 +132,7 @@ public class UserBasicResponse {
 				"businessId='" + businessId + '\'' +
 				", username='" + username + '\'' +
 				", name='" + name + '\'' +
-				", corp='" + corp + '\'' +
+				", department='" + department + '\'' +
 				", status=" + status +
 				", phone='" + phone + '\'' +
 				", lastLoginTime=" + lastLoginTime +

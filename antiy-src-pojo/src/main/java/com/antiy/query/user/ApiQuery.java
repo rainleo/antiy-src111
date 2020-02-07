@@ -10,8 +10,8 @@ import io.swagger.annotations.ApiModelProperty;
  * Api 查询条件
  * </p>
  *
- * @author zhangyajun
- * @since 2018-12-27
+ * @author lvliang
+ * @since 2020-02-06
  */
 
 public class ApiQuery extends ObjectQuery {

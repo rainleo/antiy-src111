@@ -109,7 +109,7 @@ public class LoginServiceImpl implements ILoginService {
 				log.info("当前用户{}已登录，踢出之前登录客户端权限", currentUser.getUsername());
 			}
 			LoginUser userinfo = new LoginUser(userResponse.getBusinessId(),
-					userResponse.getUsername(), userResponse.getName());
+					userResponse.getUsername(), userResponse.getName(), userResponse.getDepartment());
 			TokenStoreUtil.put(token, System.currentTimeMillis() + UserConstant.EXPIRE, userinfo);
 		}
 		return actionResponse;

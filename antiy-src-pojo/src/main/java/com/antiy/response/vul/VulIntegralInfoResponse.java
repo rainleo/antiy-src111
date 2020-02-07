@@ -6,8 +6,8 @@ package com.antiy.response.vul;
  * VulIntegralInfoResponse 响应对象
  * </p>
  *
- * @author zhangyajun
- * @since 2018-12-27
+ * @author lvliang
+ * @since 2020-02-06
  */
 
 public class VulIntegralInfoResponse {

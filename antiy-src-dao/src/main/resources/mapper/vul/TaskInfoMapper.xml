@@ -170,5 +170,63 @@
             and status = #{status }
         </if>
     </sql>
-
+    <insert id="saveSingle" parameterType="com.antiy.entity.vul.TaskInfo" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        insert into
+        <include refid="Table_Name"/>
+        (
+            task_name,
+            task_type,
+            task_no,
+            start_time,
+            end_time,
+            task_status,
+            create_user,
+            gmt_create,
+            status
+        )
+        values
+        (
+            #{taskName },
+            #{taskType },
+            #{taskNo },
+            #{startTime },
+            #{endTime },
+            #{createUser },
+            #{gmtCreate },
+            #{status }
+        )
+    </insert>
+    <update id="updateSingle" parameterType="com.antiy.entity.vul.TaskInfo">
+        update
+            task_info
+        set
+            task_name = #{taskName },
+            task_type = #{taskType },
+            start_time = #{startTime },
+            end_time = #{endTime },
+            modify_user = #{modifyUser },
+            gmt_create = #{gmtCreate },
+            gmt_modify = #{gmtModify }
+    </update>
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from
+        task_info
+        where id = #{id}
+    </select>
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(1) from task_info
+    </select>
+    <select id="queryList" resultType="com.antiy.entity.vul.TaskInfo">
+        select
+        <include refid="Base_Column_List"></include>
+        from
+        task_info
+        order by gmt_create
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
 </mapper>

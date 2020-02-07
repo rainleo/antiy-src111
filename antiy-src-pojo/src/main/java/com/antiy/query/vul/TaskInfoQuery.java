@@ -7,8 +7,8 @@ import com.antiy.base.ObjectQuery;
  * TaskInfo 查询条件
  * </p>
  *
- * @author zhangyajun
- * @since 2018-12-27
+ * @author lvliang
+ * @since 2020-02-06
  */
 
 public class TaskInfoQuery extends ObjectQuery {

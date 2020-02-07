@@ -11,10 +11,9 @@ package com.antiy.entity.vul;
 public class VulExamineInfo {
 
 
-    private static final long serialVersionUID = 1L;
     private Integer id;
     private String vulNo;
-    private Integer examiner;
+    private Long examiner;
     /**
      * 2通过3未通过
      */
@@ -38,15 +37,6 @@ public class VulExamineInfo {
 
     public void setVulNo(String vulNo) {
         this.vulNo = vulNo;
-    }
-
-
-    public Integer getExaminer() {
-        return examiner;
-    }
-
-    public void setExaminer(Integer examiner) {
-        this.examiner = examiner;
     }
 
 
@@ -76,6 +66,13 @@ public class VulExamineInfo {
         this.examineMaterialName = examineMaterialName;
     }
 
+    public Long getExaminer() {
+        return examiner;
+    }
+
+    public void setExaminer(Long examiner) {
+        this.examiner = examiner;
+    }
 
     public String getExamineMaterialUrl() {
         return examineMaterialUrl;

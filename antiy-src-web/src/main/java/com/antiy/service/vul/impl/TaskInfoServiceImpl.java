@@ -71,7 +71,9 @@ public class TaskInfoServiceImpl implements ITaskInfoService {
         TaskInfo taskInfo = taskInfoDao.queryById(id);
         // 任务已经过期，目前暂定可以过期删除
         if (taskInfo.getEndTime() < System.currentTimeMillis()) {
-            taskInfoDao.deleteSingle(id);
+            taskInfo.setGmtModify(System.currentTimeMillis());
+            taskInfo.setModifyUser(loginUserUtil.getUser().getBusinessId());
+            taskInfoDao.deleteSingle(taskInfo);
         } else {
             BusinessExceptionUtils.isTrue(false, "任务未到期不能删除任务");
         }

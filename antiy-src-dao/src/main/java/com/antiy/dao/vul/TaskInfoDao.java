@@ -31,7 +31,7 @@ public interface TaskInfoDao {
 
     TaskInfo queryById(@Param("id") Integer id);
 
-    void deleteSingle(Integer id);
+    void deleteSingle(TaskInfo taskInfo);
 
     Integer queryCount(TaskInfoQuery taskInfoQuery);
 

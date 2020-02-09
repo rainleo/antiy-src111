@@ -180,7 +180,6 @@
             task_no,
             start_time,
             end_time,
-            task_status,
             create_user,
             gmt_create,
             status
@@ -206,8 +205,16 @@
             start_time = #{startTime },
             end_time = #{endTime },
             modify_user = #{modifyUser },
-            gmt_create = #{gmtCreate },
             gmt_modify = #{gmtModify }
+    </update>
+    <update id="deleteSingle" parameterType="com.antiy.entity.vul.TaskInfo">
+        update
+            task_info
+        set
+            status = 0,
+            modify_user = #{modifyUser },
+            gmt_modify = #{gmtModify }
+        where id = #{id}
     </update>
     <select id="queryById" resultMap="BaseResultMap">
         select
@@ -224,6 +231,8 @@
         <include refid="Base_Column_List"></include>
         from
         task_info
+        where
+        status = 1
         order by gmt_create
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}

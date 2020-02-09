@@ -19,6 +19,9 @@ import javax.validation.constraints.NotNull;
 
 public class TaskInfoRequest implements ObjectValidator {
 
+    @ApiModelProperty("id,修改是需传入")
+    private Integer id;
+
     @ApiModelProperty("任务名")
     @NotBlank(message = "任务名不能为空")
     private String taskName;
@@ -34,6 +37,14 @@ public class TaskInfoRequest implements ObjectValidator {
     @NotNull(message = "结束时间不能为空")
     @ApiModelProperty("结束时间")
     private Long endTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getTaskName() {
         return taskName;

@@ -20,6 +20,15 @@ public class VulExamineInfo {
     private String  examineMaterialName;
     private String  examineMaterialUrl;
     private Long    examineDate;
+    private Integer taskId;
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
 
     public Integer getId() {
         return id;

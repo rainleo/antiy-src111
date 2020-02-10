@@ -28,8 +28,14 @@ public class VulInfoResponse {
     private String  vulStatus;
     @ApiModelProperty("任务名称")
     private String  taskName;
+    @ApiModelProperty("任务id")
+    private Integer taskId;
+    @ApiModelProperty("提交人")
+    private Long    commitUser;
     @ApiModelProperty("提交日期")
     private Long    commitDate;
+    @ApiModelProperty("漏洞提交人所属部门")
+    private Integer vulDepartment;
     @ApiModelProperty("地址归属单位")
     private String  addressOwner;
     @ApiModelProperty("漏洞类型")
@@ -42,6 +48,30 @@ public class VulInfoResponse {
     private String  vulDesc;
     @ApiModelProperty("修复建议")
     private String  repairSuggest;
+
+    public Integer getVulDepartment() {
+        return vulDepartment;
+    }
+
+    public void setVulDepartment(Integer vulDepartment) {
+        this.vulDepartment = vulDepartment;
+    }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    public Long getCommitUser() {
+        return commitUser;
+    }
+
+    public void setCommitUser(Long commitUser) {
+        this.commitUser = commitUser;
+    }
 
     public String getAddressOwner() {
         return addressOwner;

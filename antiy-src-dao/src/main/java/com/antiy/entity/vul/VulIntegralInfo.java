@@ -1,6 +1,5 @@
 package com.antiy.entity.vul;
 
-
 /**
  * <p></p>
  *
@@ -10,17 +9,16 @@ package com.antiy.entity.vul;
 
 public class VulIntegralInfo {
 
-
     private Integer id;
-    private String taskId;
-    private String intergralEvent;
-    private String vulNo;
-    private String vulName;
-    private String ip;
+    private Integer taskId;
+    private String  intergralEvent;
+    private Integer vulId;
+    private String  vulName;
+    private String  ip;
     private Integer vulPort;
-    private Long commitDate;
+    private Long    commitDate;
     private Integer grade;
-    private Long commitUser;
+    private Long    commitUser;
     private Integer department;
 
     public Integer getId() {
@@ -31,14 +29,13 @@ public class VulIntegralInfo {
         this.id = id;
     }
 
-    public String getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
-
 
     public String getIntergralEvent() {
         return intergralEvent;
@@ -48,15 +45,13 @@ public class VulIntegralInfo {
         this.intergralEvent = intergralEvent;
     }
 
-
-    public String getVulNo() {
-        return vulNo;
+    public Integer getVulId() {
+        return vulId;
     }
 
-    public void setVulNo(String vulNo) {
-        this.vulNo = vulNo;
+    public void setVulId(Integer vulId) {
+        this.vulId = vulId;
     }
-
 
     public String getVulName() {
         return vulName;
@@ -66,7 +61,6 @@ public class VulIntegralInfo {
         this.vulName = vulName;
     }
 
-
     public String getIp() {
         return ip;
     }
@@ -74,7 +68,6 @@ public class VulIntegralInfo {
     public void setIp(String ip) {
         this.ip = ip;
     }
-
 
     public Integer getVulPort() {
         return vulPort;
@@ -84,7 +77,6 @@ public class VulIntegralInfo {
         this.vulPort = vulPort;
     }
 
-
     public Long getCommitDate() {
         return commitDate;
     }
@@ -93,7 +85,6 @@ public class VulIntegralInfo {
         this.commitDate = commitDate;
     }
 
-
     public Integer getGrade() {
         return grade;
     }
@@ -101,7 +92,6 @@ public class VulIntegralInfo {
     public void setGrade(Integer grade) {
         this.grade = grade;
     }
-
 
     public Long getCommitUser() {
         return commitUser;
@@ -119,21 +109,11 @@ public class VulIntegralInfo {
         this.department = department;
     }
 
-
     @Override
     public String toString() {
-        return "VulIntegralInfo{" +
-                "id=" + id +
-                ", taskId='" + taskId + '\'' +
-                ", intergralEvent='" + intergralEvent + '\'' +
-                ", vulNo='" + vulNo + '\'' +
-                ", vulName='" + vulName + '\'' +
-                ", ip='" + ip + '\'' +
-                ", vulPort=" + vulPort +
-                ", commitDate=" + commitDate +
-                ", grade=" + grade +
-                ", commitUser=" + commitUser +
-                ", department=" + department +
-                '}';
+        return "VulIntegralInfo{" + "id=" + id + ", taskId=" + taskId + ", intergralEvent='" + intergralEvent + '\''
+               + ", vulId='" + vulId + '\'' + ", vulName='" + vulName + '\'' + ", ip='" + ip + '\'' + ", vulPort="
+               + vulPort + ", commitDate=" + commitDate + ", grade=" + grade + ", commitUser=" + commitUser
+               + ", department=" + department + '}';
     }
 }

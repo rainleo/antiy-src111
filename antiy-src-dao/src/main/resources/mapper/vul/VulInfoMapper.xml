@@ -313,7 +313,7 @@
             and status = #{status }
         </if>
     </sql>
-    <insert id="saveSingle" parameterType="com.antiy.entity.vul.VulInfo" useGeneratedKeys="true" keyColumn="id">
+    <insert id="saveSingle" parameterType="com.antiy.entity.vul.VulInfo" useGeneratedKeys="true" keyProperty="id">
         insert into vul_info
         (
             vul_name,
@@ -321,6 +321,7 @@
             ip,
             vul_port,
             vul_address,
+            vul_department,
             address_owner,
             vul_type,
             vul_level,
@@ -343,6 +344,7 @@
             #{ip },
             #{vulPort },
             #{vulAddress },
+            #{vulDepartment,},
             #{addressOwner },
             #{vulType },
             #{vulLevel },
@@ -465,23 +467,25 @@
     </select>
     <select id="queryDetail" resultType="com.antiy.response.vul.VulInfoResponse">
         select
-            id,
-            vul_no as vulNo,
-            vul_name as vulName,
-            vul_status as vulStatus,
-            address_owner as addressOwner,
-            vul_type as vulType,
-            event_level as eventLevel,
-            vul_level as vulLevel,
-            vul_desc as vulDesc,
-            repair_suggest as repairSuggest,
-            ip,
-            task_name as taskName,
-            vul_port as vulPort,
-            vul_address as vul_Address,
-            gmt_create as commitDate
+            v.id,
+            v.vul_no as vulNo,
+            v.vul_name as vulName,
+            v.vul_status as vulStatus,
+            d.name as addressOwner,
+            v.vul_type as vulType,
+            v.event_level as eventLevel,
+            v.vul_level as vulLevel,
+            v.vul_desc as vulDesc,
+            v.repair_suggest as repairSuggest,
+            v.ip,
+            v.task_name as taskName,
+            v.task_id as taskId,
+            v.vul_port as vulPort,
+            v.vul_address as vul_Address,
+            v.create_user as commitUser,
+            v.gmt_create as commitDate
         from
-            vul_info
+            vul_info v left join department d on v.address_owner = d.id
         where
             id = #{id}
             and status = 1

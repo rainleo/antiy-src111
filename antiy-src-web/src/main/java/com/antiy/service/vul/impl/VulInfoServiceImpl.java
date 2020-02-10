@@ -52,6 +52,7 @@ public class VulInfoServiceImpl implements IVulInfoService {
         }
         VulInfo vulInfo = baseConverter.convert(vulInfoRequest, VulInfo.class);
         vulInfo.setVulStatus(VulStatusEnum.WAIT_EXAMINE.getCode());
+        vulInfo.setVulDepartment(loginUserUtil.getUser().getDepartmentId());
         vulInfo.setCreateUser(loginUserUtil.getUser().getBusinessId());
         vulInfo.setGmtCreate(System.currentTimeMillis());
         vulInfo.setStatus(1);
@@ -92,6 +93,6 @@ public class VulInfoServiceImpl implements IVulInfoService {
     private static String getVulNo(Integer type, Integer id) {
         Calendar date = Calendar.getInstance();
         String year = String.valueOf(date.get(Calendar.YEAR));
-        return String.join("-", year, VulTypeEnum.getType(type), String.valueOf(id));
+        return String.join("", year, VulTypeEnum.getType(type), String.valueOf(id));
     }
 }

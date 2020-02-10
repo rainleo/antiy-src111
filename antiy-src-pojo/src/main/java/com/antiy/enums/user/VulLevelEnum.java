@@ -36,4 +36,13 @@ public enum VulLevelEnum {
         }
         return null;
     }
+
+    public static Integer getCode(String msg) {
+        for (VulLevelEnum levelEnum : VulLevelEnum.values()) {
+            if (levelEnum.getMsg().equals(msg)) {
+                return levelEnum.getCode();
+            }
+        }
+        return null;
+    }
 }

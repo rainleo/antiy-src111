@@ -7,7 +7,7 @@
         <id column="id" property="id"/>
         <result column="task_id" property="taskId"/>
         <result column="intergral_event" property="intergralEvent"/>
-        <result column="vul_no" property="vulNo"/>
+        <result column="vul_id" property="vulId"/>
         <result column="vul_name" property="vulName"/>
         <result column="ip" property="ip"/>
         <result column="vul_port" property="vulPort"/>
@@ -157,6 +157,34 @@
             and department = #{department }
         </if>
     </sql>
+    <insert id="saveSingle" parameterType="com.antiy.entity.vul.VulIntegralInfo">
+        insert into vul_integral_info
+        (
+            task_id,
+            intergral_event,
+            vul_no,
+            vul_name,
+            ip,
+            vul_port,
+            commit_date,
+            grade,
+            commit_user,
+            department
+        )
+        values
+        (
+            #{taskId },
+            #{intergralEvent },
+            #{vulNo },
+            #{vulName },
+            #{ip },
+            #{vulPort },
+            #{commitDate },
+            #{grade },
+            #{commitUser },
+            #{department }
+        )
+    </insert>
 
 
 </mapper>

@@ -5,16 +5,17 @@ import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * <p> VulExamineInfoRequest 请求对象 </p>
+ * 审批信息
  *
  * @author lvliang
  * @since 2020-02-06
  */
 
 public class VulExamineInfoRequest implements ObjectValidator {
-
+    @ApiModelProperty("任务id")
+    private Integer taskId;
     @ApiModelProperty("漏洞id")
-    private String  vulId;
+    private Integer vulId;
     @ApiModelProperty("系统属性:1.普通系统2.重要或设计用户敏感信息系统")
     private Integer systemType;
     @ApiModelProperty("2通过3未通过")
@@ -34,11 +35,19 @@ public class VulExamineInfoRequest implements ObjectValidator {
         this.systemType = systemType;
     }
 
-    public String getVulId() {
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    public Integer getVulId() {
         return vulId;
     }
 
-    public void setVulId(String vulId) {
+    public void setVulId(Integer vulId) {
         this.vulId = vulId;
     }
 

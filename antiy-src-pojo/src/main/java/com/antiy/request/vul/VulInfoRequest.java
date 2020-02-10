@@ -28,6 +28,8 @@ public class VulInfoRequest implements ObjectValidator {
     private Integer vulPort;
     @ApiModelProperty("漏洞地址")
     private String  vulAddress;
+    @ApiModelProperty("漏洞提交人所属部门")
+    private Integer vulDepartment;
     @ApiModelProperty("地址归属单位")
     private Integer addressOwner;
     /**
@@ -59,7 +61,7 @@ public class VulInfoRequest implements ObjectValidator {
     @ApiModelProperty("1待审核2通过3未通过")
     private Integer vulStatus;
     @ApiModelProperty("任务id")
-    private String  taskId;
+    private Integer taskId;
     /**
      * 1.普通系统2.重要或设计用户敏感信息系统
      */
@@ -76,6 +78,14 @@ public class VulInfoRequest implements ObjectValidator {
 
     public String getVulName() {
         return vulName;
+    }
+
+    public Integer getVulDepartment() {
+        return vulDepartment;
+    }
+
+    public void setVulDepartment(Integer vulDepartment) {
+        this.vulDepartment = vulDepartment;
     }
 
     public void setVulName(String vulName) {
@@ -178,11 +188,11 @@ public class VulInfoRequest implements ObjectValidator {
         this.vulStatus = vulStatus;
     }
 
-    public String getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 

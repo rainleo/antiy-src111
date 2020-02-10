@@ -23,7 +23,7 @@ public class VulInfo {
     /**
      * 1.Web应用漏洞2.主机系统漏洞3.移动APP漏洞4.弱口令类漏洞
      */
-    private String  vulType;
+    private Integer vulType;
     /**
      * 1高危漏洞，2中危漏洞3.低危漏洞
      */
@@ -36,6 +36,7 @@ public class VulInfo {
     private String  repairSuggest;
     private String  vulMaterialName;
     private String  vulMaterialUrl;
+    private Integer vulDepartment;
     /**
      * 1待审核2通过3未通过
      */
@@ -53,6 +54,14 @@ public class VulInfo {
      * 0删除1正常
      */
     private Integer status;
+
+    public Integer getVulDepartment() {
+        return vulDepartment;
+    }
+
+    public void setVulDepartment(Integer vulDepartment) {
+        this.vulDepartment = vulDepartment;
+    }
 
     public Integer getId() {
         return id;
@@ -118,11 +127,11 @@ public class VulInfo {
         this.addressOwner = addressOwner;
     }
 
-    public String getVulType() {
+    public Integer getVulType() {
         return vulType;
     }
 
-    public void setVulType(String vulType) {
+    public void setVulType(Integer vulType) {
         this.vulType = vulType;
     }
 

@@ -1,6 +1,8 @@
 package com.antiy.dao.vul;
 
 
+import com.antiy.entity.vul.VulIntegralInfo;
+
 /**
  * <p>
  * Mapper 接口
@@ -11,4 +13,5 @@ package com.antiy.dao.vul;
  */
 public interface VulIntegralInfoDao {
 
+    void saveSingle(VulIntegralInfo vulIntegralInfo);
 }

@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 10/02/2020 11:52:41
+ Date: 10/02/2020 13:53:10
 */
 
 SET NAMES utf8mb4;
@@ -44,7 +44,7 @@ CREATE TABLE `task_info`  (
 DROP TABLE IF EXISTS `vul_examine_info`;
 CREATE TABLE `vul_examine_info`  (
   `id` int(11) NOT NULL,
-  `vul_no` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `vul_id` int(11) NOT NULL,
   `examiner` bigint(20) NOT NULL,
   `result` int(11) NOT NULL COMMENT '2通过3未通过',
   `reason` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,

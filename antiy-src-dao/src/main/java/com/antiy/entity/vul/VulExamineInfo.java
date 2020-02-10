@@ -1,6 +1,5 @@
 package com.antiy.entity.vul;
 
-
 /**
  * <p></p>
  *
@@ -10,18 +9,17 @@ package com.antiy.entity.vul;
 
 public class VulExamineInfo {
 
-
     private Integer id;
-    private String vulNo;
-    private Long examiner;
+    private String  vulId;
+    private Long    examiner;
     /**
      * 2通过3未通过
      */
     private Integer result;
-    private String reason;
-    private String examineMaterialName;
-    private String examineMaterialUrl;
-    private Long examineDate;
+    private String  reason;
+    private String  examineMaterialName;
+    private String  examineMaterialUrl;
+    private Long    examineDate;
 
     public Integer getId() {
         return id;
@@ -31,14 +29,13 @@ public class VulExamineInfo {
         this.id = id;
     }
 
-    public String getVulNo() {
-        return vulNo;
+    public String getVulId() {
+        return vulId;
     }
 
-    public void setVulNo(String vulNo) {
-        this.vulNo = vulNo;
+    public void setVulId(String vulId) {
+        this.vulId = vulId;
     }
-
 
     public Integer getResult() {
         return result;
@@ -48,7 +45,6 @@ public class VulExamineInfo {
         this.result = result;
     }
 
-
     public String getReason() {
         return reason;
     }
@@ -56,7 +52,6 @@ public class VulExamineInfo {
     public void setReason(String reason) {
         this.reason = reason;
     }
-
 
     public String getExamineMaterialName() {
         return examineMaterialName;
@@ -82,7 +77,6 @@ public class VulExamineInfo {
         this.examineMaterialUrl = examineMaterialUrl;
     }
 
-
     public Long getExamineDate() {
         return examineDate;
     }
@@ -91,17 +85,15 @@ public class VulExamineInfo {
         this.examineDate = examineDate;
     }
 
-    @Override
-    public String toString() {
-        return "VulExamineInfo{" +
-                "id=" + id +
-                ", vulNo='" + vulNo + '\'' +
-                ", examiner=" + examiner +
-                ", result=" + result +
-                ", reason='" + reason + '\'' +
-                ", examineMaterialName='" + examineMaterialName + '\'' +
-                ", examineMaterialUrl='" + examineMaterialUrl + '\'' +
-                ", examineDate=" + examineDate +
-                '}';
+    public VulExamineInfo(Integer id, String vulId, Long examiner, Integer result, String reason,
+                          String examineMaterialName, String examineMaterialUrl, Long examineDate) {
+        this.id = id;
+        this.vulId = vulId;
+        this.examiner = examiner;
+        this.result = result;
+        this.reason = reason;
+        this.examineMaterialName = examineMaterialName;
+        this.examineMaterialUrl = examineMaterialUrl;
+        this.examineDate = examineDate;
     }
 }

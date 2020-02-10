@@ -1,6 +1,5 @@
 package com.antiy.entity.vul;
 
-
 /**
  * <p></p>
  *
@@ -10,22 +9,21 @@ package com.antiy.entity.vul;
 
 public class VulInfo {
 
-
     private Integer id;
-    private String vulNo;
-    private String vulName;
+    private String  vulNo;
+    private String  vulName;
     /**
      * 1.扫雷,2.排雷
      */
     private Integer type;
-    private String ip;
+    private String  ip;
     private Integer vulPort;
-    private String vulAddress;
+    private String  vulAddress;
     private Integer addressOwner;
     /**
      * 1.Web应用漏洞2.主机系统漏洞3.移动APP漏洞4.弱口令类漏洞
      */
-    private String vulType;
+    private String  vulType;
     /**
      * 1高危漏洞，2中危漏洞3.低危漏洞
      */
@@ -33,24 +31,24 @@ public class VulInfo {
     /**
      * A,B,C,D拼接
      */
-    private String eventLevel;
-    private String vulDesc;
-    private String repairSuggest;
-    private String vulMaterialName;
-    private String vulMaterialUrl;
+    private String  eventLevel;
+    private String  vulDesc;
+    private String  repairSuggest;
+    private String  vulMaterialName;
+    private String  vulMaterialUrl;
     /**
      * 1待审核2通过3未通过
      */
     private Integer vulStatus;
-    private String taskId;
+    private Integer taskId;
     /**
      * 1.普通系统2.重要或设计用户敏感信息系统
      */
     private Integer systemType;
-    private Long createUser;
-    private Long modifyUser;
-    private Long gmtCreate;
-    private Long gmtModify;
+    private Long    createUser;
+    private Long    modifyUser;
+    private Long    gmtCreate;
+    private Long    gmtModify;
     /**
      * 0删除1正常
      */
@@ -72,7 +70,6 @@ public class VulInfo {
         this.vulNo = vulNo;
     }
 
-
     public String getVulName() {
         return vulName;
     }
@@ -80,7 +77,6 @@ public class VulInfo {
     public void setVulName(String vulName) {
         this.vulName = vulName;
     }
-
 
     public Integer getType() {
         return type;
@@ -90,7 +86,6 @@ public class VulInfo {
         this.type = type;
     }
 
-
     public String getIp() {
         return ip;
     }
@@ -98,7 +93,6 @@ public class VulInfo {
     public void setIp(String ip) {
         this.ip = ip;
     }
-
 
     public Integer getVulPort() {
         return vulPort;
@@ -108,7 +102,6 @@ public class VulInfo {
         this.vulPort = vulPort;
     }
 
-
     public String getVulAddress() {
         return vulAddress;
     }
@@ -116,7 +109,6 @@ public class VulInfo {
     public void setVulAddress(String vulAddress) {
         this.vulAddress = vulAddress;
     }
-
 
     public Integer getAddressOwner() {
         return addressOwner;
@@ -126,7 +118,6 @@ public class VulInfo {
         this.addressOwner = addressOwner;
     }
 
-
     public String getVulType() {
         return vulType;
     }
@@ -134,7 +125,6 @@ public class VulInfo {
     public void setVulType(String vulType) {
         this.vulType = vulType;
     }
-
 
     public Integer getVulLevel() {
         return vulLevel;
@@ -144,7 +134,6 @@ public class VulInfo {
         this.vulLevel = vulLevel;
     }
 
-
     public String getEventLevel() {
         return eventLevel;
     }
@@ -152,7 +141,6 @@ public class VulInfo {
     public void setEventLevel(String eventLevel) {
         this.eventLevel = eventLevel;
     }
-
 
     public String getVulDesc() {
         return vulDesc;
@@ -162,7 +150,6 @@ public class VulInfo {
         this.vulDesc = vulDesc;
     }
 
-
     public String getRepairSuggest() {
         return repairSuggest;
     }
@@ -170,7 +157,6 @@ public class VulInfo {
     public void setRepairSuggest(String repairSuggest) {
         this.repairSuggest = repairSuggest;
     }
-
 
     public String getVulMaterialName() {
         return vulMaterialName;
@@ -180,7 +166,6 @@ public class VulInfo {
         this.vulMaterialName = vulMaterialName;
     }
 
-
     public String getVulMaterialUrl() {
         return vulMaterialUrl;
     }
@@ -188,7 +173,6 @@ public class VulInfo {
     public void setVulMaterialUrl(String vulMaterialUrl) {
         this.vulMaterialUrl = vulMaterialUrl;
     }
-
 
     public Integer getVulStatus() {
         return vulStatus;
@@ -198,15 +182,13 @@ public class VulInfo {
         this.vulStatus = vulStatus;
     }
 
-
-    public String getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
-
 
     public Integer getSystemType() {
         return systemType;
@@ -215,7 +197,6 @@ public class VulInfo {
     public void setSystemType(Integer systemType) {
         this.systemType = systemType;
     }
-
 
     public Long getCreateUser() {
         return createUser;
@@ -241,7 +222,6 @@ public class VulInfo {
         this.gmtCreate = gmtCreate;
     }
 
-
     public Long getGmtModify() {
         return gmtModify;
     }
@@ -249,7 +229,6 @@ public class VulInfo {
     public void setGmtModify(Long gmtModify) {
         this.gmtModify = gmtModify;
     }
-
 
     public Integer getStatus() {
         return status;
@@ -261,30 +240,13 @@ public class VulInfo {
 
     @Override
     public String toString() {
-        return "VulInfo{" +
-                "id=" + id +
-                ", vulNo='" + vulNo + '\'' +
-                ", vulName='" + vulName + '\'' +
-                ", type=" + type +
-                ", ip='" + ip + '\'' +
-                ", vulPort=" + vulPort +
-                ", vulAddress='" + vulAddress + '\'' +
-                ", addressOwner=" + addressOwner +
-                ", vulType='" + vulType + '\'' +
-                ", vulLevel=" + vulLevel +
-                ", eventLevel='" + eventLevel + '\'' +
-                ", vulDesc='" + vulDesc + '\'' +
-                ", repairSuggest='" + repairSuggest + '\'' +
-                ", vulMaterialName='" + vulMaterialName + '\'' +
-                ", vulMaterialUrl='" + vulMaterialUrl + '\'' +
-                ", vulStatus=" + vulStatus +
-                ", taskId='" + taskId + '\'' +
-                ", systemType=" + systemType +
-                ", createUser=" + createUser +
-                ", modifyUser=" + modifyUser +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", status=" + status +
-                '}';
+        return "VulInfo{" + "id=" + id + ", vulNo='" + vulNo + '\'' + ", vulName='" + vulName + '\'' + ", type=" + type
+               + ", ip='" + ip + '\'' + ", vulPort=" + vulPort + ", vulAddress='" + vulAddress + '\''
+               + ", addressOwner=" + addressOwner + ", vulType='" + vulType + '\'' + ", vulLevel=" + vulLevel
+               + ", eventLevel='" + eventLevel + '\'' + ", vulDesc='" + vulDesc + '\'' + ", repairSuggest='"
+               + repairSuggest + '\'' + ", vulMaterialName='" + vulMaterialName + '\'' + ", vulMaterialUrl='"
+               + vulMaterialUrl + '\'' + ", vulStatus=" + vulStatus + ", taskId='" + taskId + '\'' + ", systemType="
+               + systemType + ", createUser=" + createUser + ", modifyUser=" + modifyUser + ", gmtCreate=" + gmtCreate
+               + ", gmtModify=" + gmtModify + ", status=" + status + '}';
     }
 }

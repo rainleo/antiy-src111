@@ -1,6 +1,8 @@
 package com.antiy.service.vul;
 
 
+import com.antiy.request.vul.VulExamineInfoRequest;
+
 /**
  * <p>
  *  服务类
@@ -12,4 +14,5 @@ package com.antiy.service.vul;
 public interface IVulExamineInfoService {
 
 
+    void saveSingle(VulExamineInfoRequest vulExamineInfoRequest);
 }

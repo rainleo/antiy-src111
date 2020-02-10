@@ -313,6 +313,178 @@
             and status = #{status }
         </if>
     </sql>
+    <insert id="saveSingle" parameterType="com.antiy.entity.vul.VulInfo" useGeneratedKeys="true" keyColumn="id">
+        insert into vul_info
+        (
+            vul_name,
+            type,
+            ip,
+            vul_port,
+            vul_address,
+            address_owner,
+            vul_type,
+            vul_level,
+            event_level,
+            vul_desc,
+            repair_suggest,
+            vul_material_name,
+            vul_material_url,
+            vul_status,
+            task_id,
+            system_type,
+            create_user,
+            gmt_create,
+            status
+        )
+        values
+        (
+            #{vulName },
+            #{type },
+            #{ip },
+            #{vulPort },
+            #{vulAddress },
+            #{addressOwner },
+            #{vulType },
+            #{vulLevel },
+            #{eventLevel },
+            #{vulDesc },
+            #{repairSuggest },
+            #{vulMaterialName },
+            #{vulMaterialUrl },
+            #{vulStatus },
+            #{taskId },
+            #{systemType },
+            #{createUser },
+            #{gmtCreate },
+            #{status }
+        )
 
+    </insert>
+    <update id="updateVulNo">
+        update vul_info set vul_no = #{vulNo} where id = #{id}
+    </update>
+    <update id="updateSingle" parameterType="com.antiy.entity.vul.VulInfo">
+        update vul_info
+            vul_name = #{vulName },
+            type = #{type },
+            ip = #{ip },
+            vul_port = #{vulPort },
+            vul_address = #{vulAddress },
+            address_owner = #{addressOwner },
+            vul_type = #{vulType },
+            vul_level = #{vulLevel },
+            event_level = #{eventLevel },
+            vul_desc = #{vulDesc },
+            repair_suggest = #{repairSuggest },
+            vul_material_name = #{vulMaterialName },
+            vul_material_url = #{vulMaterialUrl },
+            modify_user = #{modifyUser },
+            gmt_modify = #{gmtModify }
+        where
+        id = #{id}
+    </update>
+    <!--检查漏洞重复-->
+    <select id="checkRepeat" resultType="java.lang.Integer">
+        select
+            count(1)
+        from
+            vul_info
+        where
+            vul_name = #{vulName}
+            and vul_type = #{vulType}
+            and vul_address = #{vulAddress}
+            and status = 1
+    </select>
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="com.antiy.query.vul.VulInfoQuery">
+        select
+        count(1)
+        from
+        vul_info v left join task_info t on v.task_id = t.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            v.status = 1
+            and v.type = #{type}
+            <if test="vulStatus != null">
+                and v.vul_status = #{vulStatus}
+            </if>
+            <if test="vulNo != null and vulNo != ''">
+                and v.vul_no like concat('%',#{vulNo},'%')
+            </if>
+            <if test="vulName != null and vulName != ''">
+                and v.vul_name like concat('%',#{vulName},'%')
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and t.task_name like concat('%',#{taskName},'%')
+            </if>
+            <if test="vulLevel != null">
+                and v.vul_level = #{vulLevel}
+            </if>
+            <if test="vulAddress != null and vulAddress != ''">
+                and v.vul_address like concat('%',#{vulAddress},'%')
+            </if>
+        </trim>
+    </select>
+    <select id="queryList" resultType="com.antiy.response.vul.VulInfoResponse">
+        select
+        id,
+        vul_no as vulNo,
+        vul_name as vulName,
+        vul_status as vulStatus,
+        ip,
+        t.task_name as taskName,
+        vul_port as vulPort,
+        vul_address as vul_Address,
+        gmt_create as commitDate
+        from
+        vul_info v left join task_info t on v.task_id = t.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            v.status = 1
+            and v.type = #{type}
+            <if test="vulStatus != null">
+                and v.vul_status = #{vulStatus}
+            </if>
+            <if test="vulNo != null and vulNo != ''">
+                and v.vul_no like concat('%',#{vulNo},'%')
+            </if>
+            <if test="vulName != null and vulName != ''">
+                and v.vul_name like concat('%',#{vulName},'%')
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and t.task_name like concat('%',#{taskName},'%')
+            </if>
+            <if test="vulLevel != null">
+                and v.vul_level = #{vulLevel}
+            </if>
+            <if test="vulAddress != null and vulAddress != ''">
+                and v.vul_address like concat('%',#{vulAddress},'%')
+            </if>
+        </trim>
+        order by gmt_create desc
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+    <select id="queryDetail" resultType="com.antiy.response.vul.VulInfoResponse">
+        select
+            id,
+            vul_no as vulNo,
+            vul_name as vulName,
+            vul_status as vulStatus,
+            address_owner as addressOwner,
+            vul_type as vulType,
+            event_level as eventLevel,
+            vul_level as vulLevel,
+            vul_desc as vulDesc,
+            repair_suggest as repairSuggest,
+            ip,
+            task_name as taskName,
+            vul_port as vulPort,
+            vul_address as vul_Address,
+            gmt_create as commitDate
+        from
+            vul_info
+        where
+            id = #{id}
+            and status = 1
+    </select>
 
 </mapper>

@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.antiy.entity.vul.VulExamineInfo">
         <id column="id" property="id"/>
-        <result column="vul_no" property="vulNo"/>
+        <result column="vul_id" property="vulId"/>
         <result column="examiner" property="examiner"/>
         <result column="result" property="result"/>
         <result column="reason" property="reason"/>
@@ -15,7 +15,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, vul_no, examiner, result, reason, examine_material_name, examine_material_url, examine_date
+        id, vul_id, examiner, result, reason, examine_material_name, examine_material_url, examine_date
     </sql>
 
     <sql id="Table_Name">
@@ -24,8 +24,8 @@
 
 
     <sql id="IF_Base_Column_List">
-        <if test=" vulNo != null">
-            vul_no,
+        <if test=" vulId != null">
+            vul_id,
         </if>
         <if test=" examiner != null">
             examiner,
@@ -48,8 +48,8 @@
     </sql>
 
     <sql id="IF_Value_Column_List">
-        <if test=" vulNo != null">
-            #{vulNo },
+        <if test=" vulId != null">
+            #{vulId },
         </if>
         <if test=" examiner != null">
             #{examiner },
@@ -73,7 +73,7 @@
 
     <sql id="Set_Column_List">
         <if test=" vulNo != null">
-            vul_no = #{vulNo },
+            vul_id = #{vulId },
         </if>
         <if test=" examiner != null">
             examiner = #{examiner },
@@ -97,7 +97,7 @@
 
     <sql id="Where_Column_List">
         <if test=" vulNo != null">
-            and vul_no = #{vulNo }
+            and vul_id = #{vulId }
         </if>
         <if test=" examiner != null">
             and examiner = #{examiner }
@@ -118,6 +118,41 @@
             and examine_date = #{examineDate }
         </if>
     </sql>
+    <insert id="saveSingle" parameterType="com.antiy.entity.vul.VulExamineInfo">
+        insert into vul_examine_info
+        (
+            vul_id,
+            examiner,
+            result,
+            reason,
+            examine_material_name,
+            examine_material_url,
+            examine_date
 
+        )
+        values
+        (
+            #{vulId },
+            #{examiner },
+            #{result },
+            #{reason },
+            #{examineMaterialName },
+            #{examineMaterialUrl },
+            #{examineDate }
+        )
+    </insert>
+    <select id="queryList" resultType="com.antiy.response.vul.VulExamineInfoResponse">
+        select
+            id
+            vul_id as vulId,
+            examiner,
+            result,
+            reason,
+            examine_material_name as examineMaterialName,
+            examine_material_ur as examineMaterialUrl,
+            examine_date as examineDate
+        from vul_examine_info
+        where vul_id = #{vulId}
+    </select>
 
 </mapper>

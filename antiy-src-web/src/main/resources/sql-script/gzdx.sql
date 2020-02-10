@@ -90,20 +90,19 @@ CREATE TABLE `vul_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `vul_integral_info`;
 CREATE TABLE `vul_integral_info`  (
-  `id` int(11) NOT NULL,
-  `task_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `intergral_event` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `vul_no` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `vul_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `vul_port` int(11) NOT NULL,
-  `commit_date` bigint(20) NOT NULL,
-  `grade` int(11) NOT NULL,
-  `commit_user` bigint(20) NOT NULL,
-  `department` int(11) NOT NULL,
+  `id` int(11) NOT NULL COMMENT '主键',
+  `task_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '任务id',
+  `intergral_event` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '获得积分事项',
+  `vul_id` int(11) NOT NULL COMMENT '漏洞id',
+  `vul_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '漏洞名称',
+  `ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '漏洞IP',
+  `vul_port` int(11) NOT NULL COMMENT '漏洞端口',
+  `commit_date` bigint(20) NOT NULL COMMENT '提交日期',
+  `grade` int(11) NOT NULL COMMENT '获得积分',
+  `commit_user` bigint(20) NOT NULL COMMENT '提交人',
+  `department` int(11) NOT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
 -- ----------------------------
 -- Table structure for department
 -- ----------------------------

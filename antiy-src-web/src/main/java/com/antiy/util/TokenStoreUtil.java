@@ -33,6 +33,12 @@ public class TokenStoreUtil {
     public static String get(Long userId) {
         for (Map.Entry<String, UserData> user : map.entrySet()) {
             if (userId.equals(user.getValue().getUserinfo().getBusinessId())) {
+                long expired = user.getValue().getExpired();
+                if (System.currentTimeMillis() > expired) {
+                    //token已过期
+                    map.remove(user.getKey());
+                    return null;
+                }
                 return user.getKey();
             }
         }

@@ -4,37 +4,48 @@ import com.antiy.exception.RequestParamValidateException;
 import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * UserRequest 请求对象
  * </p>
  *
- * @author lvliang
- * @since 2020-02-06
+ * @author zhangyajun
+ * @since 2018-12-27
  */
-
 public class UserRequest implements ObjectValidator {
 
+    /**
+     * 业务编号
+     */
+    @NotNull(message = "用户id不能为空", groups = {Update.class} )
+    private Long businessId;
     /**
      * 用户名
      */
     @ApiModelProperty("用户名")
+    @NotBlank(message = "用户名不能为空", groups = {Add.class} )
     private String username;
     /**
      * 密码
      */
     @ApiModelProperty("密码")
+    @NotBlank(message = "密码不能为空", groups = {Add.class} )
     private String password;
     /**
      * 姓名
      */
     @ApiModelProperty("姓名")
+    @NotBlank(message = "姓名不能为空", groups = {Add.class, Update.class} )
     private String name;
     /**
      * 所属单位
      */
+    @NotNull(message = "所属单位不能为空", groups = {Add.class, Update.class} )
     @ApiModelProperty("所属单位")
-    private String department;
+    private Integer department;
     /**
      * 身份证号
      */
@@ -43,6 +54,7 @@ public class UserRequest implements ObjectValidator {
     /**
      * 联系电话
      */
+    @NotBlank(message = "联系电话不能为空", groups = {Add.class, Update.class} )
     @ApiModelProperty("联系电话")
     private String phone;
     /**
@@ -51,8 +63,17 @@ public class UserRequest implements ObjectValidator {
     @ApiModelProperty("状态 1、可用 2、锁定 3、禁用")
     private Integer status;
 
+    @NotNull(message = "角色类型不能为空", groups = {Add.class, Update.class} )
     @ApiModelProperty("角色类型 2、普通管理员 3、审核员 4、普通用户")
     private Integer roleType;
+
+    public Long getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Long businessId) {
+        this.businessId = businessId;
+    }
 
     public String getUsername() {
         return username;
@@ -81,11 +102,11 @@ public class UserRequest implements ObjectValidator {
     }
 
 
-    public String getDepartment() {
+    public Integer getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Integer department) {
         this.department = department;
     }
 

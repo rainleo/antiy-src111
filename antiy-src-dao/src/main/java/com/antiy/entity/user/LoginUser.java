@@ -1,6 +1,8 @@
 package com.antiy.entity.user;
 
 
+import java.util.List;
+
 /**
  * @author zhouye
  * 当前登录用户信息
@@ -31,6 +33,8 @@ public class LoginUser {
 	private String name;
 
 	private Integer departmentId;
+
+	private List<String> menus;
 
 	public Long getBusinessId() {
 		return businessId;
@@ -64,7 +68,15 @@ public class LoginUser {
 		this.departmentId = departmentId;
 	}
 
-	@Override
+    public List<String> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<String> menus) {
+        this.menus = menus;
+    }
+
+    @Override
 	public String toString() {
 		return "LoginUser{" +
 				"bh='" + businessId + '\'' +

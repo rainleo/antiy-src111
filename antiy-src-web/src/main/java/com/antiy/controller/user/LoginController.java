@@ -1,5 +1,6 @@
 package com.antiy.controller.user;
 
+import com.antiy.annotation.HavePermission;
 import com.antiy.base.ActionResponse;
 import com.antiy.base.RespBasicCode;
 import com.antiy.common.utils.LogUtils;
@@ -63,6 +64,7 @@ public class LoginController {
 		return loginService.logout(token);
 	}
 
+	@HavePermission("user:add:sh")
 	@ApiOperation("用户认证状态是否有效，测试接口")
 	@PostMapping("/isAuth")
 	public ActionResponse isAuth() {

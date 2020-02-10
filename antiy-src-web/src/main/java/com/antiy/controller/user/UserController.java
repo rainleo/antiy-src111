@@ -5,6 +5,8 @@ import com.antiy.base.ActionResponse;
 import com.antiy.common.utils.AesEncryptUtil;
 import com.antiy.query.user.BusinessIdQuery;
 import com.antiy.query.user.UserQuery;
+import com.antiy.request.user.Add;
+import com.antiy.request.user.Update;
 import com.antiy.request.user.UserPasswordRequest;
 import com.antiy.request.user.UserRequest;
 import com.antiy.response.user.UserResponse;
@@ -14,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * created on 2019-07-25
  * @version  1.0.0
  */
+
 @RestController
 @Api(description = "用户管理")
 @RequestMapping("/api/v1/user")
@@ -36,9 +40,9 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @ApiOperation("用户注册")
+    @ApiOperation("新增用户")
     @PostMapping("/save")
-    public ActionResponse addUser(@RequestBody UserRequest request) throws Exception {
+    public ActionResponse addUser(@Validated(value = Add.class) @RequestBody UserRequest request) throws Exception {
         AesEncryptUtil.aesDecrypt(request.getPassword());
         userService.saveUser(request);
         return ActionResponse.success();
@@ -46,7 +50,7 @@ public class UserController {
 
     @ApiOperation("修改用户")
     @PostMapping("/update")
-    public ActionResponse updateUser(@RequestBody UserRequest request) throws Exception {
+    public ActionResponse updateUser(@Validated(value = Update.class) @RequestBody UserRequest request) throws Exception {
         logger.info("修改用户入参:{}", JSON.toJSONString(request));
         userService.updateUser(request);
         return ActionResponse.success();

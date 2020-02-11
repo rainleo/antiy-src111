@@ -43,29 +43,29 @@ CREATE TABLE `task_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `vul_examine_info`;
 CREATE TABLE `vul_examine_info`  (
-  `id` int(11) NOT NULL,
-  `vul_id` int(11) NOT NULL,
-  `examiner` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `vul_id` int(11) NOT NULL COMMENT '漏洞id',
+  `examiner` bigint(20) NOT NULL COMMENT '审批人',
   `result` int(11) NOT NULL COMMENT '2通过3未通过',
-  `reason` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `examine_material_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `examine_material_url` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `examine_date` bigint(20) DEFAULT NULL,
+  `reason` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审批理由',
+  `examine_material_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审批材料名',
+  `examine_material_url` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审批材料url',
+  `examine_date` bigint(20) DEFAULT NULL COMMENT '审批日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 -- ----------------------------
 -- Table structure for vul_info
 -- ----------------------------
 DROP TABLE IF EXISTS `vul_info`;
 CREATE TABLE `vul_info`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `vul_no` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `vul_no` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `vul_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` tinyint(4) DEFAULT NULL COMMENT '1.扫雷,2.排雷',
   `ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `vul_port` int(11) NOT NULL,
   `vul_address` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `vul_department` int(20) DEFAULT NULL COMMENT '提交人所属部门',
   `address_owner` int(11) NOT NULL,
   `vul_type` tinyint(20) NOT NULL COMMENT '1.Web应用漏洞2.主机系统漏洞3.移动APP漏洞4.弱口令类漏洞',
   `vul_level` tinyint(4) NOT NULL COMMENT '1高危漏洞，2中危漏洞3.低危漏洞',
@@ -75,7 +75,7 @@ CREATE TABLE `vul_info`  (
   `vul_material_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `vul_material_url` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `vul_status` tinyint(4) DEFAULT NULL COMMENT '1待审核2通过3未通过',
-  `task_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `task_id` int(11) NOT NULL,
   `system_type` tinyint(4) DEFAULT NULL COMMENT '1.普通系统2.重要或设计用户敏感信息系统',
   `create_user` bigint(20) DEFAULT NULL,
   `modify_user` bigint(20) DEFAULT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `vul_info`  (
   `gmt_modify` bigint(20) DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1 COMMENT '0删除1正常',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for vul_integral_info
@@ -102,7 +102,7 @@ CREATE TABLE `vul_integral_info`  (
   `commit_user` bigint(20) NOT NULL COMMENT '提交人',
   `department` int(11) NOT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;-- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 -- Table structure for department
 -- ----------------------------
 DROP TABLE IF EXISTS `department`;

@@ -6,6 +6,7 @@ import com.antiy.response.vul.VulInfoResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p> Mapper 接口 </p>
@@ -31,4 +32,8 @@ public interface VulInfoDao {
     VulInfoResponse queryDetail(@Param("id") Integer id);
 
     void updateVulStatus(VulInfo v);
+
+    List<Map<String, Object>> getVulSubmitTrend(@Param("start") Long start, @Param("end") Long end);
+
+    List<Map<String, Object>> getVulRepairTrend(@Param("start") Long start, @Param("end") Long end);
 }

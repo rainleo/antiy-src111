@@ -185,6 +185,18 @@
             #{department }
         )
     </insert>
-
-
+    <select id="getScoreOfUser" resultMap="BaseResultMap">
+     select  intergral_event, vul_id, vul_name, ip, vul_port, commit_date, grade, commit_user, department
+     from vul_integral_info where commit_user = #{userId}
+    </select>
+    <select id="getPersonalTop10" resultType="com.antiy.response.vul.ScoreTop10">
+        select  u.name, d.name departmentName, sum(grade) score from vul_integral_info v
+        left join user u on v.commit_user=u.business_id
+        left join department d on v.department = d.id
+        group by commit_user,u.name, d.name order by score desc
+        limit 10
+    </select>
+    <select id="getDepartmentTop10" resultType="com.antiy.response.vul.ScoreTop10">
+        select  d.name departmentName, sum(grade) score from vul_integral_info v left join department d on v.department=d.id group by department,d.name order by score desc limit 10
+    </select>
 </mapper>

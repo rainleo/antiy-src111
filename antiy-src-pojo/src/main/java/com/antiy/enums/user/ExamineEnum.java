@@ -1,7 +1,7 @@
 package com.antiy.enums.user;
 
 public enum ExamineEnum {
-                         PASS(1, "通过"), NOPASS(2, "不通过");
+                         PASS(2, "通过"), NOPASS(3, "不通过");
 
     // 1高危漏洞，2中危漏洞3.低危漏洞
     private Integer code;

@@ -35,6 +35,36 @@ public class VulInfoQuery extends ObjectQuery {
      */
     @ApiModelProperty("漏洞状态：1待审核2通过3未通过")
     private Integer vulStatus;
+    @ApiModelProperty("漏洞所属部门")
+    private Integer addressOwner;
+    @ApiModelProperty("提交人")
+    private Integer commitUser;
+    @ApiModelProperty("提交人所属部门")
+    private Integer commitDept;
+
+    public Integer getAddressOwner() {
+        return addressOwner;
+    }
+
+    public void setAddressOwner(Integer addressOwner) {
+        this.addressOwner = addressOwner;
+    }
+
+    public Integer getCommitUser() {
+        return commitUser;
+    }
+
+    public void setCommitUser(Integer commitUser) {
+        this.commitUser = commitUser;
+    }
+
+    public Integer getCommitDept() {
+        return commitDept;
+    }
+
+    public void setCommitDept(Integer commitDept) {
+        this.commitDept = commitDept;
+    }
 
     public Integer getVulStatus() {
         return vulStatus;

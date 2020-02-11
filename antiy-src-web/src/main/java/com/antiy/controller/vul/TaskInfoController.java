@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "TaskInfo", description = "任务模块")
 @RestController
-@RequestMapping("/v1/taskinfo")
+@RequestMapping("/api/v1/taskinfo")
 public class TaskInfoController {
 
     @Resource

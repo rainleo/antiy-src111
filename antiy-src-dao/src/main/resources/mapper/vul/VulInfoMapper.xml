@@ -426,21 +426,35 @@
             <if test="vulAddress != null and vulAddress != ''">
                 and v.vul_address like concat('%',#{vulAddress},'%')
             </if>
+            <if test="addressOwner != null">
+                and v.address_owner = #{addressOwner}
+            </if>
+            <if test="commitUser != null">
+                and v.create_user = #{commitUser}
+            </if>
+            <if test="commitDept != null">
+                and v.vul_department = #{commitDept}
+            </if>
+
         </trim>
     </select>
     <select id="queryList" resultType="com.antiy.response.vul.VulInfoResponse">
         select
         v.id,
         v.vul_no as vulNo,
+        v.vul_level as vulLevel,
         v.vul_name as vulName,
         v.vul_status as vulStatus,
         v.ip,
         t.task_name as taskName,
         v.vul_port as vulPort,
         v.vul_address as vul_Address,
-        v.gmt_create as commitDate
+        v.gmt_create as commitDate,
+        d.id as department,
+        d.name as departmentName
         from
         vul_info v left join task_info t on v.task_id = t.id
+        left join department d on v.vul_department = d.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1
             and v.type = #{type}

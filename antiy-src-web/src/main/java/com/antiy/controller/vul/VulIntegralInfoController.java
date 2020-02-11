@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "VulIntegralInfo", description = "")
 @RestController
-@RequestMapping("/v1/vulintegralinfo")
+@RequestMapping("/api/v1/vulintegralinfo")
 public class VulIntegralInfoController {
 
     @Resource

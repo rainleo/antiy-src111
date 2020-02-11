@@ -48,6 +48,10 @@ public class VulInfoResponse {
     private String  vulDesc;
     @ApiModelProperty("修复建议")
     private String  repairSuggest;
+    @ApiModelProperty("部门")
+    private String  department;
+    @ApiModelProperty("部门名")
+    private String  departmentName;
 
     public Integer getVulDepartment() {
         return vulDepartment;
@@ -59,6 +63,22 @@ public class VulInfoResponse {
 
     public Integer getTaskId() {
         return taskId;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public void setTaskId(Integer taskId) {

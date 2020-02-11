@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "VulInfo", description = "漏洞模块")
 @RestController
-@RequestMapping("/v1/vulinfo")
+@RequestMapping("/api/v1/vulinfo")
 public class VulInfoController {
 
     @Resource

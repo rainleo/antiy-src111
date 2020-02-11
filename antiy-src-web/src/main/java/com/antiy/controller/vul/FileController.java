@@ -19,7 +19,7 @@ import java.util.UUID;
  */
 @Api(value = "VulInfo", description = "文件模块")
 @RestController
-@RequestMapping("/v1/file")
+@RequestMapping("/api/v1/file")
 public class FileController {
 
     @Value("${file_url}")

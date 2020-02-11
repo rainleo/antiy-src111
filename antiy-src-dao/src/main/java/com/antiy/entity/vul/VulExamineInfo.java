@@ -10,7 +10,7 @@ package com.antiy.entity.vul;
 public class VulExamineInfo {
 
     private Integer id;
-    private String  vulId;
+    private Integer vulId;
     private Long    examiner;
     /**
      * 2通过3未通过
@@ -38,11 +38,11 @@ public class VulExamineInfo {
         this.id = id;
     }
 
-    public String getVulId() {
+    public Integer getVulId() {
         return vulId;
     }
 
-    public void setVulId(String vulId) {
+    public void setVulId(Integer vulId) {
         this.vulId = vulId;
     }
 
@@ -94,15 +94,11 @@ public class VulExamineInfo {
         this.examineDate = examineDate;
     }
 
-    public VulExamineInfo(Integer id, String vulId, Long examiner, Integer result, String reason,
-                          String examineMaterialName, String examineMaterialUrl, Long examineDate) {
-        this.id = id;
-        this.vulId = vulId;
-        this.examiner = examiner;
-        this.result = result;
-        this.reason = reason;
-        this.examineMaterialName = examineMaterialName;
-        this.examineMaterialUrl = examineMaterialUrl;
-        this.examineDate = examineDate;
+    @Override
+    public String toString() {
+        return "VulExamineInfo{" + "id=" + id + ", vulId='" + vulId + '\'' + ", examiner=" + examiner + ", result="
+               + result + ", reason='" + reason + '\'' + ", examineMaterialName='" + examineMaterialName + '\''
+               + ", examineMaterialUrl='" + examineMaterialUrl + '\'' + ", examineDate=" + examineDate + ", taskId="
+               + taskId + '}';
     }
 }

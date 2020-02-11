@@ -143,13 +143,13 @@
     </insert>
     <select id="queryList" resultType="com.antiy.response.vul.VulExamineInfoResponse">
         select
-            id
+            id,
             vul_id as vulId,
             examiner,
             result,
             reason,
             examine_material_name as examineMaterialName,
-            examine_material_ur as examineMaterialUrl,
+            examine_material_url as examineMaterialUrl,
             examine_date as examineDate
         from vul_examine_info
         where vul_id = #{vulId}

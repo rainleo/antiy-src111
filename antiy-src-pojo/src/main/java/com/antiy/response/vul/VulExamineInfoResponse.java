@@ -92,15 +92,11 @@ public class VulExamineInfoResponse {
         this.examineDate = examineDate;
     }
 
-    public VulExamineInfoResponse(Integer id, String vulId, Long examiner, String result, String reason,
-                                  String examineMaterialName, String examineMaterialUrl, Long examineDate) {
-        this.id = id;
-        this.vulId = vulId;
-        this.examiner = examiner;
-        this.result = result;
-        this.reason = reason;
-        this.examineMaterialName = examineMaterialName;
-        this.examineMaterialUrl = examineMaterialUrl;
-        this.examineDate = examineDate;
+    @Override
+    public String toString() {
+        return "VulExamineInfoResponse{" + "id=" + id + ", vulId='" + vulId + '\'' + ", examiner=" + examiner
+               + ", result='" + result + '\'' + ", reason='" + reason + '\'' + ", examineMaterialName='"
+               + examineMaterialName + '\'' + ", examineMaterialUrl='" + examineMaterialUrl + '\'' + ", examineDate="
+               + examineDate + '}';
     }
 }

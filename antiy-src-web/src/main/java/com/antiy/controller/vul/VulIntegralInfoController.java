@@ -30,7 +30,7 @@ public class VulIntegralInfoController {
      * @param vulIntegralInfoRequest
      * @return actionResponse
      */
-    @ApiOperation(value = "保存接口", notes = "传入实体对象信息")
+    @ApiOperation(value = "保存审批信息", notes = "传入实体对象信息")
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
     public ActionResponse saveSingle(@ApiParam(value = "vulIntegralInfo") @RequestBody VulIntegralInfoRequest vulIntegralInfoRequest) throws Exception {
         return ActionResponse.success();

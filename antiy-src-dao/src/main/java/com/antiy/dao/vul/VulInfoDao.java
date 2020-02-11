@@ -29,4 +29,6 @@ public interface VulInfoDao {
     Integer updateSingle(VulInfo vulInfo);
 
     VulInfoResponse queryDetail(@Param("id") Integer id);
+
+    void updateVulStatus(VulInfo v);
 }

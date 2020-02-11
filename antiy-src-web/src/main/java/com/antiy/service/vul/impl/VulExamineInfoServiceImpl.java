@@ -14,6 +14,7 @@ import com.antiy.request.vul.TaskInfoRequest;
 import com.antiy.request.vul.VulExamineInfoRequest;
 import com.antiy.response.vul.VulInfoResponse;
 import com.antiy.service.vul.IVulExamineInfoService;
+import com.antiy.util.LoginUserUtil;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -35,18 +36,22 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
     private VulIntegralInfoDao                           vulIntegralInfoDao;
     @Resource
     private VulInfoDao                                   vulInfoDao;
+    @Resource
+    private LoginUserUtil                                loginUserUtil;
     BaseConverter<VulExamineInfoRequest, VulExamineInfo> baseConverter = new BaseConverter();
 
     @Override
     public void saveSingle(VulExamineInfoRequest vulExamineInfoRequest) {
         VulExamineInfo vulExamineInfo = baseConverter.convert(vulExamineInfoRequest, VulExamineInfo.class);
         vulExamineInfo.setExamineDate(System.currentTimeMillis());
+        vulExamineInfo.setExaminer(loginUserUtil.getUser().getBusinessId());
         // 保存审批信息
         vulExamineInfoDao.saveSingle(vulExamineInfo);
+        //获取漏洞详细信息
+        VulInfoResponse vulInfo = vulInfoDao.queryDetail(vulExamineInfoRequest.getVulId());
         // 审批通过,计算积分
         if (vulExamineInfoRequest.getResult() == 2) {
             // 查询漏洞详细信息用于保存至积分表
-            VulInfoResponse vulInfo = vulInfoDao.queryDetail(vulExamineInfoRequest.getVulId());
             // 积分详细信息
             VulIntegralInfo vulIntegralInfo = new VulIntegralInfo();
             vulIntegralInfo.setTaskId(vulExamineInfo.getTaskId());
@@ -56,13 +61,22 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
             vulIntegralInfo.setVulPort(vulInfo.getVulPort());
             vulIntegralInfo.setIp(vulInfo.getIp());
             vulIntegralInfo.setCommitDate(vulInfo.getCommitDate());
-            vulIntegralInfo.setCommitUser(vulInfo.getCommitUser());
-            vulIntegralInfo.setDepartment(vulInfo.getVulDepartment());
+            vulIntegralInfo.setCommitUser(vulInfo.getCommitUser() == null ? 1 : vulInfo.getCommitUser());
+            vulIntegralInfo.setDepartment(vulInfo.getVulDepartment() == null ? 1 : vulInfo.getVulDepartment());
             vulIntegralInfo.setGrade(
                 getGrade(vulInfo.getEventLevel(), vulInfo.getVulLevel(), vulExamineInfoRequest.getSystemType()));
+            //保存积分
             vulIntegralInfoDao.saveSingle(vulIntegralInfo);
         }
-
+        //漏洞状态
+        VulInfo v = new VulInfo();
+        v.setId(vulInfo.getId());
+        v.setVulStatus(vulExamineInfoRequest.getResult());
+        v.setSystemType(vulExamineInfoRequest.getSystemType());
+        v.setGmtModify(System.currentTimeMillis());
+        v.setModifyUser(loginUserUtil.getUser().getBusinessId());
+        //更新漏洞状态
+        vulInfoDao.updateVulStatus(v);
     }
 
     private static Integer getGrade(String eventLevel, String vulLevel, Integer sysType) {

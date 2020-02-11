@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  * @author lvliang
  * @since 2020-02-06
  */
-@Api(value = "VulExamineInfo", description = "")
+@Api(value = "VulExamineInfo", description = "审批")
 @RestController
 @RequestMapping("/v1/vulexamineinfo")
 public class VulExamineInfoController {

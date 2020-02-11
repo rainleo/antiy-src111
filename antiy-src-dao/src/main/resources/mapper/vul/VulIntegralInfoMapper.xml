@@ -162,7 +162,7 @@
         (
             task_id,
             intergral_event,
-            vul_no,
+            vul_id,
             vul_name,
             ip,
             vul_port,
@@ -175,7 +175,7 @@
         (
             #{taskId },
             #{intergralEvent },
-            #{vulNo },
+            #{vulId },
             #{vulName },
             #{ip },
             #{vulPort },

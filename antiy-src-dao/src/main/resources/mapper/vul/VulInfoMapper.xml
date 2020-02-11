@@ -385,6 +385,9 @@
         where
         id = #{id}
     </update>
+    <update id="updateVulStatus">
+        update vul_info set vul_status = #{vulStatus}, system_type = #{systemType},modify_user = #{modifyUser},gmt_modify=#{gmtModify}
+    </update>
     <!--检查漏洞重复-->
     <select id="checkRepeat" resultType="java.lang.Integer">
         select
@@ -427,15 +430,15 @@
     </select>
     <select id="queryList" resultType="com.antiy.response.vul.VulInfoResponse">
         select
-        id,
-        vul_no as vulNo,
-        vul_name as vulName,
-        vul_status as vulStatus,
-        ip,
+        v.id,
+        v.vul_no as vulNo,
+        v.vul_name as vulName,
+        v.vul_status as vulStatus,
+        v.ip,
         t.task_name as taskName,
-        vul_port as vulPort,
-        vul_address as vul_Address,
-        gmt_create as commitDate
+        v.vul_port as vulPort,
+        v.vul_address as vul_Address,
+        v.gmt_create as commitDate
         from
         vul_info v left join task_info t on v.task_id = t.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
@@ -460,7 +463,7 @@
                 and v.vul_address like concat('%',#{vulAddress},'%')
             </if>
         </trim>
-        order by gmt_create desc
+        order by v.gmt_create desc
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
@@ -478,7 +481,6 @@
             v.vul_desc as vulDesc,
             v.repair_suggest as repairSuggest,
             v.ip,
-            v.task_name as taskName,
             v.task_id as taskId,
             v.vul_port as vulPort,
             v.vul_address as vul_Address,
@@ -487,8 +489,8 @@
         from
             vul_info v left join department d on v.address_owner = d.id
         where
-            id = #{id}
-            and status = 1
+            v.id = #{id}
+            and v.status = 1
     </select>
 
 </mapper>

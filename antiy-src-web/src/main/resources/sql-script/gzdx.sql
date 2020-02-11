@@ -90,7 +90,7 @@ CREATE TABLE `vul_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `vul_integral_info`;
 CREATE TABLE `vul_integral_info`  (
-  `id` int(11) NOT NULL COMMENT '主键',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `task_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '任务id',
   `intergral_event` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '获得积分事项',
   `vul_id` int(11) NOT NULL COMMENT '漏洞id',
@@ -102,8 +102,7 @@ CREATE TABLE `vul_integral_info`  (
   `commit_user` bigint(20) NOT NULL COMMENT '提交人',
   `department` int(11) NOT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;-- ----------------------------
 -- Table structure for department
 -- ----------------------------
 DROP TABLE IF EXISTS `department`;

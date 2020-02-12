@@ -335,6 +335,7 @@
             system_type,
             create_user,
             gmt_create,
+            modify_user,
             status
         )
         values
@@ -358,6 +359,7 @@
             #{systemType },
             #{createUser },
             #{gmtCreate },
+            #{modifyUser},
             #{status }
         )
 

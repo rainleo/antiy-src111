@@ -55,6 +55,7 @@ public class VulInfoServiceImpl implements IVulInfoService {
         vulInfo.setVulDepartment(loginUserUtil.getUser().getDepartmentId());
         vulInfo.setCreateUser(loginUserUtil.getUser().getBusinessId());
         vulInfo.setGmtCreate(System.currentTimeMillis());
+        vulInfo.setModifyUser(loginUserUtil.getUser().getBusinessId());
         vulInfo.setStatus(1);
         vulInfoDao.saveSingle(vulInfo);
         // 更新编号

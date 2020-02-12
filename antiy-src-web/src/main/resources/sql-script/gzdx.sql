@@ -14,6 +14,12 @@
  Date: 10/02/2020 13:53:10
 */
 
+CREATE  database
+IF NOT  EXISTS  `gzdx` DEFAULT  CHARACTER
+SET utf8mb4 COLLATE  utf8mb4_unicode_ci;
+
+use gzdx ;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -36,7 +42,7 @@ CREATE TABLE `task_info`  (
   `status` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_name_type`(`task_name`, `task_type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB COMMENT = '任务表';
 
 -- ----------------------------
 -- Table structure for vul_examine_info
@@ -52,7 +58,7 @@ CREATE TABLE `vul_examine_info`  (
   `examine_material_url` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审批材料url',
   `examine_date` bigint(20) DEFAULT NULL COMMENT '审批日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB COMMENT = '审批表' ;
 -- ----------------------------
 -- Table structure for vul_info
 -- ----------------------------
@@ -83,7 +89,7 @@ CREATE TABLE `vul_info`  (
   `gmt_modify` bigint(20) DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1 COMMENT '0删除1正常',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB COMMENT = '漏洞信息';
 
 -- ----------------------------
 -- Table structure for vul_integral_info
@@ -102,7 +108,7 @@ CREATE TABLE `vul_integral_info`  (
   `commit_user` bigint(20) NOT NULL COMMENT '提交人',
   `department` int(11) NOT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB COMMENT = '漏洞积分';
 -- Table structure for department
 -- ----------------------------
 DROP TABLE IF EXISTS `department`;
@@ -110,7 +116,7 @@ CREATE TABLE `department`  (
   `id` int(11) NOT NULL COMMENT '主键',
   `name` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '部门名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB COMMENT = '部门表' ;
 
 -- ----------------------------
 -- Records of department
@@ -155,7 +161,7 @@ CREATE TABLE `menu`  (
   `tag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '菜单标识',
   `type` tinyint(1) NULL DEFAULT NULL COMMENT '菜单类型 1、菜单 2、按钮',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  COMMENT = '菜单表' ;
 
 -- ----------------------------
 -- Records of menu
@@ -190,7 +196,7 @@ CREATE TABLE `role`  (
   `tag` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '角色标识',
   `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  COMMENT = '角色表' ;
 
 -- ----------------------------
 -- Records of role
@@ -208,7 +214,7 @@ CREATE TABLE `role_menu`  (
   `role_id` int(11) NOT NULL COMMENT '角色id',
   `menu_id` int(11) NOT NULL COMMENT '菜单id',
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色菜单关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  COMMENT = '角色菜单关系表' ;
 
 -- ----------------------------
 -- Records of role_menu
@@ -286,7 +292,7 @@ CREATE TABLE `user`  (
   `modified_user` int(11) NULL DEFAULT NULL COMMENT '修改用户',
   `gmt_modified` bigint(20) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  COMMENT = '用户表' ;
 
 -- ----------------------------
 -- Records of user
@@ -301,7 +307,7 @@ CREATE TABLE `user_role`  (
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
   `role_id` int(11) NOT NULL COMMENT '角色id',
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户角色关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  COMMENT = '用户角色关系表' ;
 
 -- ----------------------------
 -- Records of user_role

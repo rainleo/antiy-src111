@@ -4,6 +4,8 @@ import com.antiy.exception.RequestParamValidateException;
 import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Pattern;
+
 /**
  * <p> VulInfoRequest 请求对象 </p>
  *
@@ -23,6 +25,7 @@ public class VulInfoRequest implements ObjectValidator {
     @ApiModelProperty("1.扫雷,2.排雷")
     private Integer type;
     @ApiModelProperty("IP地址")
+    @Pattern(regexp = "(([0,1]?\\d?\\d|2[0-4]\\d|25[0-5])\\.){3}([0,1]?\\d?\\d|2[0-4]\\d|25[0-5])", message = "IP格式错误")
     private String  ip;
     @ApiModelProperty("漏洞端口")
     private Integer vulPort;

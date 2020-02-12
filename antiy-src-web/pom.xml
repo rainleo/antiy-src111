@@ -130,7 +130,7 @@
 
     </dependencies>
     <build>
-        <finalName>kbms-web-1.01-SNAPSHOT</finalName>
+        <finalName>src-web-1.01-SNAPSHOT</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

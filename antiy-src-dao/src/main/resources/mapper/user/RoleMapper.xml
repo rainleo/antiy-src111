@@ -134,4 +134,8 @@
     <insert id="saveUserRole" parameterType="map">
         insert into user_role(user_id, role_id) values (#{userId}, #{roleId});
     </insert>
+    <select id="findRole" resultType="com.antiy.entity.user.Role">
+        select id,name,tag,description from role r join user_role ur on r.id = ur.role_id where
+         ur.user_id = #{userId}
+    </select>
 </mapper>

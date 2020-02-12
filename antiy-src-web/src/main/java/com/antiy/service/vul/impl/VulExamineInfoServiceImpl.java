@@ -124,7 +124,16 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
         }
         // 漏洞整治/排雷
         else if (vulType == 2) {
-
+            switch (vl) {
+                // 高危
+                case 1:
+                    result = vulDepartment == commitDepartment ? (int) (70 * xishu) : (int) (80 * xishu);
+                    break;
+                // 低危
+                case 2:
+                    result = vulDepartment == commitDepartment ? (int) (50 * xishu) : (int) (60 * xishu);
+                    break;
+            }
         }
 
         return result;

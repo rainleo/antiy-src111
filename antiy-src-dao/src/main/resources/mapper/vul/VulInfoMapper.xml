@@ -335,6 +335,7 @@
             system_type,
             create_user,
             gmt_create,
+            modify_user,
             status
         )
         values
@@ -358,6 +359,7 @@
             #{systemType },
             #{createUser },
             #{gmtCreate },
+            #{modifyUser},
             #{status }
         )
 
@@ -491,9 +493,11 @@
             v.vul_no as vulNo,
             v.vul_name as vulName,
             v.vul_status as vulStatus,
-            d.name as addressOwner,
+            v.address_owner as addressOwner,
+            d.name as addressOwnerName,
             v.vul_type as vulType,
             v.type,
+            v.vul_department as vulDepartment,
             v.event_level as eventLevel,
             v.vul_level as vulLevel,
             v.vul_desc as vulDesc,
@@ -501,7 +505,7 @@
             v.ip,
             v.task_id as taskId,
             v.vul_port as vulPort,
-            v.vul_address as vul_Address,
+            v.vul_address as vulAddress,
             v.create_user as commitUser,
             v.gmt_create as commitDate
         from

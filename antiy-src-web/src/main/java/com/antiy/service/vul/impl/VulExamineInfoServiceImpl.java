@@ -80,7 +80,18 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
         vulInfoDao.updateVulStatus(v);
     }
 
-    private static Integer getGrade(String eventLevel, String vulLevel, Integer sysType, Integer vulType, Integer vulDepartment, Integer commitDepartment) {
+    /**
+     * 
+     * @param eventLevel 事件等级
+     * @param vulLevel 漏洞等级
+     * @param sysType 系统属性
+     * @param vulType 漏洞类型
+     * @param vulDepartment 漏洞归属部门
+     * @param commitDepartment 提交人归属部门
+     * @return
+     */
+    private static Integer getGrade(String eventLevel, String vulLevel, Integer sysType, Integer vulType,
+                                    Integer vulDepartment, Integer commitDepartment) {
         // 漏洞等级
         Integer vl = VulLevelEnum.getCode(vulLevel);
         Integer result = 0;
@@ -98,7 +109,7 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
         } else if ("D".equals(eventLevel)) {
             xishu = 0.5f;
         }
-        //漏洞挖掘/扫雷
+        // 漏洞挖掘/扫雷
         if (vulType == 1) {
             switch (vl) {
                 // 高危
@@ -111,7 +122,7 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
                     break;
             }
         }
-        //漏洞整治/排雷
+        // 漏洞整治/排雷
         else if (vulType == 2) {
 
         }

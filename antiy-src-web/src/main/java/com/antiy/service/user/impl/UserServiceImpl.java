@@ -7,26 +7,36 @@ import com.antiy.common.utils.LogUtils;
 import com.antiy.consts.UserConstant;
 import com.antiy.dao.user.RoleDao;
 import com.antiy.dao.user.UserDao;
+import com.antiy.dao.vul.VulInfoDao;
+import com.antiy.dao.vul.VulIntegralInfoDao;
 import com.antiy.entity.user.Department;
 import com.antiy.entity.user.LoginUser;
 import com.antiy.entity.user.User;
+import com.antiy.entity.vul.VulIntegralInfo;
 import com.antiy.exception.BusinessException;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.BussinessIdRequest;
 import com.antiy.request.user.UserRequest;
+import com.antiy.response.user.PersonalScoreResponse;
 import com.antiy.response.user.UserResponse;
+import com.antiy.response.vul.ScoreTop10;
+import com.antiy.response.vul.VulIntegralInfoResponse;
 import com.antiy.service.user.IUserService;
+import com.antiy.util.DateUtil;
 import com.antiy.util.LoginUserUtil;
 import com.antiy.util.SnowFlake;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.LongStream;
 
 /**
  * <p>
@@ -46,9 +56,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Resource
     private RoleDao roleDao;
     @Resource
+    private VulIntegralInfoDao vulIntegralInfoDao;
+    @Resource
+    private VulInfoDao vulInfoDao;
+    @Resource
     private BaseConverter<UserRequest, User> requestConverter;
     @Resource
     private BaseConverter<User, UserResponse> responseConverter;
+    @Resource
+    private BaseConverter<VulIntegralInfo, VulIntegralInfoResponse> vulIntegralInfoResponseConverter;
     @Autowired
     private LoginUserUtil loginUserUtil = new LoginUserUtil();
 
@@ -145,5 +161,65 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Override
     public List<Department> getDepartmentList() {
         return userDao.getDepartmentList();
+    }
+
+    @Override
+    public PersonalScoreResponse getScore() {
+        LoginUser user = loginUserUtil.getUser();
+        long userId = user.getBusinessId();
+        List<VulIntegralInfo> userScores = vulIntegralInfoDao.getScoreOfUser(userId);
+        Long total = 0L;
+        List<VulIntegralInfoResponse> responses = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(userScores)) {
+            LongStream stream = userScores.stream().mapToLong(e -> e.getGrade());
+            total = stream.sum();
+             responses = vulIntegralInfoResponseConverter.convert(userScores, VulIntegralInfoResponse.class);
+        }
+        PersonalScoreResponse response = new PersonalScoreResponse();
+        response.setTotalScore(total);
+        response.setDetails(responses);
+        return response;
+    }
+
+    @Override
+    public List<ScoreTop10> userScoreTop10() {
+        long start = DateUtil.getBefore30Day();
+        long end = DateUtil.getToday235959();
+        return vulIntegralInfoDao.getPersonalTop10(start, end);
+    }
+
+    @Override
+    public List<ScoreTop10> departmentScoreTop10() {
+        long start = DateUtil.getBefore30Day();
+        long end = DateUtil.getToday235959();
+        return vulIntegralInfoDao.getDepartmentTop10(start, end);
+    }
+
+    @Override
+    public Map<String, Integer> vulSubmitTrend() {
+        long start = DateUtil.getBefore30Day();
+        long end = DateUtil.getToday235959();
+        Map<String, Integer> last30DayMap = DateUtil.getLast30DayMap();
+        List<Map<String, Object>> data = vulInfoDao.getVulSubmitTrend(start, end);
+        if (CollectionUtils.isNotEmpty(data)) {
+            for (Map<String, Object> en : data) {
+                last30DayMap.put(en.get("days").toString(), ((Long)en.get("num")).intValue());
+            }
+        }
+        return last30DayMap;
+    }
+
+    @Override
+    public Map<String, Integer> vulRepairTrend() {
+        long start = DateUtil.getBefore30Day();
+        long end = DateUtil.getToday235959();
+        Map<String, Integer> last30DayMap = DateUtil.getLast30DayMap();
+        List<Map<String, Object>> data = vulInfoDao.getVulRepairTrend(start, end);
+        if (CollectionUtils.isNotEmpty(data)) {
+            for (Map<String, Object> en : data) {
+                last30DayMap.put(en.get("days").toString(), ((Long)en.get("num")).intValue());
+            }
+        }
+        return last30DayMap;
     }
 }

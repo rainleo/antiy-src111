@@ -7,9 +7,12 @@ import com.antiy.entity.user.User;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.BussinessIdRequest;
 import com.antiy.request.user.UserRequest;
+import com.antiy.response.user.PersonalScoreResponse;
 import com.antiy.response.user.UserResponse;
+import com.antiy.response.vul.ScoreTop10;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -97,4 +100,17 @@ public interface IUserService extends IBaseService<User> {
      */
     List<Department> getDepartmentList();
 
+    /**
+     * 个人积分信息获取
+     * @return
+     */
+    PersonalScoreResponse getScore();
+
+    public List<ScoreTop10> userScoreTop10();
+
+    public List<ScoreTop10> departmentScoreTop10();
+
+    public Map<String, Integer> vulSubmitTrend();
+
+    public Map<String, Integer> vulRepairTrend();
 }

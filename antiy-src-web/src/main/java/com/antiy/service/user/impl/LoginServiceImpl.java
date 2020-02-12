@@ -6,9 +6,11 @@ import com.antiy.common.utils.AesEncryptUtil;
 import com.antiy.common.utils.LogUtils;
 import com.antiy.consts.UserConstant;
 import com.antiy.dao.user.MenuDao;
+import com.antiy.dao.user.RoleDao;
 import com.antiy.dao.user.UserDao;
 import com.antiy.entity.user.LoginUser;
 import com.antiy.entity.user.NullUser;
+import com.antiy.entity.user.Role;
 import com.antiy.entity.user.User;
 import com.antiy.enums.user.UserStatus;
 import com.antiy.response.user.UserBasicResponse;
@@ -40,11 +42,14 @@ public class LoginServiceImpl implements ILoginService {
     @Resource
     private MenuDao menuDao;
     @Resource
+    private RoleDao roleDao;
+    @Resource
     private MapUtil<String, Object> mapUtil;
     @Resource
     private JwtUtil jwtUtil;
     @Resource
     private LoginUserUtil loginUserUtil;
+
 
     @Override
     public ActionResponse login(User user) {
@@ -101,6 +106,9 @@ public class LoginServiceImpl implements ILoginService {
             userDao.update(currentUser);
             Map<String, Object> result = mapUtil.getMap("token", token);
             UserBasicResponse userResponse = new UserBasicResponse();
+            Role role = roleDao.findRole(currentUser.getBusinessId());
+            userResponse.setRoleId(role.getId());
+            userResponse.setRoleName(role.getName());
             BeanUtils.copyProperties(currentUser, userResponse);
             List<String> menus = menuDao.findMenusOfUser(currentUser.getBusinessId());
             userResponse.setMenus(menus);

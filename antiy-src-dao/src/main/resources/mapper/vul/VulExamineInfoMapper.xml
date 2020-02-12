@@ -143,16 +143,18 @@
     </insert>
     <select id="queryList" resultType="com.antiy.response.vul.VulExamineInfoResponse">
         select
-            id,
-            vul_id as vulId,
-            examiner,
-            result,
-            reason,
-            examine_material_name as examineMaterialName,
-            examine_material_url as examineMaterialUrl,
-            examine_date as examineDate
-        from vul_examine_info
+            v.id,
+            v.vul_id as vulId,
+            v.examiner,
+            u.username as examinerName,
+            v.result,
+            v.reason,
+            v.examine_material_name as examineMaterialName,
+            v.examine_material_url as examineMaterialUrl,
+            v.examine_date as examineDate
+        from vul_examine_info v left join user u on v.examiner = u.business_id
         where vul_id = #{vulId}
+        order by v.examine_date desc
     </select>
 
 </mapper>

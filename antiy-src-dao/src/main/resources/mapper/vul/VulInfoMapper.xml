@@ -451,10 +451,13 @@
         v.vul_address as vul_Address,
         v.gmt_create as commitDate,
         d.id as department,
-        d.name as departmentName
+        d.name as departmentName,
+        v.modify_user as commitUser,
+        u.username as commitUserName
         from
         vul_info v left join task_info t on v.task_id = t.id
         left join department d on v.vul_department = d.id
+        left join user u on v.modify_user = u.business_id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1
             and v.type = #{type}

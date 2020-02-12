@@ -17,6 +17,8 @@ public class VulExamineInfoResponse {
     private String  vulId;
     @ApiModelProperty("审批人")
     private Long    examiner;
+    @ApiModelProperty("审批人名称")
+    private String  examinerName;
     @ApiModelProperty("审批意见")
     private String  result;
     @ApiModelProperty("审核利用")
@@ -50,6 +52,14 @@ public class VulExamineInfoResponse {
 
     public void setExaminer(Long examiner) {
         this.examiner = examiner;
+    }
+
+    public String getExaminerName() {
+        return examinerName;
+    }
+
+    public void setExaminerName(String examinerName) {
+        this.examinerName = examinerName;
     }
 
     public String getResult() {
@@ -95,8 +105,8 @@ public class VulExamineInfoResponse {
     @Override
     public String toString() {
         return "VulExamineInfoResponse{" + "id=" + id + ", vulId='" + vulId + '\'' + ", examiner=" + examiner
-               + ", result='" + result + '\'' + ", reason='" + reason + '\'' + ", examineMaterialName='"
-               + examineMaterialName + '\'' + ", examineMaterialUrl='" + examineMaterialUrl + '\'' + ", examineDate="
-               + examineDate + '}';
+               + ", examinerName='" + examinerName + '\'' + ", result='" + result + '\'' + ", reason='" + reason + '\''
+               + ", examineMaterialName='" + examineMaterialName + '\'' + ", examineMaterialUrl='" + examineMaterialUrl
+               + '\'' + ", examineDate=" + examineDate + '}';
     }
 }

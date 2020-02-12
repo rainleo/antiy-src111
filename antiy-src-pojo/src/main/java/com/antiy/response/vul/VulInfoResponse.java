@@ -32,6 +32,8 @@ public class VulInfoResponse {
     private Integer taskId;
     @ApiModelProperty("提交人")
     private Long    commitUser;
+    @ApiModelProperty("提交人名称")
+    private String  commitUserName;
     @ApiModelProperty("提交日期")
     private Long    commitDate;
     @ApiModelProperty("漏洞提交人所属部门")
@@ -59,6 +61,14 @@ public class VulInfoResponse {
 
     public void setVulDepartment(Integer vulDepartment) {
         this.vulDepartment = vulDepartment;
+    }
+
+    public String getCommitUserName() {
+        return commitUserName;
+    }
+
+    public void setCommitUserName(String commitUserName) {
+        this.commitUserName = commitUserName;
     }
 
     public Integer getTaskId() {
@@ -211,5 +221,17 @@ public class VulInfoResponse {
 
     public void setCommitDate(Long commitDate) {
         this.commitDate = commitDate;
+    }
+
+    @Override
+    public String toString() {
+        return "VulInfoResponse{" + "id=" + id + ", vulNo='" + vulNo + '\'' + ", vulName='" + vulName + '\'' + ", ip='"
+               + ip + '\'' + ", vulPort=" + vulPort + ", vulAddress='" + vulAddress + '\'' + ", vulStatus='" + vulStatus
+               + '\'' + ", taskName='" + taskName + '\'' + ", taskId=" + taskId + ", commitUser=" + commitUser
+               + ", commitUserName='" + commitUserName + '\'' + ", commitDate=" + commitDate + ", vulDepartment="
+               + vulDepartment + ", addressOwner='" + addressOwner + '\'' + ", vulType='" + vulType + '\''
+               + ", eventLevel='" + eventLevel + '\'' + ", vulLevel='" + vulLevel + '\'' + ", vulDesc='" + vulDesc
+               + '\'' + ", repairSuggest='" + repairSuggest + '\'' + ", department='" + department + '\''
+               + ", departmentName='" + departmentName + '\'' + '}';
     }
 }

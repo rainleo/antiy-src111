@@ -3,8 +3,10 @@ package com.antiy.service.vul.impl;
 import com.antiy.base.BaseConverter;
 import com.antiy.base.PageResult;
 import com.antiy.common.utils.LogUtils;
+import com.antiy.dao.vul.TaskInfoDao;
 import com.antiy.dao.vul.VulExamineInfoDao;
 import com.antiy.dao.vul.VulInfoDao;
+import com.antiy.entity.vul.TaskInfo;
 import com.antiy.entity.vul.VulInfo;
 import com.antiy.enums.user.VulStatusEnum;
 import com.antiy.enums.user.VulTypeEnum;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p> 服务实现类 </p>
@@ -38,17 +41,24 @@ public class VulInfoServiceImpl implements IVulInfoService {
     @Resource
     private VulInfoDao                             vulInfoDao;
     @Resource
+    private TaskInfoDao                            taskInfoDao;
+    @Resource
     private VulExamineInfoDao                      vulExamineInfoDao;
     private BaseConverter<VulInfoRequest, VulInfo> baseConverter = new BaseConverter();
 
     @Override
     public void saveSingle(VulInfoRequest vulInfoRequest) {
+        // 检查任务是否已经过期
+        TaskInfo taskInfo = taskInfoDao.queryById(vulInfoRequest.getTaskId());
+        if (Objects.isNull(taskInfo) || taskInfo.getEndTime() < System.currentTimeMillis()) {
+            BusinessExceptionUtils.isTrue(false, "任务不存在或已过期,提交失败");
+        }
         // 检查漏洞是否存在
         Integer count = vulInfoDao.checkRepeat(vulInfoRequest.getVulName(), vulInfoRequest.getVulType(),
             vulInfoRequest.getVulAddress());
         if (count > 0) {
             logger.info("漏洞已存在");
-            BusinessExceptionUtils.isTrue(false, "该漏洞已存在");
+            BusinessExceptionUtils.isTrue(false, "该漏洞已存在,提交失败");
         }
         VulInfo vulInfo = baseConverter.convert(vulInfoRequest, VulInfo.class);
         vulInfo.setVulStatus(VulStatusEnum.WAIT_EXAMINE.getCode());

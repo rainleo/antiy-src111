@@ -1,6 +1,6 @@
 package com.antiy.request.vul;
 
-
+import com.antiy.exception.BusinessException;
 import com.antiy.exception.RequestParamValidateException;
 import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,9 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * <p>
- * TaskInfoRequest 请求对象
- * </p>
+ * <p> TaskInfoRequest 请求对象 </p>
  *
  * @author lvliang
  * @since 2020-02-06
@@ -19,12 +17,12 @@ import javax.validation.constraints.NotNull;
 
 public class TaskInfoRequest implements ObjectValidator {
 
-    @ApiModelProperty("id,修改是需传入")
+    @ApiModelProperty("id,修改时需传入")
     private Integer id;
 
     @ApiModelProperty("任务名")
     @NotBlank(message = "任务名不能为空")
-    private String taskName;
+    private String  taskName;
     /**
      * 1.排雷2.扫雷
      */
@@ -33,10 +31,10 @@ public class TaskInfoRequest implements ObjectValidator {
     private Integer taskType;
     @NotNull(message = "开始时间不能为空")
     @ApiModelProperty("开始时间")
-    private Long startTime;
+    private Long    startTime;
     @NotNull(message = "结束时间不能为空")
     @ApiModelProperty("结束时间")
-    private Long endTime;
+    private Long    endTime;
 
     public Integer getId() {
         return id;
@@ -80,17 +78,15 @@ public class TaskInfoRequest implements ObjectValidator {
 
     @Override
     public String toString() {
-        return "TaskInfoRequest{" +
-                "taskName='" + taskName + '\'' +
-                ", taskType=" + taskType +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                '}';
+        return "TaskInfoRequest{" + "taskName='" + taskName + '\'' + ", taskType=" + taskType + ", startTime="
+               + startTime + ", endTime=" + endTime + '}';
     }
 
     @Override
     public void validate() throws RequestParamValidateException {
-
+        if (startTime >= endTime) {
+            throw new BusinessException("结束日期必须大于开始日期");
+        }
     }
 
 }

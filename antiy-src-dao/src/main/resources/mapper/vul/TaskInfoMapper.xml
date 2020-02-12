@@ -175,25 +175,25 @@
         insert into
         <include refid="Table_Name"/>
         (
-            task_name,
-            task_type,
-            task_no,
-            start_time,
-            end_time,
-            create_user,
-            gmt_create,
-            status
+        task_name,
+        task_type,
+        task_no,
+        start_time,
+        end_time,
+        create_user,
+        gmt_create,
+        status
         )
         values
         (
-            #{taskName },
-            #{taskType },
-            #{taskNo },
-            #{startTime },
-            #{endTime },
-            #{createUser },
-            #{gmtCreate },
-            #{status }
+        #{taskName },
+        #{taskType },
+        #{taskNo },
+        #{startTime },
+        #{endTime },
+        #{createUser },
+        #{gmtCreate },
+        #{status }
         )
     </insert>
     <update id="updateSingle" parameterType="com.antiy.entity.vul.TaskInfo">
@@ -222,6 +222,7 @@
         from
         task_info
         where id = #{id}
+        and status = 1
     </select>
     <select id="queryCount" resultType="java.lang.Integer">
         select count(1) from task_info

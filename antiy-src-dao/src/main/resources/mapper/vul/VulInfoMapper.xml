@@ -432,12 +432,11 @@
                 and v.address_owner = #{addressOwner}
             </if>
             <if test="commitUser != null">
-                and v.create_user = #{commitUser}
+                and v.modify_user = #{commitUser}
             </if>
             <if test="commitDept != null">
                 and v.vul_department = #{commitDept}
             </if>
-
         </trim>
     </select>
     <select id="queryList" resultType="com.antiy.response.vul.VulInfoResponse">
@@ -480,6 +479,15 @@
             </if>
             <if test="vulAddress != null and vulAddress != ''">
                 and v.vul_address like concat('%',#{vulAddress},'%')
+            </if>
+            <if test="addressOwner != null">
+                and v.address_owner = #{addressOwner}
+            </if>
+            <if test="commitUser != null">
+                and v.modify_user = #{commitUser}
+            </if>
+            <if test="commitDept != null">
+                and v.vul_department = #{commitDept}
             </if>
         </trim>
         order by v.gmt_create desc

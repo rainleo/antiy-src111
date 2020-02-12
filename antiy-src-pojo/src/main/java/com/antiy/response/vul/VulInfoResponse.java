@@ -42,6 +42,8 @@ public class VulInfoResponse {
     private Integer vulDepartment;
     @ApiModelProperty("地址归属单位")
     private Integer addressOwner;
+    @ApiModelProperty("地址归属单位名称")
+    private String  addressOwnerName;
     @ApiModelProperty("漏洞类型")
     private String  vulType;
     @ApiModelProperty("事件等级")
@@ -56,6 +58,14 @@ public class VulInfoResponse {
     private Integer department;
     @ApiModelProperty("部门名")
     private String  departmentName;
+
+    public String getAddressOwnerName() {
+        return addressOwnerName;
+    }
+
+    public void setAddressOwnerName(String addressOwnerName) {
+        this.addressOwnerName = addressOwnerName;
+    }
 
     public Integer getType() {
         return type;
@@ -239,9 +249,10 @@ public class VulInfoResponse {
                + ip + '\'' + ", vulPort=" + vulPort + ", type=" + type + ", vulAddress='" + vulAddress + '\''
                + ", vulStatus='" + vulStatus + '\'' + ", taskName='" + taskName + '\'' + ", taskId=" + taskId
                + ", commitUser=" + commitUser + ", commitUserName='" + commitUserName + '\'' + ", commitDate="
-               + commitDate + ", vulDepartment=" + vulDepartment + ", addressOwner='" + addressOwner + '\''
-               + ", vulType='" + vulType + '\'' + ", eventLevel='" + eventLevel + '\'' + ", vulLevel='" + vulLevel
-               + '\'' + ", vulDesc='" + vulDesc + '\'' + ", repairSuggest='" + repairSuggest + '\'' + ", department='"
-               + department + '\'' + ", departmentName='" + departmentName + '\'' + '}';
+               + commitDate + ", vulDepartment=" + vulDepartment + ", addressOwner=" + addressOwner
+               + ", addressOwnerName='" + addressOwnerName + '\'' + ", vulType='" + vulType + '\'' + ", eventLevel='"
+               + eventLevel + '\'' + ", vulLevel='" + vulLevel + '\'' + ", vulDesc='" + vulDesc + '\''
+               + ", repairSuggest='" + repairSuggest + '\'' + ", department=" + department + ", departmentName='"
+               + departmentName + '\'' + '}';
     }
 }

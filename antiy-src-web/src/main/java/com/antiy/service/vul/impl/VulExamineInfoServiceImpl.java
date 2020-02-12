@@ -47,7 +47,7 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
         vulExamineInfo.setExaminer(loginUserUtil.getUser().getBusinessId());
         // 保存审批信息
         vulExamineInfoDao.saveSingle(vulExamineInfo);
-        //获取漏洞详细信息
+        // 获取漏洞详细信息
         VulInfoResponse vulInfo = vulInfoDao.queryDetail(vulExamineInfoRequest.getVulId());
         // 审批通过,计算积分
         if (vulExamineInfoRequest.getResult() == 2) {
@@ -64,25 +64,28 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
             vulIntegralInfo.setCommitUser(vulInfo.getCommitUser() == null ? 1 : vulInfo.getCommitUser());
             vulIntegralInfo.setDepartment(vulInfo.getVulDepartment() == null ? 1 : vulInfo.getVulDepartment());
             vulIntegralInfo.setGrade(
-                getGrade(vulInfo.getEventLevel(), vulInfo.getVulLevel(), vulExamineInfoRequest.getSystemType()));
-            //保存积分
+                getGrade(vulInfo.getEventLevel(), vulInfo.getVulLevel(), vulExamineInfoRequest.getSystemType(),
+                    vulInfo.getType(), vulInfo.getAddressOwner(), vulInfo.getVulDepartment()));
+            // 保存积分
             vulIntegralInfoDao.saveSingle(vulIntegralInfo);
         }
-        //漏洞状态
+        // 漏洞状态
         VulInfo v = new VulInfo();
         v.setId(vulInfo.getId());
         v.setVulStatus(vulExamineInfoRequest.getResult());
         v.setSystemType(vulExamineInfoRequest.getSystemType());
         v.setGmtModify(System.currentTimeMillis());
         v.setModifyUser(loginUserUtil.getUser().getBusinessId());
-        //更新漏洞状态
+        // 更新漏洞状态
         vulInfoDao.updateVulStatus(v);
     }
 
-    private static Integer getGrade(String eventLevel, String vulLevel, Integer sysType) {
+    private static Integer getGrade(String eventLevel, String vulLevel, Integer sysType, Integer vulType, Integer vulDepartment, Integer commitDepartment) {
         // 漏洞等级
         Integer vl = VulLevelEnum.getCode(vulLevel);
         Integer result = 0;
+        Integer base = 0;
+        // 系数
         float xishu = 0;
         // 获取最高事件等级
         eventLevel = eventLevel.split("-")[0];
@@ -95,14 +98,24 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
         } else if ("D".equals(eventLevel)) {
             xishu = 0.5f;
         }
-        switch (vl) {
-            case 1:
-                result = sysType == 2 ? (int) (500 * xishu) : (int) (200 * xishu);
-                break;
-            case 2:
-                result = sysType == 2 ? (int) (400 * xishu) : (int) (100 * xishu);
-                break;
+        //漏洞挖掘/扫雷
+        if (vulType == 1) {
+            switch (vl) {
+                // 高危
+                case 1:
+                    result = sysType == 2 ? (int) (500 * xishu) : (int) (200 * xishu);
+                    break;
+                // 低危
+                case 2:
+                    result = sysType == 2 ? (int) (400 * xishu) : (int) (100 * xishu);
+                    break;
+            }
         }
+        //漏洞整治/排雷
+        else if (vulType == 2) {
+
+        }
+
         return result;
     }
 }

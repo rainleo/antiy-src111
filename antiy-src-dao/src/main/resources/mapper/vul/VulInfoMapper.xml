@@ -493,6 +493,7 @@
             v.vul_status as vulStatus,
             d.name as addressOwner,
             v.vul_type as vulType,
+            v.type,
             v.event_level as eventLevel,
             v.vul_level as vulLevel,
             v.vul_desc as vulDesc,

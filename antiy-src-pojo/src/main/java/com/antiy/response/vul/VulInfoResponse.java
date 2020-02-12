@@ -22,6 +22,8 @@ public class VulInfoResponse {
     private String  ip;
     @ApiModelProperty("漏洞端口")
     private Integer vulPort;
+    @ApiModelProperty("扫雷/排,1.扫雷,2.排雷")
+    private Integer type;
     @ApiModelProperty("漏洞地址")
     private String  vulAddress;
     @ApiModelProperty("漏洞状态")
@@ -39,7 +41,7 @@ public class VulInfoResponse {
     @ApiModelProperty("漏洞提交人所属部门")
     private Integer vulDepartment;
     @ApiModelProperty("地址归属单位")
-    private String  addressOwner;
+    private Integer addressOwner;
     @ApiModelProperty("漏洞类型")
     private String  vulType;
     @ApiModelProperty("事件等级")
@@ -51,9 +53,17 @@ public class VulInfoResponse {
     @ApiModelProperty("修复建议")
     private String  repairSuggest;
     @ApiModelProperty("部门")
-    private String  department;
+    private Integer department;
     @ApiModelProperty("部门名")
     private String  departmentName;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public Integer getVulDepartment() {
         return vulDepartment;
@@ -73,14 +83,6 @@ public class VulInfoResponse {
 
     public Integer getTaskId() {
         return taskId;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
     }
 
     public String getDepartmentName() {
@@ -103,11 +105,19 @@ public class VulInfoResponse {
         this.commitUser = commitUser;
     }
 
-    public String getAddressOwner() {
+    public Integer getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Integer department) {
+        this.department = department;
+    }
+
+    public Integer getAddressOwner() {
         return addressOwner;
     }
 
-    public void setAddressOwner(String addressOwner) {
+    public void setAddressOwner(Integer addressOwner) {
         this.addressOwner = addressOwner;
     }
 
@@ -226,12 +236,12 @@ public class VulInfoResponse {
     @Override
     public String toString() {
         return "VulInfoResponse{" + "id=" + id + ", vulNo='" + vulNo + '\'' + ", vulName='" + vulName + '\'' + ", ip='"
-               + ip + '\'' + ", vulPort=" + vulPort + ", vulAddress='" + vulAddress + '\'' + ", vulStatus='" + vulStatus
-               + '\'' + ", taskName='" + taskName + '\'' + ", taskId=" + taskId + ", commitUser=" + commitUser
-               + ", commitUserName='" + commitUserName + '\'' + ", commitDate=" + commitDate + ", vulDepartment="
-               + vulDepartment + ", addressOwner='" + addressOwner + '\'' + ", vulType='" + vulType + '\''
-               + ", eventLevel='" + eventLevel + '\'' + ", vulLevel='" + vulLevel + '\'' + ", vulDesc='" + vulDesc
-               + '\'' + ", repairSuggest='" + repairSuggest + '\'' + ", department='" + department + '\''
-               + ", departmentName='" + departmentName + '\'' + '}';
+               + ip + '\'' + ", vulPort=" + vulPort + ", type=" + type + ", vulAddress='" + vulAddress + '\''
+               + ", vulStatus='" + vulStatus + '\'' + ", taskName='" + taskName + '\'' + ", taskId=" + taskId
+               + ", commitUser=" + commitUser + ", commitUserName='" + commitUserName + '\'' + ", commitDate="
+               + commitDate + ", vulDepartment=" + vulDepartment + ", addressOwner='" + addressOwner + '\''
+               + ", vulType='" + vulType + '\'' + ", eventLevel='" + eventLevel + '\'' + ", vulLevel='" + vulLevel
+               + '\'' + ", vulDesc='" + vulDesc + '\'' + ", repairSuggest='" + repairSuggest + '\'' + ", department='"
+               + department + '\'' + ", departmentName='" + departmentName + '\'' + '}';
     }
 }

@@ -225,7 +225,7 @@
         and status = 1
     </select>
     <select id="queryCount" resultType="java.lang.Integer">
-        select count(1) from task_info
+        select count(1) from task_info where status = 1
     </select>
     <select id="queryList" resultType="com.antiy.entity.vul.TaskInfo">
         select

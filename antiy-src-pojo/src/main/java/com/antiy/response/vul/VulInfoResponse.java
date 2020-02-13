@@ -2,6 +2,7 @@ package com.antiy.response.vul;
 
 import com.antiy.enums.user.VulLevelEnum;
 import com.antiy.enums.user.VulStatusEnum;
+import com.antiy.enums.user.VulTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -28,7 +29,9 @@ public class VulInfoResponse {
     @ApiModelProperty("漏洞地址")
     private String  vulAddress;
     @ApiModelProperty("漏洞状态")
-    private String  vulStatus;
+    private Integer vulStatus;
+    @ApiModelProperty("漏洞状态名称")
+    private String  vulStatusName;
     @ApiModelProperty("任务名称")
     private String  taskName;
     @ApiModelProperty("任务id")
@@ -41,16 +44,22 @@ public class VulInfoResponse {
     private Long    commitDate;
     @ApiModelProperty("漏洞提交人所属部门")
     private Integer vulDepartment;
+    @ApiModelProperty("漏洞提交人所属部门名称")
+    private String  vulDepartmentName;
     @ApiModelProperty("地址归属单位")
     private Integer addressOwner;
     @ApiModelProperty("地址归属单位名称")
     private String  addressOwnerName;
     @ApiModelProperty("漏洞类型")
-    private String  vulType;
+    private Integer vulType;
+    @ApiModelProperty("漏洞类型名称")
+    private String  vulTypeName;
     @ApiModelProperty("事件等级")
     private String  eventLevel;
     @ApiModelProperty("漏洞等级")
-    private String  vulLevel;
+    private Integer vulLevel;
+    @ApiModelProperty("漏洞等级名称")
+    private String  vulLevelName;
     @ApiModelProperty("漏洞描述")
     private String  vulDesc;
     @ApiModelProperty("修复建议")
@@ -59,6 +68,14 @@ public class VulInfoResponse {
     private Integer department;
     @ApiModelProperty("部门名")
     private String  departmentName;
+
+    public String getVulDepartmentName() {
+        return vulDepartmentName;
+    }
+
+    public void setVulDepartmentName(String vulDepartmentName) {
+        this.vulDepartmentName = vulDepartmentName;
+    }
 
     public String getAddressOwnerName() {
         return addressOwnerName;
@@ -132,28 +149,12 @@ public class VulInfoResponse {
         this.addressOwner = addressOwner;
     }
 
-    public String getVulType() {
-        return vulType;
-    }
-
-    public void setVulType(String vulType) {
-        this.vulType = vulType;
-    }
-
     public String getEventLevel() {
         return eventLevel;
     }
 
     public void setEventLevel(String eventLevel) {
         this.eventLevel = eventLevel;
-    }
-
-    public String getVulLevel() {
-        return vulLevel;
-    }
-
-    public void setVulLevel(String vulLevel) {
-        this.vulLevel = VulLevelEnum.getMsg(Integer.parseInt(vulLevel));
     }
 
     public String getVulDesc() {
@@ -220,14 +221,6 @@ public class VulInfoResponse {
         this.vulAddress = vulAddress;
     }
 
-    public String getVulStatus() {
-        return vulStatus;
-    }
-
-    public void setVulStatus(String vulStatus) {
-        this.vulStatus = VulStatusEnum.getMsg(Integer.parseInt(vulStatus));
-    }
-
     public String getTaskName() {
         return taskName;
     }
@@ -242,6 +235,57 @@ public class VulInfoResponse {
 
     public void setCommitDate(Long commitDate) {
         this.commitDate = commitDate;
+    }
+
+    public Integer getVulStatus() {
+        return vulStatus;
+    }
+
+    public void setVulStatus(Integer vulStatus) {
+        this.vulStatus = vulStatus;
+        this.vulStatusName = VulStatusEnum.getMsg(vulStatus);
+    }
+
+    public String getVulStatusName() {
+        return vulStatusName;
+    }
+
+    public void setVulStatusName(String vulStatusName) {
+        this.vulStatusName = VulStatusEnum.getMsg(vulStatus);
+    }
+
+    public Integer getVulType() {
+        return vulType;
+    }
+
+    public void setVulType(Integer vulType) {
+        this.vulType = vulType;
+        this.vulTypeName = VulTypeEnum.getMsg(vulType);
+    }
+
+    public String getVulTypeName() {
+        return vulTypeName;
+    }
+
+    public void setVulTypeName(String vulTypeName) {
+        this.vulTypeName = VulTypeEnum.getMsg(vulType);
+    }
+
+    public Integer getVulLevel() {
+        return vulLevel;
+    }
+
+    public void setVulLevel(Integer vulLevel) {
+        this.vulLevel = vulLevel;
+        this.vulLevelName = VulLevelEnum.getMsg(vulLevel);
+    }
+
+    public String getVulLevelName() {
+        return vulLevelName;
+    }
+
+    public void setVulLevelName(String vulLevelName) {
+        this.vulLevelName = VulLevelEnum.getMsg(vulLevel);
     }
 
     @Override

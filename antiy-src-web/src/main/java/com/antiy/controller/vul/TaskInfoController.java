@@ -1,15 +1,14 @@
 package com.antiy.controller.vul;
 
 import com.antiy.base.ActionResponse;
+import com.antiy.base.PageResult;
 import com.antiy.query.vul.TaskInfoQuery;
 import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.TaskInfoRequest;
+import com.antiy.response.vul.TaskInfoResponse;
 import com.antiy.service.vul.ITaskInfoService;
 import io.swagger.annotations.*;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -33,6 +32,7 @@ public class TaskInfoController {
      */
     @ApiOperation(value = "保存任务", notes = "传入实体对象信息")
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
+    @ResponseBody
     public ActionResponse saveSingle(@ApiParam(value = "taskInfo") @RequestBody TaskInfoRequest taskInfoRequest) throws Exception {
         iTaskInfoService.saveSingle(taskInfoRequest);
         return ActionResponse.success();
@@ -46,6 +46,7 @@ public class TaskInfoController {
      */
     @ApiOperation(value = "修改任务", notes = "传入实体对象信息")
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
+    @ResponseBody
     public ActionResponse updateSingle(@ApiParam(value = "taskInfo") @RequestBody TaskInfoRequest taskInfoRequest) throws Exception {
         return ActionResponse.success(iTaskInfoService.updateSingle(taskInfoRequest));
     }
@@ -58,6 +59,7 @@ public class TaskInfoController {
      */
     @ApiOperation(value = "删除任务", notes = "传入实体对象信息")
     @RequestMapping(value = "/delete/single", method = RequestMethod.POST)
+    @ResponseBody
     public ActionResponse deleteSingle(@ApiParam(value = "taskInfo") @RequestBody BaseRequest baseRequest) throws Exception {
         iTaskInfoService.deleteSingle(baseRequest.getId());
         return ActionResponse.success();
@@ -71,7 +73,8 @@ public class TaskInfoController {
      */
     @ApiOperation(value = "查询任务", notes = "传入实体对象信息")
     @RequestMapping(value = "/query/list", method = RequestMethod.POST)
-    public ActionResponse queryList(@ApiParam(value = "taskInfo") @RequestBody TaskInfoQuery taskInfoQuery) throws Exception {
+    @ResponseBody
+    public ActionResponse<PageResult<TaskInfoResponse>> queryList(@ApiParam(value = "taskInfo") @RequestBody TaskInfoQuery taskInfoQuery) throws Exception {
         return ActionResponse.success(iTaskInfoService.queryList(taskInfoQuery));
     }
 

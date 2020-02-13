@@ -42,6 +42,16 @@ public class VulInfoQuery extends ObjectQuery {
     @ApiModelProperty("提交人所属部门")
     private Integer commitDept;
 
+    private Long    userId;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public Integer getAddressOwner() {
         return addressOwner;
     }

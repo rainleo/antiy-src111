@@ -368,9 +368,8 @@
         update vul_info set vul_no = #{vulNo} where id = #{id}
     </update>
     <update id="updateSingle" parameterType="com.antiy.entity.vul.VulInfo">
-        update vul_info
+        update vul_info set
             vul_name = #{vulName },
-            type = #{type },
             ip = #{ip },
             vul_port = #{vulPort },
             vul_address = #{vulAddress },
@@ -437,6 +436,9 @@
             <if test="commitDept != null">
                 and v.vul_department = #{commitDept}
             </if>
+            <if test="userId != null">
+                and create_user = #{userId}
+            </if>
         </trim>
     </select>
     <select id="queryList" resultType="com.antiy.response.vul.VulInfoResponse">
@@ -446,19 +448,23 @@
         v.vul_level as vulLevel,
         v.vul_name as vulName,
         v.vul_status as vulStatus,
+        v.vul_type as vulType,
         v.ip,
         t.task_name as taskName,
         v.vul_port as vulPort,
         v.vul_address as vul_Address,
         v.gmt_create as commitDate,
-        d.id as department,
-        d.name as departmentName,
+        d.id as vulDepartment,
+        d.name as vulDepartmentName,
         v.modify_user as commitUser,
-        u.username as commitUserName
+        u.username as commitUserName,
+        v.address_owner as addressOwner,
+        d.name as addressOwnerName
         from
         vul_info v left join task_info t on v.task_id = t.id
         left join department d on v.vul_department = d.id
         left join user u on v.modify_user = u.business_id
+        left join department d2 on v.address_owner = d2.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1
             and v.type = #{type}
@@ -506,6 +512,7 @@
             v.vul_type as vulType,
             v.type,
             v.vul_department as vulDepartment,
+            d2.name as vulDepartmentName,
             v.event_level as eventLevel,
             v.vul_level as vulLevel,
             v.vul_desc as vulDesc,
@@ -515,9 +522,12 @@
             v.vul_port as vulPort,
             v.vul_address as vulAddress,
             v.create_user as commitUser,
+            u.username as commitUserName,
             v.gmt_create as commitDate
         from
             vul_info v left join department d on v.address_owner = d.id
+            left join user u on v.create_user = u.business_id
+            left join department d2 on v.vul_department = d2.id
         where
             v.id = #{id}
             and v.status = 1

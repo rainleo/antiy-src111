@@ -2,6 +2,7 @@ package com.antiy.response.vul;
 
 import com.antiy.enums.user.VulLevelEnum;
 import com.antiy.enums.user.VulStatusEnum;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -10,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author lvliang
  * @since 2020-02-06
  */
-
+@ApiModel
 public class VulInfoResponse {
     @ApiModelProperty("漏洞id")
     private Integer id;

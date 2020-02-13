@@ -1,6 +1,7 @@
 package com.antiy.response.vul;
 
 import com.antiy.enums.user.ExamineEnum;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -9,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author lvliang
  * @since 2020-02-06
  */
-
+@ApiModel
 public class VulExamineInfoResponse {
     @ApiModelProperty("主键")
     private Integer id;

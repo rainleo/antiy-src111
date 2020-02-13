@@ -1,9 +1,12 @@
 package com.antiy.controller.vul;
 
 import com.antiy.base.ActionResponse;
+import com.antiy.base.PageResult;
 import com.antiy.query.vul.VulInfoQuery;
 import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.VulInfoRequest;
+import com.antiy.response.vul.VulExamineInfoResponse;
+import com.antiy.response.vul.VulInfoResponse;
 import com.antiy.service.vul.IVulInfoService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author lvliang
@@ -48,7 +52,7 @@ public class VulInfoController {
     @ApiOperation(value = "漏洞列表查询", notes = "传入实体对象信息")
     @RequestMapping(value = "/query/list", method = RequestMethod.POST)
     @ResponseBody
-    public ActionResponse queryList(@ApiParam(value = "vulInfo") @RequestBody VulInfoQuery vulInfoQuery) throws Exception {
+    public ActionResponse<PageResult<VulInfoResponse>> queryList(@ApiParam(value = "vulInfo") @RequestBody VulInfoQuery vulInfoQuery) throws Exception {
         return ActionResponse.success(iVulInfoService.queryList(vulInfoQuery));
     }
 
@@ -74,7 +78,7 @@ public class VulInfoController {
     @ApiOperation(value = "漏洞详情", notes = "传入实体对象信息")
     @RequestMapping(value = "/query/detail", method = RequestMethod.POST)
     @ResponseBody
-    public ActionResponse queryDetail(@ApiParam(value = "vulInfo") @RequestBody BaseRequest baseRequest) throws Exception {
+    public ActionResponse<VulInfoResponse> queryDetail(@ApiParam(value = "vulInfo") @RequestBody BaseRequest baseRequest) throws Exception {
         return ActionResponse.success(iVulInfoService.queryDetail(baseRequest.getId()));
     }
 
@@ -87,7 +91,7 @@ public class VulInfoController {
     @ApiOperation(value = "漏洞审批历史", notes = "传入实体对象信息")
     @RequestMapping(value = "/query/examineHistory", method = RequestMethod.POST)
     @ResponseBody
-    public ActionResponse queryExamineHistory(@ApiParam(value = "vulInfo") @RequestBody BaseRequest baseRequest) throws Exception {
+    public ActionResponse<List<VulExamineInfoResponse>> queryExamineHistory(@ApiParam(value = "vulInfo") @RequestBody BaseRequest baseRequest) throws Exception {
         return ActionResponse.success(iVulInfoService.queryExamineHistory(baseRequest.getId()));
     }
 

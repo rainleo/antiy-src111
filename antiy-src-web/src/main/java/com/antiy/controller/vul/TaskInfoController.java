@@ -1,9 +1,11 @@
 package com.antiy.controller.vul;
 
 import com.antiy.base.ActionResponse;
+import com.antiy.base.PageResult;
 import com.antiy.query.vul.TaskInfoQuery;
 import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.TaskInfoRequest;
+import com.antiy.response.vul.TaskInfoResponse;
 import com.antiy.service.vul.ITaskInfoService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +74,7 @@ public class TaskInfoController {
     @ApiOperation(value = "查询任务", notes = "传入实体对象信息")
     @RequestMapping(value = "/query/list", method = RequestMethod.POST)
     @ResponseBody
-    public ActionResponse queryList(@ApiParam(value = "taskInfo") @RequestBody TaskInfoQuery taskInfoQuery) throws Exception {
+    public ActionResponse<PageResult<TaskInfoResponse>> queryList(@ApiParam(value = "taskInfo") @RequestBody TaskInfoQuery taskInfoQuery) throws Exception {
         return ActionResponse.success(iTaskInfoService.queryList(taskInfoQuery));
     }
 

@@ -2,6 +2,7 @@ package com.antiy.controller.vul;
 
 import com.antiy.base.ActionResponse;
 import com.antiy.query.vul.VulInfoQuery;
+import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.VulInfoRequest;
 import com.antiy.service.vul.IVulInfoService;
 import io.swagger.annotations.*;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-
 
 /**
  * @author lvliang
@@ -40,7 +40,7 @@ public class VulInfoController {
     }
 
     /**
-     *  漏洞列表查询
+     * 漏洞列表查询
      *
      * @param vulInfoQuery
      * @return actionResponse
@@ -66,25 +66,25 @@ public class VulInfoController {
     /**
      * 漏洞详情
      *
-     * @param id
+     * @param baseRequest
      * @return actionResponse
      */
     @ApiOperation(value = "漏洞详情", notes = "传入实体对象信息")
     @RequestMapping(value = "/query/detail", method = RequestMethod.POST)
-    public ActionResponse queryDetail(@ApiParam(value = "vulInfo") @RequestBody Integer id) throws Exception {
-        return ActionResponse.success(iVulInfoService.queryDetail(id));
+    public ActionResponse queryDetail(@ApiParam(value = "vulInfo") @RequestBody BaseRequest baseRequest) throws Exception {
+        return ActionResponse.success(iVulInfoService.queryDetail(baseRequest.getId()));
     }
+
     /**
      * 漏洞审批历史
      *
-     * @param id
+     * @param baseRequest
      * @return actionResponse
      */
     @ApiOperation(value = "漏洞审批历史", notes = "传入实体对象信息")
     @RequestMapping(value = "/query/examineHistory", method = RequestMethod.POST)
-    public ActionResponse queryExamineHistory(@ApiParam(value = "vulInfo") @RequestBody Integer id) throws Exception {
-        return ActionResponse.success(iVulInfoService.queryExamineHistory(id));
+    public ActionResponse queryExamineHistory(@ApiParam(value = "vulInfo") @RequestBody BaseRequest baseRequest) throws Exception {
+        return ActionResponse.success(iVulInfoService.queryExamineHistory(baseRequest.getId()));
     }
 
 }
-

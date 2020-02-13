@@ -4,6 +4,7 @@ import com.antiy.base.PageResult;
 import com.antiy.entity.vul.TaskInfo;
 import com.antiy.query.vul.TaskInfoQuery;
 import com.antiy.request.vul.TaskInfoRequest;
+import com.antiy.response.vul.TaskInfoResponse;
 
 /**
  * <p> 服务类 </p>
@@ -38,5 +39,5 @@ public interface ITaskInfoService {
      * @param taskInfoQuery
      * @return
      */
-    PageResult<TaskInfo> queryList(TaskInfoQuery taskInfoQuery);
+    PageResult<TaskInfoResponse> queryList(TaskInfoQuery taskInfoQuery);
 }

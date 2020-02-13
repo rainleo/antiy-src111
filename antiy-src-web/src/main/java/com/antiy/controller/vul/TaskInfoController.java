@@ -2,6 +2,7 @@ package com.antiy.controller.vul;
 
 import com.antiy.base.ActionResponse;
 import com.antiy.query.vul.TaskInfoQuery;
+import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.TaskInfoRequest;
 import com.antiy.service.vul.ITaskInfoService;
 import io.swagger.annotations.*;
@@ -52,13 +53,13 @@ public class TaskInfoController {
     /**
      * 删除
      *
-     * @param id
+     * @param baseRequest
      * @return actionResponse
      */
     @ApiOperation(value = "删除任务", notes = "传入实体对象信息")
     @RequestMapping(value = "/delete/single", method = RequestMethod.POST)
-    public ActionResponse deleteSingle(@ApiParam(value = "taskInfo") @RequestBody Integer id) throws Exception {
-        iTaskInfoService.deleteSingle(id);
+    public ActionResponse deleteSingle(@ApiParam(value = "taskInfo") @RequestBody BaseRequest baseRequest) throws Exception {
+        iTaskInfoService.deleteSingle(baseRequest.getId());
         return ActionResponse.success();
     }
 

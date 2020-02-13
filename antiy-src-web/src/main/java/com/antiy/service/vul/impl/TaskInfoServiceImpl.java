@@ -8,6 +8,7 @@ import com.antiy.entity.user.LoginUser;
 import com.antiy.entity.vul.TaskInfo;
 import com.antiy.query.vul.TaskInfoQuery;
 import com.antiy.request.vul.TaskInfoRequest;
+import com.antiy.response.vul.TaskInfoResponse;
 import com.antiy.service.vul.ITaskInfoService;
 import com.antiy.util.BusinessExceptionUtils;
 import com.antiy.util.LoginUserUtil;
@@ -35,7 +36,7 @@ public class TaskInfoServiceImpl implements ITaskInfoService {
     private TaskInfoDao                      taskInfoDao;
 
     BaseConverter<TaskInfoRequest, TaskInfo> baseConverter = new BaseConverter();
-
+    BaseConverter<TaskInfo, TaskInfoResponse> baseConverter2 = new BaseConverter();
     @Override
     public void saveSingle(TaskInfoRequest taskInfoRequest) {
         TaskInfo taskInfo = baseConverter.convert(taskInfoRequest, TaskInfo.class);
@@ -79,14 +80,15 @@ public class TaskInfoServiceImpl implements ITaskInfoService {
     }
 
     @Override
-    public PageResult<TaskInfo> queryList(TaskInfoQuery taskInfoQuery) {
+    public PageResult<TaskInfoResponse> queryList(TaskInfoQuery taskInfoQuery) {
         Integer count = taskInfoDao.queryCount(taskInfoQuery);
         if (count <= 0) {
             return new PageResult<>(taskInfoQuery.getPageSize(), count, taskInfoQuery.getCurrentPage(),
                 Lists.newArrayList());
         }
         List<TaskInfo> taskInfoList = taskInfoDao.queryList(taskInfoQuery);
-        return new PageResult<>(taskInfoQuery.getPageSize(), count, taskInfoQuery.getCurrentPage(), taskInfoList);
+        List<TaskInfoResponse> taskInfoResponses = baseConverter2.convert(taskInfoList,TaskInfoResponse.class);
+        return new PageResult<>(taskInfoQuery.getPageSize(), count, taskInfoQuery.getCurrentPage(), taskInfoResponses);
     }
 
     private static String getTaskNo(Integer type) {

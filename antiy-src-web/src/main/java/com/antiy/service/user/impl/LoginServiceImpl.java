@@ -119,6 +119,8 @@ public class LoginServiceImpl implements ILoginService {
             }
             LoginUser userinfo = new LoginUser(userResponse.getBusinessId(),
                     userResponse.getUsername(), userResponse.getName(), userResponse.getDepartment());
+            userinfo.setRoleId(role.getId());
+            userinfo.setRoleName(role.getName());
             userinfo.setMenus(menus);
             TokenStoreUtil.put(token, System.currentTimeMillis() + UserConstant.EXPIRE, userinfo);
         }

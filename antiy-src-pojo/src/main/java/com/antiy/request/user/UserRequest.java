@@ -38,7 +38,6 @@ public class UserRequest implements ObjectValidator {
      * 姓名
      */
     @ApiModelProperty("姓名")
-    @NotBlank(message = "姓名不能为空", groups = {Add.class, Update.class} )
     private String name;
     /**
      * 所属单位
@@ -54,7 +53,6 @@ public class UserRequest implements ObjectValidator {
     /**
      * 联系电话
      */
-    @NotBlank(message = "联系电话不能为空", groups = {Add.class, Update.class} )
     @ApiModelProperty("联系电话")
     private String phone;
     /**

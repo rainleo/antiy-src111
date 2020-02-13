@@ -221,4 +221,10 @@
     <select id="getDepartmentList" resultType="com.antiy.entity.user.Department">
         select id, name from department
     </select>
+    <select id="getEventLevel" resultType="com.antiy.entity.vul.EventLevel">
+      select id,event_level level,content from event_level
+    </select>
+    <select id="getALlUser" resultMap="BaseResultMap">
+        select business_id, name, department, phone from user
+    </select>
 </mapper>

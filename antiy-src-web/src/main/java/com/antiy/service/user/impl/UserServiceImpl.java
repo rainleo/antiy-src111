@@ -12,12 +12,13 @@ import com.antiy.dao.vul.VulIntegralInfoDao;
 import com.antiy.entity.user.Department;
 import com.antiy.entity.user.LoginUser;
 import com.antiy.entity.user.User;
+import com.antiy.entity.vul.EventLevel;
 import com.antiy.entity.vul.VulIntegralInfo;
 import com.antiy.exception.BusinessException;
+import com.antiy.query.user.ScoreQuery;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.BussinessIdRequest;
 import com.antiy.request.user.UserRequest;
-import com.antiy.response.user.PersonalScoreResponse;
 import com.antiy.response.user.UserResponse;
 import com.antiy.response.vul.ScoreTop10;
 import com.antiy.response.vul.VulIntegralInfoResponse;
@@ -32,11 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.LongStream;
 
 /**
  * <p>
@@ -164,21 +163,20 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
-    public PersonalScoreResponse getScore() {
+    public PageResult<VulIntegralInfoResponse> getScoreList(ScoreQuery query) {
         LoginUser user = loginUserUtil.getUser();
         long userId = user.getBusinessId();
-        List<VulIntegralInfo> userScores = vulIntegralInfoDao.getScoreOfUser(userId);
-        Long total = 0L;
-        List<VulIntegralInfoResponse> responses = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(userScores)) {
-            LongStream stream = userScores.stream().mapToLong(e -> e.getGrade());
-            total = stream.sum();
-             responses = vulIntegralInfoResponseConverter.convert(userScores, VulIntegralInfoResponse.class);
-        }
-        PersonalScoreResponse response = new PersonalScoreResponse();
-        response.setTotalScore(total);
-        response.setDetails(responses);
-        return response;
+        query.setUserId(userId);
+        Integer count = vulIntegralInfoDao.findCountScore(query);
+        return new PageResult<>(query.getPageSize(), count, query.getCurrentPage(),
+                vulIntegralInfoResponseConverter.convert(vulIntegralInfoDao.getScoreList(query), VulIntegralInfoResponse.class));
+    }
+
+    @Override
+    public Integer getTotalScore() {
+        LoginUser user = loginUserUtil.getUser();
+        long userId = user.getBusinessId();
+        return vulIntegralInfoDao.getScoreOfUser(userId);
     }
 
     @Override
@@ -221,5 +219,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             }
         }
         return last30DayMap;
+    }
+
+    @Override
+    public List<EventLevel> getEventLevel() {
+        return userDao.getEventLevel();
+    }
+
+    @Override
+    public List<UserResponse> getAllUser() {
+        return responseConverter.convert(userDao.getALlUser(), UserResponse.class);
     }
 }

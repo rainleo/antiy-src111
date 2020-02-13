@@ -2,6 +2,7 @@ package com.antiy.dao.vul;
 
 
 import com.antiy.entity.vul.VulIntegralInfo;
+import com.antiy.query.user.ScoreQuery;
 import com.antiy.response.vul.ScoreTop10;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,9 +20,18 @@ public interface VulIntegralInfoDao {
 
     void saveSingle(VulIntegralInfo vulIntegralInfo);
 
-    List<VulIntegralInfo> getScoreOfUser(long userId);
+    Integer getScoreOfUser(long userId);
 
     List<ScoreTop10> getPersonalTop10(@Param("start") Long start, @Param("end") Long end);
 
     List<ScoreTop10> getDepartmentTop10(@Param("start") Long start, @Param("end") Long end);
+
+    Integer findCountScore(ScoreQuery query);
+
+    /**
+     * 用户积分列表
+     * @param query
+     * @return
+     */
+    List<VulIntegralInfo> getScoreList(ScoreQuery query);
 }

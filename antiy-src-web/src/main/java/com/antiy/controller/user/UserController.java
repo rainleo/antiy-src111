@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.antiy.base.ActionResponse;
 import com.antiy.common.utils.AesEncryptUtil;
 import com.antiy.query.user.BusinessIdQuery;
+import com.antiy.query.user.ScoreQuery;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.Add;
 import com.antiy.request.user.Update;
@@ -97,10 +98,16 @@ public class UserController {
         return ActionResponse.success(userService.getDepartmentList());
     }
 
-    @ApiOperation("获得个人积分")
+    @ApiOperation("获得个人积分明细列表")
+    @PostMapping("/getScoreList")
+    public ActionResponse getScoreList(@RequestBody ScoreQuery query) {
+        return ActionResponse.success(userService.getScoreList(query));
+    }
+
+    @ApiOperation("获得个人总积分")
     @PostMapping("/getScore")
     public ActionResponse getScore() {
-        return ActionResponse.success(userService.getScore());
+        return ActionResponse.success(userService.getTotalScore());
     }
 
     @ApiOperation("获得个人积分top10")
@@ -127,4 +134,9 @@ public class UserController {
         return ActionResponse.success(userService.vulRepairTrend());
     }
 
+    @ApiOperation("用户下拉选择数据")
+    @PostMapping("/userDownList")
+    public ActionResponse userDownList() {
+        return ActionResponse.success(userService.getAllUser());
+    }
 }

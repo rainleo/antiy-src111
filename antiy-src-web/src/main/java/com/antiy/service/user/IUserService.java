@@ -4,12 +4,14 @@ import com.antiy.base.PageResult;
 import com.antiy.common.base.IBaseService;
 import com.antiy.entity.user.Department;
 import com.antiy.entity.user.User;
+import com.antiy.entity.vul.EventLevel;
+import com.antiy.query.user.ScoreQuery;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.BussinessIdRequest;
 import com.antiy.request.user.UserRequest;
-import com.antiy.response.user.PersonalScoreResponse;
 import com.antiy.response.user.UserResponse;
 import com.antiy.response.vul.ScoreTop10;
+import com.antiy.response.vul.VulIntegralInfoResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -104,7 +106,7 @@ public interface IUserService extends IBaseService<User> {
      * 个人积分信息获取
      * @return
      */
-    PersonalScoreResponse getScore();
+    PageResult<VulIntegralInfoResponse> getScoreList(ScoreQuery query);
 
     public List<ScoreTop10> userScoreTop10();
 
@@ -113,4 +115,18 @@ public interface IUserService extends IBaseService<User> {
     public Map<String, Integer> vulSubmitTrend();
 
     public Map<String, Integer> vulRepairTrend();
+
+    List<EventLevel> getEventLevel();
+
+    /**
+     * 获取全部用户
+     * @return
+     */
+    List<UserResponse> getAllUser();
+
+    /**
+     * 获得个人总积分
+     * @return
+     */
+    Integer getTotalScore();
 }

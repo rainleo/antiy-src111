@@ -3,8 +3,10 @@ package com.antiy.controller.user;
 import com.antiy.base.ActionResponse;
 import com.antiy.enums.user.VulLevelEnum;
 import com.antiy.enums.user.VulTypeEnum;
+import com.antiy.service.user.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,9 @@ import java.util.Map;
 @Api(description = "码值管理")
 @RequestMapping("/api/v1/code")
 public class CodeController {
+
+    @Autowired
+    private IUserService userService;
 
     @ApiOperation("漏洞等级")
     @PostMapping("/vulLevel")
@@ -52,5 +57,15 @@ public class CodeController {
             result.add(map);
         }
         return ActionResponse.success(result);
+    }
+
+    /**
+     * 获取事件级别内容
+     * @return
+     */
+    @ApiOperation("获取事件级别内容")
+    @PostMapping("/eventLevel")
+    public ActionResponse getEventLevel() {
+        return ActionResponse.success(userService.getEventLevel());
     }
 }

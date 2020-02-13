@@ -3,6 +3,7 @@ package com.antiy.dao.user;
 import com.antiy.base.IBaseDao;
 import com.antiy.entity.user.Department;
 import com.antiy.entity.user.User;
+import com.antiy.entity.vul.EventLevel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -24,4 +25,12 @@ public interface UserDao extends IBaseDao<User> {
     void updateUserPassword(@Param("businessId")Long businessId, @Param("encodePwd")String encodePwd);
 
     List<Department> getDepartmentList();
+
+    /**
+     * 获取事件等级内容
+     * @return
+     */
+    List<EventLevel> getEventLevel();
+
+    List<User> getALlUser();
 }

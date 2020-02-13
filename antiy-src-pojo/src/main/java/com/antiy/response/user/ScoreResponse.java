@@ -12,7 +12,7 @@ import java.util.List;
  * created on 2020-02-11
  * @version  1.0.0
  */
-public class PersonalScoreResponse {
+public class ScoreResponse {
     private Long totalScore;
     private List<VulIntegralInfoResponse> details;
 

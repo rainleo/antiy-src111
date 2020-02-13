@@ -90,10 +90,10 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
      * @param commitDepartment 提交人归属部门
      * @return
      */
-    private static Integer getGrade(String eventLevel, String vulLevel, Integer sysType, Integer vulType,
+    private static Integer getGrade(String eventLevel, Integer vulLevel, Integer sysType, Integer vulType,
                                     Integer vulDepartment, Integer commitDepartment) {
         // 漏洞等级
-        Integer vl = VulLevelEnum.getCode(vulLevel);
+        Integer vl = vulLevel;
         Integer result = 0;
         Integer base = 0;
         // 系数

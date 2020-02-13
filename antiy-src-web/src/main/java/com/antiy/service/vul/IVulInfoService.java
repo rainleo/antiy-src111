@@ -7,6 +7,9 @@ import com.antiy.request.vul.VulInfoRequest;
 import com.antiy.response.vul.VulExamineInfoResponse;
 import com.antiy.response.vul.VulInfoResponse;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,4 +29,6 @@ public interface IVulInfoService {
     VulInfoResponse queryDetail(Integer id);
 
     List<VulExamineInfoResponse> queryExamineHistory(Integer id);
+
+    void exportData(VulInfoQuery vulInfoQuery, HttpServletResponse response, HttpServletRequest request) throws IOException;
 }

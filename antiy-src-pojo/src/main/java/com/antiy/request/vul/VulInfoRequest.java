@@ -16,7 +16,7 @@ import javax.validation.constraints.Pattern;
 public class VulInfoRequest implements ObjectValidator {
 
     @ApiModelProperty("漏洞id")
-    private String  id;
+    private Integer id;
     @ApiModelProperty("漏洞名称")
     private String  vulName;
     /**
@@ -71,11 +71,11 @@ public class VulInfoRequest implements ObjectValidator {
     @ApiModelProperty("1.普通系统2.重要或设计用户敏感信息系统")
     private Integer systemType;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

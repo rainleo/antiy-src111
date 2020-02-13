@@ -23,33 +23,23 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author ly
  */
 @RestController
-@RequestMapping("/sse")
+@RequestMapping("/api/v1/sse")
 public class SseEmitterController {
     private Logger logger = LogUtils.get(this.getClass());
 
     // 用于保存每个请求对应的 SseEmitter
     private static Map<String, Result> sseEmitterMap = new ConcurrentHashMap<>();
 
-    /**
-     * 返回SseEmitter对象
-     *
-     * @param clientId
-     * @return
-     */
+
     @RequestMapping("/start")
     public SseEmitter testSseEmitter(String clientId) {
         // 默认30秒超时,设置为0L则永不超时
         SseEmitter sseEmitter = new SseEmitter(0L);
-        sseEmitterMap.put(clientId, new Result(clientId, System.currentTimeMillis(), sseEmitter));
+        sseEmitterMap.put(clientId, new Result(clientId, sseEmitter));
         return sseEmitter;
     }
 
-    /**
-     * 向SseEmitter对象发送数据
-     *
-     * @param clientId 客户ID
-     * @return
-     */
+
     @RequestMapping("/send")
     public String setSseEmitter(String clientId) {
         try {
@@ -66,12 +56,7 @@ public class SseEmitterController {
         return "Succeed!";
     }
 
-    /**
-     * 将SseEmitter对象设置成完成
-     *
-     * @param clientId
-     * @return
-     */
+
     @RequestMapping("/end")
     public String completeSseEmitter(String clientId) {
         Result result = sseEmitterMap.get(clientId);
@@ -83,12 +68,6 @@ public class SseEmitterController {
     }
 
 
-    /**
-     * 向所有SseEmitter对象发送数据
-     *
-     * @param msg
-     * @return
-     */
     public static boolean sendall(String msg) {
         boolean flag = true;
         for (Map.Entry<String, Result> entry : sseEmitterMap.entrySet()) {
@@ -104,13 +83,7 @@ public class SseEmitterController {
     }
 
 
-    /**
-     * 向指定SseEmitter对象发送数据
-     *
-     * @param clientId 客户ID
-     * @param msg 消息
-     * @return 成功失败
-     */
+
     public static boolean sendByClientID(String clientId, String msg) {
         try {
             Result result = sseEmitterMap.get(clientId);
@@ -125,13 +98,11 @@ public class SseEmitterController {
     }
 
     private class Result {
-        public String clientId;
-        public long timestamp;
-        public SseEmitter sseEmitter;
+        private String clientId;
+        private SseEmitter sseEmitter;
 
-        public Result(String clientId, long timestamp, SseEmitter sseEmitter) {
+        public Result(String clientId,  SseEmitter sseEmitter) {
             this.clientId = clientId;
-            this.timestamp = timestamp;
             this.sseEmitter = sseEmitter;
         }
     }

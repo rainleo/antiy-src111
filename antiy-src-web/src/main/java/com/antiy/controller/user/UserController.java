@@ -118,13 +118,13 @@ public class UserController {
     @ApiOperation("提交漏洞走势图")
     @PostMapping("/vulSubmitTrend")
     public ActionResponse vulSubmitTrend() {
-        return ActionResponse.success();
+        return ActionResponse.success(userService.vulSubmitTrend());
     }
 
     @ApiOperation("修复漏洞走势图")
     @PostMapping("/vulRepairTrend")
     public ActionResponse vulRepairTrend() {
-        return ActionResponse.success();
+        return ActionResponse.success(userService.vulRepairTrend());
     }
 
 }

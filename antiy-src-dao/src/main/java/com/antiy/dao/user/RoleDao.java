@@ -18,4 +18,6 @@ public interface RoleDao extends IBaseDao<Role> {
     Integer findRoleIdByUserId(Long businessId);
 
     void saveUserRole(Map<String, Object> param);
+
+    Role findRole(Long userId);
 }

@@ -52,6 +52,15 @@ public class UserBasicResponse {
 	 */
 	private List<String> menus;
 
+	/**
+	 * 角色名
+	 */
+	private String roleName;
+	/**
+	 * 角色id
+	 */
+	private Integer roleId;
+
 
 	public Integer getDepartment() {
 		return department;
@@ -124,6 +133,22 @@ public class UserBasicResponse {
 
 	public void setMenus(List<String> menus) {
 		this.menus = menus;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 	@Override

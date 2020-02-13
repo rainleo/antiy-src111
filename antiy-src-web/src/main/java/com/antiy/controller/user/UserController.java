@@ -97,4 +97,34 @@ public class UserController {
         return ActionResponse.success(userService.getDepartmentList());
     }
 
+    @ApiOperation("获得个人积分")
+    @PostMapping("/getScore")
+    public ActionResponse getScore() {
+        return ActionResponse.success(userService.getScore());
+    }
+
+    @ApiOperation("获得个人积分top10")
+    @PostMapping("/userScoreTop10")
+    public ActionResponse userScoreTop10() {
+        return ActionResponse.success(userService.userScoreTop10());
+    }
+
+    @ApiOperation("获得部门积分top10")
+    @PostMapping("/departmentScoreTop10")
+    public ActionResponse departmentScoreTop10() {
+        return ActionResponse.success(userService.departmentScoreTop10());
+    }
+
+    @ApiOperation("提交漏洞走势图")
+    @PostMapping("/vulSubmitTrend")
+    public ActionResponse vulSubmitTrend() {
+        return ActionResponse.success();
+    }
+
+    @ApiOperation("修复漏洞走势图")
+    @PostMapping("/vulRepairTrend")
+    public ActionResponse vulRepairTrend() {
+        return ActionResponse.success();
+    }
+
 }

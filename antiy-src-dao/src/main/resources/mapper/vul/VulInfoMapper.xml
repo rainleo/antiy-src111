@@ -523,10 +523,10 @@
             and v.status = 1
     </select>
     <select id="getVulSubmitTrend" resultType="map">
-      SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info where gmt_create &gt; #{start} and gmt_create &lt; #{end} and type = 2 GROUP BY days;
+      SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info where gmt_create &gt; #{start} and gmt_create &lt; #{end} and type = 1 GROUP BY days;
     </select>
 
     <select id="getVulRepairTrend" resultType="map">
-      SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info where gmt_create &gt; #{start} and gmt_create &lt; #{end} and type = 1 GROUP BY days;
+      SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info where gmt_create &gt; #{start} and gmt_create &lt; #{end} and type = 2 GROUP BY days;
     </select>
 </mapper>

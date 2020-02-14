@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.UUID;
 
 /**
@@ -50,24 +51,25 @@ public class FileController {
         return ActionResponse.fail(RespBasicCode.BUSINESS_EXCEPTION, "上传失败");
     }
 
-   /* @RequestMapping("download")
-    public void download(HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "download", method = RequestMethod.GET)
+    public void download(@RequestParam("filePath") String filePath, HttpServletResponse response) throws Exception {
         // 文件地址，真实环境是存放在数据库中的
-        File file = new File("D:\\upload\\a.txt");
+        File file = new File(filePath);
+        String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
         // 穿件输入对象
         FileInputStream fis = new FileInputStream(file);
         // 设置相关格式
         response.setContentType("application/force-download");
         // 设置下载后的文件名以及header
-        response.addHeader("Content-disposition", "attachment;fileName=" + "a.txt");
+        response.addHeader("Content-disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));
         // 创建输出对象
         OutputStream os = response.getOutputStream();
         // 常规操作
         byte[] buf = new byte[1024];
         int len = 0;
-        while((len = fis.read(buf)) != -1) {
+        while ((len = fis.read(buf)) != -1) {
             os.write(buf, 0, len);
         }
         fis.close();
-    }*/
+    }
 }

@@ -528,6 +528,7 @@
             v.repair_suggest as repairSuggest,
             v.ip,
             v.task_id as taskId,
+            t.task_name as taskName,
             v.vul_port as vulPort,
             v.vul_address as vulAddress,
             v.create_user as commitUser,
@@ -537,6 +538,7 @@
             vul_info v left join department d on v.address_owner = d.id
             left join user u on v.create_user = u.business_id
             left join department d2 on v.vul_department = d2.id
+            left join task_info t on v.task_id = t.id
         where
             v.id = #{id}
             and v.status = 1

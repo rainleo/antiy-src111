@@ -11,6 +11,7 @@ import com.antiy.dao.vul.VulInfoDao;
 import com.antiy.dao.vul.VulIntegralInfoDao;
 import com.antiy.entity.user.Department;
 import com.antiy.entity.user.LoginUser;
+import com.antiy.entity.user.NullLoginUser;
 import com.antiy.entity.user.TaskIdQuery;
 import com.antiy.entity.user.User;
 import com.antiy.entity.vul.EventLevel;
@@ -71,6 +72,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Override
     public Long saveUser(UserRequest request) throws Exception {
         LoginUser curUser = loginUserUtil.getUser();
+        if (curUser instanceof NullLoginUser) {
+            throw new BusinessException("当前用户不存在");
+        }
         Integer roleId = roleDao.findRoleIdByUserId(curUser.getBusinessId());
         Integer requestRole = request.getRoleType();
         if (requestRole != null) {

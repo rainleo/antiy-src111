@@ -76,6 +76,7 @@ CREATE TABLE `vul_info`  (
   `vul_type` tinyint(20) NOT NULL COMMENT '1.Web应用漏洞2.主机系统漏洞3.移动APP漏洞4.弱口令类漏洞',
   `vul_level` tinyint(4) NOT NULL COMMENT '1高危漏洞，2中危漏洞3.低危漏洞',
   `event_level` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'A,B,C,D拼接',
+  `event_level_detail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '事件等级详细',
   `vul_desc` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `repair_suggest` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `vul_material_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -97,7 +98,7 @@ CREATE TABLE `vul_info`  (
 DROP TABLE IF EXISTS `vul_integral_info`;
 CREATE TABLE `vul_integral_info`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `task_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '任务id',
+  `task_id` int(11) DEFAULT NULL COMMENT '任务id',
   `intergral_event` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '获得积分事项',
   `vul_id` int(11) NOT NULL COMMENT '漏洞id',
   `vul_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '漏洞名称',

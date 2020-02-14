@@ -109,6 +109,9 @@ CREATE TABLE `vul_integral_info`  (
   `department` int(11) NOT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB COMMENT = '漏洞积分';
+
+
+-- ----------------------------
 -- Table structure for department
 -- ----------------------------
 DROP TABLE IF EXISTS `department`;
@@ -116,7 +119,7 @@ CREATE TABLE `department`  (
   `id` int(11) NOT NULL COMMENT '主键',
   `name` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '部门名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB COMMENT = '部门表' ;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of department
@@ -151,6 +154,47 @@ INSERT INTO `department` VALUES (27, '审计部');
 INSERT INTO `department` VALUES (28, '党群部');
 
 -- ----------------------------
+-- Table structure for event_level
+-- ----------------------------
+DROP TABLE IF EXISTS `event_level`;
+CREATE TABLE `event_level`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `event_level` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '事件等级',
+  `content` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '事件描述',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of event_level
+-- ----------------------------
+INSERT INTO `event_level` VALUES (1, 'A', '涉及《中国电信集团保密工作管理办法（暂行）》（中国电信〔2002〕552号）和《关于更改企业商业秘密密级标注的通知》（中国电信综合〔2011〕31号）中规定的电信核心商密级信息泄露');
+INSERT INTO `event_level` VALUES (2, 'A', '涉及一省以上全省范围内的用户信息泄露，或估计可能超过1000万用户的信息泄露');
+INSERT INTO `event_level` VALUES (3, 'A', '充值、缴费、支付、计费等涉及经济利益的系统存在安全漏洞');
+INSERT INTO `event_level` VALUES (4, 'A', '发生导致一省以上出口拥塞半小时以上的DDOS攻击事件');
+INSERT INTO `event_level` VALUES (5, 'A', '自有网络设备遭攻击、入侵，导致一省以上公共互联网受影响');
+INSERT INTO `event_level` VALUES (6, 'A', '自有域名解析系统、AAA系统等因网络安全问题导致一个以上省在全省范围内的用户无法正常上网');
+INSERT INTO `event_level` VALUES (7, 'A', '跨省业务平台、网络遭病毒感染并在系统内传播');
+INSERT INTO `event_level` VALUES (8, 'A', '出现被新闻媒体曝光的安全事件');
+INSERT INTO `event_level` VALUES (9, 'B', '涉及《中国电信集团保密工作管理办法（暂行）》（中国电信〔2002〕552号）和《关于更改企业商业秘密密级标注的通知》（中国电信综合〔2011〕31号）中规定的电信普通商密级信息泄露');
+INSERT INTO `event_level` VALUES (10, 'B', '涉及《中国电信集团保密工作管理办法（暂行）》（中国电信〔2002〕552号）和《关于更改企业商业秘密密级标注的通知》（中国电信综合〔2011〕31号）中规定的电信普通商密级信息泄露');
+INSERT INTO `event_level` VALUES (11, 'B', '涉及两个及以上地市范围的用户信息泄露，或估计可能超过100万用户的信息泄露');
+INSERT INTO `event_level` VALUES (12, 'B', '发生两个及以上地市出口拥塞半小时以上的DDOS攻击事件');
+INSERT INTO `event_level` VALUES (13, 'B', '自有网络设备遭攻击、入侵，导致两个及以上地市公共互联网受影响');
+INSERT INTO `event_level` VALUES (14, 'B', '除A级事件外，电信自有网站（含合作网站）发生因网站漏洞导致的网页挂马、域名劫持、缓存投毒等安全事件');
+INSERT INTO `event_level` VALUES (15, 'B', '出现某安全漏洞或病毒，经确认影响超过10万台自有IT类设备，且已公开披露该漏洞利用方法、已出现自动化利用工具、或已出现自传播性质的蠕虫病毒');
+INSERT INTO `event_level` VALUES (16, 'B', '出现某安全漏洞或病毒，经评估预计影响超过100万台资产归属于我公司的用户端设备（包括不局限于IPTV机顶盒等），且已公开披露该漏洞利用方法、已出现自动化利用工具、或已出现自传播性质的蠕虫病毒');
+INSERT INTO `event_level` VALUES (17, 'B', '因自有域名解析系统、AAA系统等因网络安全问题导致两个及以上地市在全市范围内的用户无法正常上网');
+INSERT INTO `event_level` VALUES (18, 'B', '省内业务平台、网络遭病毒感染并在系统内传播');
+INSERT INTO `event_level` VALUES (19, 'C', '涉及单个地市范围的用户信息泄露，或估计可能超过10万用户的信息泄露');
+INSERT INTO `event_level` VALUES (20, 'C', '因自有域名解析系统、AAA系统等因网络安全问题导致一个及以上地市在全市范围内的用户无法正常上网');
+INSERT INTO `event_level` VALUES (21, 'C', '发生导致一个地市出口拥塞半小时以上的DDOS攻击事件');
+INSERT INTO `event_level` VALUES (22, 'C', '自有网络设备遭攻击、入侵，导致一个地市公共互联网受影响');
+INSERT INTO `event_level` VALUES (23, 'C', '出现某安全漏洞或病毒，经确认影响超过1万台自有IT类设备');
+INSERT INTO `event_level` VALUES (24, 'C', '出现某安全漏洞或病毒，经评估预计影响超过100万台资产归属于我公司的用户端设备（包括不局限于IPTV机顶盒等）');
+INSERT INTO `event_level` VALUES (25, 'C', '地市级业务平台、网络遭病毒感染并在系统内传播');
+INSERT INTO `event_level` VALUES (26, 'D', '未达到A、B、C级的其他网络安全突发事件');
+
+-- ----------------------------
 -- Table structure for menu
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
@@ -161,7 +205,7 @@ CREATE TABLE `menu`  (
   `tag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '菜单标识',
   `type` tinyint(1) NULL DEFAULT NULL COMMENT '菜单类型 1、菜单 2、按钮',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB  COMMENT = '菜单表' ;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -174,7 +218,7 @@ INSERT INTO `menu` VALUES (5, 1, '删除', 'user:delete', 2);
 INSERT INTO `menu` VALUES (7, 0, '漏洞管理', 'vul', 1);
 INSERT INTO `menu` VALUES (8, 7, '提交漏洞', 'vul:submit', 2);
 INSERT INTO `menu` VALUES (10, 7, '查看详情', 'vul:view', 2);
-INSERT INTO `menu` VALUES (11, 7, '导出', 'vul:export', 2);
+INSERT INTO `menu` VALUES (11, 7, '导出漏洞证明材料', 'vul:export', 2);
 INSERT INTO `menu` VALUES (12, 7, '审核', 'vul:sh', 2);
 INSERT INTO `menu` VALUES (13, 1, '编辑', 'user:edit', 2);
 INSERT INTO `menu` VALUES (14, 1, '重置密码', 'user:reset:password', 2);
@@ -196,7 +240,7 @@ CREATE TABLE `role`  (
   `tag` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '角色标识',
   `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB  COMMENT = '角色表' ;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -214,45 +258,17 @@ CREATE TABLE `role_menu`  (
   `role_id` int(11) NOT NULL COMMENT '角色id',
   `menu_id` int(11) NOT NULL COMMENT '菜单id',
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
-) ENGINE = InnoDB  COMMENT = '角色菜单关系表' ;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色菜单关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu
 -- ----------------------------
-INSERT INTO `role_menu` VALUES (1, 1);
 INSERT INTO `role_menu` VALUES (1, 2);
-INSERT INTO `role_menu` VALUES (1, 3);
-INSERT INTO `role_menu` VALUES (1, 4);
-INSERT INTO `role_menu` VALUES (1, 5);
-INSERT INTO `role_menu` VALUES (1, 7);
-INSERT INTO `role_menu` VALUES (1, 8);
-INSERT INTO `role_menu` VALUES (1, 10);
-INSERT INTO `role_menu` VALUES (1, 11);
-INSERT INTO `role_menu` VALUES (1, 12);
-INSERT INTO `role_menu` VALUES (1, 13);
-INSERT INTO `role_menu` VALUES (1, 14);
-INSERT INTO `role_menu` VALUES (1, 15);
-INSERT INTO `role_menu` VALUES (1, 16);
-INSERT INTO `role_menu` VALUES (1, 17);
-INSERT INTO `role_menu` VALUES (1, 18);
-INSERT INTO `role_menu` VALUES (1, 19);
-INSERT INTO `role_menu` VALUES (1, 20);
-INSERT INTO `role_menu` VALUES (1, 21);
-INSERT INTO `role_menu` VALUES (2, 1);
-INSERT INTO `role_menu` VALUES (2, 2);
 INSERT INTO `role_menu` VALUES (2, 3);
 INSERT INTO `role_menu` VALUES (2, 4);
-INSERT INTO `role_menu` VALUES (2, 5);
 INSERT INTO `role_menu` VALUES (2, 7);
-INSERT INTO `role_menu` VALUES (2, 8);
 INSERT INTO `role_menu` VALUES (2, 10);
 INSERT INTO `role_menu` VALUES (2, 11);
-INSERT INTO `role_menu` VALUES (2, 12);
-INSERT INTO `role_menu` VALUES (2, 13);
-INSERT INTO `role_menu` VALUES (2, 14);
-INSERT INTO `role_menu` VALUES (2, 15);
-INSERT INTO `role_menu` VALUES (2, 16);
-INSERT INTO `role_menu` VALUES (2, 17);
 INSERT INTO `role_menu` VALUES (2, 18);
 INSERT INTO `role_menu` VALUES (2, 19);
 INSERT INTO `role_menu` VALUES (2, 20);
@@ -292,12 +308,12 @@ CREATE TABLE `user`  (
   `modified_user` int(11) NULL DEFAULT NULL COMMENT '修改用户',
   `gmt_modified` bigint(20) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB  COMMENT = '用户表' ;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 674713460738621440, 'admin', 'qBWzqgUZxbZ4bCLwsQA2Sw==', '刘三', 1, '510823199107147030', '18789092987', 1, NULL, 0, 1581305589529, 0, 1580905824610, NULL, NULL);
+INSERT INTO `user` VALUES (1, 674713460738621440, 'admin', 'qBWzqgUZxbZ4bCLwsQA2Sw==', '刘三', 1, '510823199107147030', '18789092987', 1, NULL, 0, 1581646616139, 0, 1580905824610, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for user_role
@@ -307,12 +323,14 @@ CREATE TABLE `user_role`  (
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
   `role_id` int(11) NOT NULL COMMENT '角色id',
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE
-) ENGINE = InnoDB  COMMENT = '用户角色关系表' ;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户角色关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES (674713460738621440, 1);
+
 SET FOREIGN_KEY_CHECKS = 1;
+
 
 

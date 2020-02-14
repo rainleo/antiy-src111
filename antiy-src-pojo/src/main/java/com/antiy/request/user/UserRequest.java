@@ -34,6 +34,13 @@ public class UserRequest implements ObjectValidator {
     @ApiModelProperty("密码")
     @NotBlank(message = "密码不能为空", groups = {Add.class} )
     private String password;
+
+    /**
+     * 确认密码
+     */
+    @ApiModelProperty("确认密码")
+    @NotBlank(message = "确认密码不能为空", groups = {Add.class} )
+    private String repeatPassword;
     /**
      * 姓名
      */
@@ -90,6 +97,13 @@ public class UserRequest implements ObjectValidator {
         this.password = password;
     }
 
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
+    }
 
     public String getName() {
         return name;

@@ -125,7 +125,7 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
         // 系数
         float xishu = 0;
         // 获取最高事件等级
-        eventLevel = eventLevel.split("-")[0];
+        eventLevel = eventLevel.split(",")[0];
         if ("A".equals(eventLevel)) {
             xishu = 2f;
         } else if ("B".equals(eventLevel)) {

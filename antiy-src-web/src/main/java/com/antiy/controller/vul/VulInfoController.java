@@ -102,8 +102,8 @@ public class VulInfoController {
      * @return actionResponse
      */
     @ApiOperation(value = "根据条件导出硬件信息", notes = "主键封装对象")
-    @RequestMapping(value = "/export/file", method = RequestMethod.POST)
-    public void export(@ApiParam(value = "query") @RequestBody VulInfoQuery vulInfoQuery, HttpServletResponse response,
+    @RequestMapping(value = "/export/file", method = RequestMethod.GET)
+    public void export(@ApiParam(value = "query") VulInfoQuery vulInfoQuery, HttpServletResponse response,
                        HttpServletRequest request) throws Exception {
         iVulInfoService.exportData(vulInfoQuery, response, request);
     }

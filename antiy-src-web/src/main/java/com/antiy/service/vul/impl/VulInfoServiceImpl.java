@@ -3,6 +3,7 @@ package com.antiy.service.vul.impl;
 import com.antiy.base.BaseConverter;
 import com.antiy.base.PageResult;
 import com.antiy.common.utils.LogUtils;
+import com.antiy.dao.user.UserDao;
 import com.antiy.dao.vul.TaskInfoDao;
 import com.antiy.dao.vul.VulExamineInfoDao;
 import com.antiy.dao.vul.VulInfoDao;
@@ -60,6 +61,8 @@ public class VulInfoServiceImpl implements IVulInfoService {
     private VulInfoDao                             vulInfoDao;
     @Resource
     private TaskInfoDao                            taskInfoDao;
+    @Resource
+    private UserDao                                userDao;
     @Resource
     private VulExamineInfoDao                      vulExamineInfoDao;
     private BaseConverter<VulInfoRequest, VulInfo> baseConverter = new BaseConverter();
@@ -160,7 +163,7 @@ public class VulInfoServiceImpl implements IVulInfoService {
         }
         response.setCharacterEncoding("utf-8");
         response.setContentType("multipart/form-data");
-        response.addHeader("Content-Disposition", "attachment;filename=ttt.xls");
+        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("export.xls", "UTF-8"));
         OutputStream outputStream = response.getOutputStream();
         wb.write(outputStream);
         outputStream.flush();
@@ -168,6 +171,25 @@ public class VulInfoServiceImpl implements IVulInfoService {
 
     }
 
+    @Override
+    public List<String> getExamineInfo(String clientId) {
+        // 判断用户角色
+        Integer role = userDao.getRoleByUserId(Long.parseLong(clientId));
+        if (role == 3) { // 审核员
+
+            return null;
+        } else if (role == 4) { // 普通用户
+            // 查询该用户提交的漏洞中未审核通过的漏洞
+            List<String> results = vulInfoDao.queryNoPassVulByUserId(Long.parseLong(clientId));
+            if (CollectionUtils.isNotEmpty(results)) {
+                results.stream().forEach(r -> {
+                    r = "您提交的漏洞" + r + "审核未通过";
+                });
+            }
+            return results;
+        }
+        return null;
+    }
 
     private static String getVulNo(Integer type, Integer id) {
         Calendar date = Calendar.getInstance();

@@ -18,9 +18,9 @@ import javax.annotation.Resource;
 @Configuration
 public class WebMVCConfig extends WebMvcConfigurationSupport {
 
-
     @Resource
     private UserInterceptor userInterceptors;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
@@ -29,11 +29,12 @@ public class WebMVCConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
 
     }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
-        registry.addInterceptor(userInterceptors).addPathPatterns("/api/**").excludePathPatterns("/api/v1/user/login","/api/v1/user/code",",/favicon.ico","/gen204");
+        registry.addInterceptor(userInterceptors).addPathPatterns("/api/**").excludePathPatterns("/api/v1/user/login",
+            "/api/v1/user/code", ",/favicon.ico", "/gen204");
     }
-
 
 }

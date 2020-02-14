@@ -3,6 +3,8 @@ package com.antiy.service.vul;
 
 import com.antiy.request.vul.VulExamineInfoRequest;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类

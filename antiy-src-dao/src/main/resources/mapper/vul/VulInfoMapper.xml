@@ -557,4 +557,7 @@
         </where>
         GROUP BY days;
     </select>
+    <select id="queryNoPassVulByUserId" resultType="java.lang.String">
+        select vul_name from vul_info where create_user = #{userId} and vul_status = 3
+    </select>
 </mapper>

@@ -1,12 +1,16 @@
 package com.antiy.controller.sse;
 
 import com.antiy.common.utils.LogUtils;
+import com.antiy.service.vul.IVulExamineInfoService;
+import com.antiy.service.vul.IVulInfoService;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -39,14 +43,18 @@ public class SseEmitterController {
         return sseEmitter;
     }
 
-
+    /**
+     * 定点推送
+     * @param clientId
+     * @return
+     */
     @RequestMapping("/send")
     public String setSseEmitter(String clientId) {
         try {
             Result result = sseEmitterMap.get(clientId);
             if (result != null && result.sseEmitter != null) {
-                long timestamp = System.currentTimeMillis();
-                result.sseEmitter.send(timestamp);
+                //获取数据
+                result.sseEmitter.send("");
             }
         } catch (IOException e) {
             logger.error("IOException!");
@@ -67,12 +75,19 @@ public class SseEmitterController {
         return "Succeed!";
     }
 
-
-    public static boolean sendall(String msg) {
+    /**
+     *
+     * @param vulId 漏洞id
+     * @param shyIds 审核员列表
+     * @return
+     */
+    public static boolean sendall(Integer vulId,List<String> shyIds) {
         boolean flag = true;
         for (Map.Entry<String, Result> entry : sseEmitterMap.entrySet()) {
             try {
-                entry.getValue().sseEmitter.send(msg);
+                if (shyIds.contains(entry.getKey())) {
+                    entry.getValue().sseEmitter.send(vulId);
+                }
             } catch (IOException e) {
                 LogUtils.get().error("IOException!");
                 flag = false;
@@ -83,7 +98,12 @@ public class SseEmitterController {
     }
 
 
-
+    /**
+     *
+     * @param clientId 提交漏洞用户id
+     * @param msg 通知消息
+     * @return
+     */
     public static boolean sendByClientID(String clientId, String msg) {
         try {
             Result result = sseEmitterMap.get(clientId);

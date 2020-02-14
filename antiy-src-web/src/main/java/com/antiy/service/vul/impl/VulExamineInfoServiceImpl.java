@@ -75,7 +75,7 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
             // 保存积分
             vulIntegralInfoDao.saveSingle(vulIntegralInfo);
             // 审核通过,向审核员发送通知
-            SseEmitterController.sendall(vulInfo.getId(), userDao.getUserIdByRole(3));
+            SseEmitterController.sendall(vulInfo.getId());
         } else if (vulExamineInfoRequest.getResult() == 3) {
             // 审核不通过,向提交漏洞用户发送通知
             SseEmitterController.sendByClientID(String.valueOf(vulInfo.getCommitUser()),

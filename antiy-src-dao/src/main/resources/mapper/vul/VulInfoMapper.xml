@@ -411,7 +411,9 @@
         vul_info v left join task_info t on v.task_id = t.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1
-            and v.task_id = #{taskId}
+            <if test="taskId != null">
+                and v.task_id = #{taskId}
+            </if>
             <if test="vulStatus != null">
                 and v.vul_status = #{vulStatus}
             </if>
@@ -470,7 +472,9 @@
         left join department d2 on v.address_owner = d2.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1
-            and v.task_id = #{taskId}
+            <if test="taskId != null">
+                and v.task_id = #{taskId}
+            </if>
             <if test="vulStatus != null">
                 and v.vul_status = #{vulStatus}
             </if>

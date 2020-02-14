@@ -206,6 +206,7 @@
             end_time = #{endTime },
             modify_user = #{modifyUser },
             gmt_modify = #{gmtModify }
+        where id = #{id}
     </update>
     <update id="deleteSingle" parameterType="com.antiy.entity.vul.TaskInfo">
         update

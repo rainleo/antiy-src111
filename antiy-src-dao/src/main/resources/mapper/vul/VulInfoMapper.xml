@@ -326,6 +326,7 @@
             vul_type,
             vul_level,
             event_level,
+            event_level_detail,
             vul_desc,
             repair_suggest,
             vul_material_name,
@@ -350,6 +351,7 @@
             #{vulType },
             #{vulLevel },
             #{eventLevel },
+            #{eventLevelDetail},
             #{vulDesc },
             #{repairSuggest },
             #{vulMaterialName },
@@ -377,6 +379,7 @@
             vul_type = #{vulType },
             vul_level = #{vulLevel },
             event_level = #{eventLevel },
+            event_level_detail = #{eventLevelDetail},
             vul_desc = #{vulDesc },
             repair_suggest = #{repairSuggest },
             vul_material_name = #{vulMaterialName },
@@ -408,7 +411,7 @@
         vul_info v left join task_info t on v.task_id = t.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1
-            and v.type = #{type}
+            and v.task_id = #{taskId}
             <if test="vulStatus != null">
                 and v.vul_status = #{vulStatus}
             </if>
@@ -467,7 +470,7 @@
         left join department d2 on v.address_owner = d2.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1
-            and v.type = #{type}
+            and v.task_id = #{taskId}
             <if test="vulStatus != null">
                 and v.vul_status = #{vulStatus}
             </if>
@@ -515,6 +518,7 @@
             d2.name as vulDepartmentName,
             v.event_level as eventLevel,
             v.vul_level as vulLevel,
+            event_level_detail as eventLevelDetail,
             v.vul_desc as vulDesc,
             v.repair_suggest as repairSuggest,
             v.ip,
@@ -533,24 +537,24 @@
             and v.status = 1
     </select>
     <select id="getVulSubmitTrend" resultType="map">
-      SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info
+        SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info
         <where>
             gmt_create &gt; #{start} and gmt_create &lt; #{end} and type = 1
             <if test="taskId != null">
                 and task_id = #{taskId}
             </if>
         </where>
-      GROUP BY days;
+        GROUP BY days;
     </select>
 
     <select id="getVulRepairTrend" resultType="map">
-      SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info
+        SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info
         <where>
             gmt_create &gt; #{start} and gmt_create &lt; #{end} and type = 2
             <if test="taskId != null">
                 and task_id = #{taskId}
             </if>
         </where>
-      GROUP BY days;
+        GROUP BY days;
     </select>
 </mapper>

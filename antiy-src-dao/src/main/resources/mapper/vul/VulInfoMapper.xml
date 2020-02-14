@@ -377,6 +377,7 @@
             vul_address = #{vulAddress },
             address_owner = #{addressOwner },
             vul_type = #{vulType },
+            vul_status = #{vulStatus },
             vul_level = #{vulLevel },
             event_level = #{eventLevel },
             event_level_detail = #{eventLevelDetail},

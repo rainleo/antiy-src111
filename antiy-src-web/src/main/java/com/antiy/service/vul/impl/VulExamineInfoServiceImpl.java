@@ -15,6 +15,7 @@ import com.antiy.entity.vul.VulIntegralInfo;
 import com.antiy.enums.user.VulLevelEnum;
 import com.antiy.request.vul.TaskInfoRequest;
 import com.antiy.request.vul.VulExamineInfoRequest;
+import com.antiy.response.vul.SseVulResponse;
 import com.antiy.response.vul.VulInfoResponse;
 import com.antiy.service.vul.IVulExamineInfoService;
 import com.antiy.util.LoginUserUtil;
@@ -22,6 +23,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -75,11 +77,23 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
             // 保存积分
             vulIntegralInfoDao.saveSingle(vulIntegralInfo);
             // 审核通过,向审核员发送通知
-            SseEmitterController.sendall(vulInfo.getId());
+            SseVulResponse response = new SseVulResponse();
+            response.setVulId(vulInfo.getId());
+            response.setVulName(vulInfo.getVulName());
+            response.setCommitDate(vulInfo.getCommitDate());
+            SseEmitterController.sendall(response);
         } else if (vulExamineInfoRequest.getResult() == 3) {
             // 审核不通过,向提交漏洞用户发送通知
-            SseEmitterController.sendByClientID(String.valueOf(vulInfo.getCommitUser()),
-                "您提交的漏洞" + vulInfo.getVulName() + "审核未通过");
+            SseVulResponse response = new SseVulResponse();
+            response.setVulId(vulInfo.getId());
+            response.setVulName(vulInfo.getVulName());
+            response.setCommitDate(vulInfo.getCommitDate());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+            StringBuilder sb = new StringBuilder();
+            sb.append("您于").append(format.format(vulInfo.getCommitDate())).append("提交的").append(vulInfo.getVulName())
+                .append("漏洞审核未通过,请核对后再次提交");
+            response.setNotice(sb.toString());
+            SseEmitterController.sendByClientID(String.valueOf(vulInfo.getCommitUser()), response);
         }
         // 漏洞状态
         VulInfo v = new VulInfo();

@@ -1,6 +1,7 @@
 package com.antiy.controller.sse;
 
 import com.antiy.common.utils.LogUtils;
+import com.antiy.response.vul.SseVulResponse;
 import com.antiy.service.vul.IVulExamineInfoService;
 import com.antiy.service.vul.IVulInfoService;
 import com.antiy.util.LoginUserUtil;
@@ -52,16 +53,16 @@ public class SseEmitterController {
 
     /**
      *
-     * @param vulId 漏洞id
+     * @param response 漏洞id
      * @return
      */
-    public static boolean sendall(Integer vulId) {
+    public static boolean sendall(SseVulResponse response) {
         boolean flag = true;
         for (Map.Entry<String, Result> entry : sseEmitterMap.entrySet()) {
             try {
                 // 向审核员发送通知
                 if (entry.getValue().role == 3) {
-                    entry.getValue().sseEmitter.send(vulId);
+                    entry.getValue().sseEmitter.send(response);
                 }
             } catch (IOException e) {
                 LogUtils.get().error("IOException!");
@@ -75,14 +76,14 @@ public class SseEmitterController {
     /**
      *
      * @param clientId 提交漏洞用户id
-     * @param msg 通知消息
+     * @param response 通知消息
      * @return
      */
-    public static boolean sendByClientID(String clientId, String msg) {
+    public static boolean sendByClientID(String clientId, SseVulResponse response) {
         try {
             Result result = sseEmitterMap.get(clientId);
             if (result != null && result.sseEmitter != null) {
-                result.sseEmitter.send(msg);
+                result.sseEmitter.send(response);
             }
         } catch (IOException e) {
             LogUtils.get().error("IOException!");

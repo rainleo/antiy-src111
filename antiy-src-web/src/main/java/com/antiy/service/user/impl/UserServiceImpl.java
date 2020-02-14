@@ -93,6 +93,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             logger.info("用户名已存在");
             throw new BusinessException(UserConstant.USERNAME_EXIST);
         }
+        if (!request.getPassword().equals(request.getRepeatPassword())) {
+            throw new BusinessException("确认密码和密码字段不一致，请检查！");
+        }
         BeanUtils.copyProperties(request, user);
         user.setBusinessId(new SnowFlake(0, 0).nextId());
         user.setStatus(UserConstant.USER_STATUS_NORMAL);

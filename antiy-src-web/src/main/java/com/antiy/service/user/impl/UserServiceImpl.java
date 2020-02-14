@@ -11,6 +11,7 @@ import com.antiy.dao.vul.VulInfoDao;
 import com.antiy.dao.vul.VulIntegralInfoDao;
 import com.antiy.entity.user.Department;
 import com.antiy.entity.user.LoginUser;
+import com.antiy.entity.user.TaskIdQuery;
 import com.antiy.entity.user.User;
 import com.antiy.entity.vul.EventLevel;
 import com.antiy.entity.vul.VulIntegralInfo;
@@ -180,25 +181,25 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
-    public List<ScoreTop10> userScoreTop10() {
+    public List<ScoreTop10> userScoreTop10(TaskIdQuery query) {
         long start = DateUtil.getBefore30Day();
         long end = DateUtil.getToday235959();
-        return vulIntegralInfoDao.getPersonalTop10(start, end);
+        return vulIntegralInfoDao.getPersonalTop10(start, end, query.getTaskId());
     }
 
     @Override
-    public List<ScoreTop10> departmentScoreTop10() {
+    public List<ScoreTop10> departmentScoreTop10(TaskIdQuery query) {
         long start = DateUtil.getBefore30Day();
         long end = DateUtil.getToday235959();
-        return vulIntegralInfoDao.getDepartmentTop10(start, end);
+        return vulIntegralInfoDao.getDepartmentTop10(start, end, query.getTaskId());
     }
 
     @Override
-    public Map<String, Integer> vulSubmitTrend() {
+    public Map<String, Integer> vulSubmitTrend(TaskIdQuery query) {
         long start = DateUtil.getBefore30Day();
         long end = DateUtil.getToday235959();
         Map<String, Integer> last30DayMap = DateUtil.getLast30DayMap();
-        List<Map<String, Object>> data = vulInfoDao.getVulSubmitTrend(start, end);
+        List<Map<String, Object>> data = vulInfoDao.getVulSubmitTrend(start, end, query.getTaskId());
         if (CollectionUtils.isNotEmpty(data)) {
             for (Map<String, Object> en : data) {
                 last30DayMap.put(en.get("days").toString(), ((Long)en.get("num")).intValue());
@@ -208,11 +209,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
-    public Map<String, Integer> vulRepairTrend() {
+    public Map<String, Integer> vulRepairTrend(TaskIdQuery query) {
         long start = DateUtil.getBefore30Day();
         long end = DateUtil.getToday235959();
         Map<String, Integer> last30DayMap = DateUtil.getLast30DayMap();
-        List<Map<String, Object>> data = vulInfoDao.getVulRepairTrend(start, end);
+        List<Map<String, Object>> data = vulInfoDao.getVulRepairTrend(start, end, query.getTaskId());
         if (CollectionUtils.isNotEmpty(data)) {
             for (Map<String, Object> en : data) {
                 last30DayMap.put(en.get("days").toString(), ((Long)en.get("num")).intValue());

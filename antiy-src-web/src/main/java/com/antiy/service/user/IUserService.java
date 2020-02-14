@@ -3,6 +3,7 @@ package com.antiy.service.user;
 import com.antiy.base.PageResult;
 import com.antiy.common.base.IBaseService;
 import com.antiy.entity.user.Department;
+import com.antiy.entity.user.TaskIdQuery;
 import com.antiy.entity.user.User;
 import com.antiy.entity.vul.EventLevel;
 import com.antiy.query.user.ScoreQuery;
@@ -108,13 +109,13 @@ public interface IUserService extends IBaseService<User> {
      */
     PageResult<VulIntegralInfoResponse> getScoreList(ScoreQuery query);
 
-    public List<ScoreTop10> userScoreTop10();
+    public List<ScoreTop10> userScoreTop10(TaskIdQuery query);
 
-    public List<ScoreTop10> departmentScoreTop10();
+    public List<ScoreTop10> departmentScoreTop10(TaskIdQuery query);
 
-    public Map<String, Integer> vulSubmitTrend();
+    public Map<String, Integer> vulSubmitTrend(TaskIdQuery query);
 
-    public Map<String, Integer> vulRepairTrend();
+    public Map<String, Integer> vulRepairTrend(TaskIdQuery query);
 
     List<EventLevel> getEventLevel();
 

@@ -22,9 +22,9 @@ public interface VulIntegralInfoDao {
 
     Integer getScoreOfUser(long userId);
 
-    List<ScoreTop10> getPersonalTop10(@Param("start") Long start, @Param("end") Long end);
+    List<ScoreTop10> getPersonalTop10(@Param("start") Long start, @Param("end") Long end, @Param("taskId") Integer taskId);
 
-    List<ScoreTop10> getDepartmentTop10(@Param("start") Long start, @Param("end") Long end);
+    List<ScoreTop10> getDepartmentTop10(@Param("start") Long start, @Param("end") Long end, @Param("taskId") Integer taskId);
 
     Integer findCountScore(ScoreQuery query);
 

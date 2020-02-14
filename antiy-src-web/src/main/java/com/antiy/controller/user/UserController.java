@@ -3,6 +3,7 @@ package com.antiy.controller.user;
 import com.alibaba.fastjson.JSON;
 import com.antiy.base.ActionResponse;
 import com.antiy.common.utils.AesEncryptUtil;
+import com.antiy.entity.user.TaskIdQuery;
 import com.antiy.query.user.BusinessIdQuery;
 import com.antiy.query.user.ScoreQuery;
 import com.antiy.query.user.UserQuery;
@@ -112,26 +113,26 @@ public class UserController {
 
     @ApiOperation("获得个人积分top10")
     @PostMapping("/userScoreTop10")
-    public ActionResponse userScoreTop10() {
-        return ActionResponse.success(userService.userScoreTop10());
+    public ActionResponse userScoreTop10(@RequestBody(required = false) TaskIdQuery query) {
+        return ActionResponse.success(userService.userScoreTop10(query));
     }
 
     @ApiOperation("获得部门积分top10")
     @PostMapping("/departmentScoreTop10")
-    public ActionResponse departmentScoreTop10() {
-        return ActionResponse.success(userService.departmentScoreTop10());
+    public ActionResponse departmentScoreTop10(@RequestBody(required = false) TaskIdQuery query) {
+        return ActionResponse.success(userService.departmentScoreTop10(query));
     }
 
     @ApiOperation("提交漏洞走势图")
     @PostMapping("/vulSubmitTrend")
-    public ActionResponse vulSubmitTrend() {
-        return ActionResponse.success(userService.vulSubmitTrend());
+    public ActionResponse vulSubmitTrend(@RequestBody(required = false) TaskIdQuery query) {
+        return ActionResponse.success(userService.vulSubmitTrend(query));
     }
 
     @ApiOperation("修复漏洞走势图")
     @PostMapping("/vulRepairTrend")
-    public ActionResponse vulRepairTrend() {
-        return ActionResponse.success(userService.vulRepairTrend());
+    public ActionResponse vulRepairTrend(@RequestBody(required = false) TaskIdQuery query) {
+        return ActionResponse.success(userService.vulRepairTrend(query));
     }
 
     @ApiOperation("用户下拉选择数据")

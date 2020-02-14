@@ -67,6 +67,9 @@ public class UserInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+        if (!isAuthentication) {
+            return true;
+        }
         String[] urls = permitUrl.split(",");
         //是否需要放行
         isPass = !isAuthentication;

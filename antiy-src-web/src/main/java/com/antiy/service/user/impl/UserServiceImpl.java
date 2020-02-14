@@ -86,8 +86,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             }
             //超级管理员和管理员才能创建审核员
             if (UserConstant.ROLE_TYPE_SH.equals(requestRole)
-                    && (!UserConstant.ROLE_TYPE_SUPERADMIN.equals(roleId)
-                    || !UserConstant.ROLE_TYPE_ADMIN.equals(roleId))) {
+                    && !UserConstant.ROLE_TYPE_SUPERADMIN.equals(roleId)
+                    && !UserConstant.ROLE_TYPE_ADMIN.equals(roleId)) {
                 throw new BusinessException("您没有创建审核员的权限");
             }
         }

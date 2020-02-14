@@ -33,7 +33,11 @@ public interface VulInfoDao {
 
     void updateVulStatus(VulInfo v);
 
-    List<Map<String, Object>> getVulSubmitTrend(@Param("start") Long start, @Param("end") Long end, @Param("taskId") Integer taskId);
+    List<Map<String, Object>> getVulSubmitTrend(@Param("start") Long start, @Param("end") Long end,
+                                                @Param("taskId") Integer taskId);
 
-    List<Map<String, Object>> getVulRepairTrend(@Param("start") Long start, @Param("end") Long end, @Param("taskId") Integer taskId);
+    List<Map<String, Object>> getVulRepairTrend(@Param("start") Long start, @Param("end") Long end,
+                                                @Param("taskId") Integer taskId);
+
+    List<String> queryNoPassVulByUserId(@Param("userId") long userId);
 }

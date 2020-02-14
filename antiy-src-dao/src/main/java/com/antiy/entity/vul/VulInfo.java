@@ -32,6 +32,7 @@ public class VulInfo {
      * A,B,C,D拼接
      */
     private String  eventLevel;
+    private String  eventLevelDetail;
     private String  vulDesc;
     private String  repairSuggest;
     private String  vulMaterialName;
@@ -54,6 +55,14 @@ public class VulInfo {
      * 0删除1正常
      */
     private Integer status;
+
+    public String getEventLevelDetail() {
+        return eventLevelDetail;
+    }
+
+    public void setEventLevelDetail(String eventLevelDetail) {
+        this.eventLevelDetail = eventLevelDetail;
+    }
 
     public Integer getVulDepartment() {
         return vulDepartment;

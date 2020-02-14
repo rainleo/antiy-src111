@@ -23,6 +23,8 @@ public class VulInfoQuery extends ObjectQuery {
     private Integer type;
     @ApiModelProperty("任务名称")
     private String  taskName;
+    @ApiModelProperty("所属任务id")
+    private Integer taskId;
     @ApiModelProperty("漏洞地址")
     private String  vulAddress;
     /**
@@ -42,7 +44,15 @@ public class VulInfoQuery extends ObjectQuery {
     @ApiModelProperty("提交人所属部门")
     private Integer commitDept;
 
-    private Long    userId;
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    private Long userId;
 
     public Long getUserId() {
         return userId;

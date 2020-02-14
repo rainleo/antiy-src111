@@ -56,6 +56,8 @@ public class VulInfoResponse {
     private String  vulTypeName;
     @ApiModelProperty("事件等级")
     private String  eventLevel;
+    @ApiModelProperty("事件等级详细")
+    private String  eventLevelDetail;
     @ApiModelProperty("漏洞等级")
     private Integer vulLevel;
     @ApiModelProperty("漏洞等级名称")
@@ -68,6 +70,14 @@ public class VulInfoResponse {
     private Integer department;
     @ApiModelProperty("部门名")
     private String  departmentName;
+
+    public String getEventLevelDetail() {
+        return eventLevelDetail;
+    }
+
+    public void setEventLevelDetail(String eventLevelDetail) {
+        this.eventLevelDetail = eventLevelDetail;
+    }
 
     public String getVulDepartmentName() {
         return vulDepartmentName;

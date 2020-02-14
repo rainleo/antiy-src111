@@ -2,6 +2,9 @@ package com.antiy.service.vul.impl;
 
 import com.antiy.base.BaseConverter;
 import com.antiy.common.utils.LogUtils;
+import com.antiy.controller.sse.SseEmitterController;
+import com.antiy.dao.user.RoleDao;
+import com.antiy.dao.user.UserDao;
 import com.antiy.dao.vul.VulExamineInfoDao;
 import com.antiy.dao.vul.VulInfoDao;
 import com.antiy.dao.vul.VulIntegralInfoDao;
@@ -19,6 +22,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p> 服务实现类 </p>
@@ -36,6 +40,8 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
     private VulIntegralInfoDao                           vulIntegralInfoDao;
     @Resource
     private VulInfoDao                                   vulInfoDao;
+    @Resource
+    private UserDao                                      userDao;
     @Resource
     private LoginUserUtil                                loginUserUtil;
     BaseConverter<VulExamineInfoRequest, VulExamineInfo> baseConverter = new BaseConverter();
@@ -68,6 +74,12 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
                     vulInfo.getType(), vulInfo.getAddressOwner(), vulInfo.getVulDepartment()));
             // 保存积分
             vulIntegralInfoDao.saveSingle(vulIntegralInfo);
+            // 审核通过,向审核员发送通知
+            SseEmitterController.sendall(vulInfo.getId(), userDao.getUserIdByRole(3));
+        } else if (vulExamineInfoRequest.getResult() == 3) {
+            // 审核不通过,向提交漏洞用户发送通知
+            SseEmitterController.sendByClientID(String.valueOf(vulInfo.getCommitUser()),
+                "您提交的漏洞" + vulInfo.getVulName() + "审核未通过");
         }
         // 漏洞状态
         VulInfo v = new VulInfo();

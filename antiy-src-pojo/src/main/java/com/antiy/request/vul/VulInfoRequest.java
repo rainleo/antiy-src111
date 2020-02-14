@@ -4,6 +4,8 @@ import com.antiy.exception.RequestParamValidateException;
 import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -28,6 +30,8 @@ public class VulInfoRequest implements ObjectValidator {
     @Pattern(regexp = "(([0,1]?\\d?\\d|2[0-4]\\d|25[0-5])\\.){3}([0,1]?\\d?\\d|2[0-4]\\d|25[0-5])", message = "IP格式错误")
     private String  ip;
     @ApiModelProperty("漏洞端口")
+    @Max(65535)
+    @Min(0)
     private Integer vulPort;
     @ApiModelProperty("漏洞地址")
     private String  vulAddress;
@@ -50,6 +54,8 @@ public class VulInfoRequest implements ObjectValidator {
      */
     @ApiModelProperty("A,B,C,D拼接")
     private String  eventLevel;
+    @ApiModelProperty("事件等级详细")
+    private String  eventLevelDetail;
     @ApiModelProperty("漏洞描述")
     private String  vulDesc;
     @ApiModelProperty("修复说明/修复建议")
@@ -73,6 +79,14 @@ public class VulInfoRequest implements ObjectValidator {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getEventLevelDetail() {
+        return eventLevelDetail;
+    }
+
+    public void setEventLevelDetail(String eventLevelDetail) {
+        this.eventLevelDetail = eventLevelDetail;
     }
 
     public void setId(Integer id) {

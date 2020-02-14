@@ -31,4 +31,6 @@ public interface IVulInfoService {
     List<VulExamineInfoResponse> queryExamineHistory(Integer id);
 
     void exportData(VulInfoQuery vulInfoQuery, HttpServletResponse response, HttpServletRequest request) throws IOException;
+
+    List<String> getExamineInfo(String clientId);
 }

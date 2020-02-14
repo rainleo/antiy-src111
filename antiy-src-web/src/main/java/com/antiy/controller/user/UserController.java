@@ -8,6 +8,7 @@ import com.antiy.query.user.BusinessIdQuery;
 import com.antiy.query.user.ScoreQuery;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.Add;
+import com.antiy.request.user.NormalUserRequest;
 import com.antiy.request.user.Update;
 import com.antiy.request.user.UserPasswordRequest;
 import com.antiy.request.user.UserRequest;
@@ -42,12 +43,19 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @ApiOperation("新增用户")
+    @ApiOperation("创建用户")
     @PostMapping("/save")
     public ActionResponse addUser(@Validated(value = Add.class) @RequestBody UserRequest request) throws Exception {
         AesEncryptUtil.aesDecrypt(request.getPassword());
         userService.saveUser(request);
         return ActionResponse.success();
+    }
+
+    @ApiOperation("普通用户注册")
+    @PostMapping("/register")
+    public ActionResponse register(@Validated(value = Add.class) @RequestBody NormalUserRequest request) throws Exception {
+        AesEncryptUtil.aesDecrypt(request.getPassword());
+        return ActionResponse.success(userService.register(request));
     }
 
     @ApiOperation("修改用户")

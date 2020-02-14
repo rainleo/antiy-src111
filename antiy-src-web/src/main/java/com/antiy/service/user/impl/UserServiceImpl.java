@@ -20,6 +20,7 @@ import com.antiy.exception.BusinessException;
 import com.antiy.query.user.ScoreQuery;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.BussinessIdRequest;
+import com.antiy.request.user.NormalUserRequest;
 import com.antiy.request.user.UserRequest;
 import com.antiy.response.user.UserResponse;
 import com.antiy.response.vul.ScoreTop10;
@@ -109,6 +110,31 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         Map<String, Object> param = new HashMap<>(2);
         param.put("userId", user.getBusinessId());
         param.put("roleId", requestRole != null ? requestRole : 4);
+        roleDao.saveUserRole(param);
+        logger.info("创建用户成功");
+        return user.getBusinessId();
+    }
+
+    @Override
+    public Long register(NormalUserRequest request) {
+        User user = new User();
+        int num = userDao.findCountByUsername(request.getUsername());
+        logger.info("检查用户名是否重复");
+        if (num > 0) {
+            logger.info("用户名已存在");
+            throw new BusinessException(UserConstant.USERNAME_EXIST);
+        }
+        if (!request.getPassword().equals(request.getRepeatPassword())) {
+            throw new BusinessException("确认密码和密码字段不一致，请检查！");
+        }
+        BeanUtils.copyProperties(request, user);
+        user.setBusinessId(new SnowFlake(0, 0).nextId());
+        user.setStatus(UserConstant.USER_STATUS_NORMAL);
+        user.setGmtCreate(System.currentTimeMillis());
+        userDao.insert(user);
+        Map<String, Object> param = new HashMap<>(2);
+        param.put("userId", user.getBusinessId());
+        param.put("roleId", 4);
         roleDao.saveUserRole(param);
         logger.info("创建用户成功");
         return user.getBusinessId();

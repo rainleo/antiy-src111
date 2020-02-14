@@ -9,6 +9,7 @@ import com.antiy.entity.vul.EventLevel;
 import com.antiy.query.user.ScoreQuery;
 import com.antiy.query.user.UserQuery;
 import com.antiy.request.user.BussinessIdRequest;
+import com.antiy.request.user.NormalUserRequest;
 import com.antiy.request.user.UserRequest;
 import com.antiy.response.user.UserResponse;
 import com.antiy.response.vul.ScoreTop10;
@@ -63,7 +64,7 @@ public interface IUserService extends IBaseService<User> {
     /**
      * 通过ID查询
      *
-     * @param bussinessId
+     * @param businessId
      * @return
      */
     UserResponse queryUserByBussinessId(Long businessId) throws Exception;
@@ -130,4 +131,6 @@ public interface IUserService extends IBaseService<User> {
      * @return
      */
     Integer getTotalScore();
+
+    Long register(NormalUserRequest request);
 }

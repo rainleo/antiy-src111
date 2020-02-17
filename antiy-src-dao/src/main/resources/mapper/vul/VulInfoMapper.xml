@@ -503,6 +503,9 @@
             <if test="commitDept != null">
                 and v.vul_department = #{commitDept}
             </if>
+            <if test="userId != null">
+                and create_user = #{userId}
+            </if>
         </trim>
         order by v.gmt_create desc
         <if test="pageSize !=-1">

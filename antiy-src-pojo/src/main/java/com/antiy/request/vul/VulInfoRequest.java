@@ -3,6 +3,7 @@ package com.antiy.request.vul;
 import com.antiy.exception.RequestParamValidateException;
 import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -20,6 +21,7 @@ public class VulInfoRequest implements ObjectValidator {
     @ApiModelProperty("漏洞id")
     private Integer id;
     @ApiModelProperty("漏洞名称")
+    @Length(max = 128,message = "漏洞名称不能超过128")
     private String  vulName;
     /**
      * 1.扫雷,2.排雷
@@ -34,6 +36,7 @@ public class VulInfoRequest implements ObjectValidator {
     @Min(0)
     private Integer vulPort;
     @ApiModelProperty("漏洞地址")
+    @Length(max = 256,message = "漏洞地址不能超过256")
     private String  vulAddress;
     @ApiModelProperty("漏洞提交人所属部门")
     private Integer vulDepartment;
@@ -60,9 +63,11 @@ public class VulInfoRequest implements ObjectValidator {
     private String  vulDesc;
     @ApiModelProperty("修复说明/修复建议")
     private String  repairSuggest;
+    @Length(max = 64,message = "漏洞材料名称不能超过64")
     @ApiModelProperty("证明材料名称")
     private String  vulMaterialName;
     @ApiModelProperty("证明材料url")
+    @Length(max = 256,message = "漏洞材料URL不能超过256")
     private String  vulMaterialUrl;
     /**
      * 1待审核2通过3未通过

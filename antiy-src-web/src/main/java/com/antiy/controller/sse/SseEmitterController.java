@@ -1,5 +1,6 @@
 package com.antiy.controller.sse;
 
+import com.alibaba.fastjson.JSONObject;
 import com.antiy.common.utils.LogUtils;
 import com.antiy.response.vul.SseVulResponse;
 import com.antiy.service.vul.IVulExamineInfoService;
@@ -62,7 +63,7 @@ public class SseEmitterController {
             try {
                 // 向审核员发送通知
                 if (entry.getValue().role == 3) {
-                    entry.getValue().sseEmitter.send(response);
+                    entry.getValue().sseEmitter.send(JSONObject.toJSONString(response));
                 }
             } catch (IOException e) {
                 LogUtils.get().error("IOException!");
@@ -83,7 +84,7 @@ public class SseEmitterController {
         try {
             Result result = sseEmitterMap.get(clientId);
             if (result != null && result.sseEmitter != null) {
-                result.sseEmitter.send(response);
+                result.sseEmitter.send(JSONObject.toJSONString(response));
             }
         } catch (IOException e) {
             LogUtils.get().error("IOException!");

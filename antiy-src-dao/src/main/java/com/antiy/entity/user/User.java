@@ -35,6 +35,10 @@ private static final long serialVersionUID = 1L;
     */
     private Integer department;
     /**
+     * 部门名称
+     */
+    private String departmentName;
+    /**
     *  身份证号
     */
     private String idcard;
@@ -106,6 +110,14 @@ private static final long serialVersionUID = 1L;
 
     public void setDepartment(Integer department) {
         this.department = department;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getIdcard() {

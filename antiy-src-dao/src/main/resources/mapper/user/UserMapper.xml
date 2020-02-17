@@ -10,6 +10,7 @@
         <result column="password" property="password"/>
         <result column="name" property="name"/>
         <result column="department" property="department"/>
+        <result column="departmentName" property="departmentName"/>
         <result column="idcard" property="idcard"/>
         <result column="phone" property="phone"/>
         <result column="status" property="status"/>
@@ -204,8 +205,8 @@
     </select>
 
     <select id="findQuery" resultMap="BaseResultMap" parameterType="com.antiy.base.ObjectQuery">
-        select * from
-        <include refid="Table_Name"></include>
+        select u.*,d.name departmentName from
+        user u left join department d on u.department=d.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
         </trim>
         <if test="pageSize !=-1">

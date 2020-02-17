@@ -4,6 +4,7 @@ import com.antiy.exception.BusinessException;
 import com.antiy.exception.RequestParamValidateException;
 import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class TaskInfoRequest implements ObjectValidator {
 
     @ApiModelProperty("任务名")
     @NotBlank(message = "任务名不能为空")
+    @Length(max = 64,message = "任务名不能超过64")
     private String  taskName;
     /**
      * 1.排雷2.扫雷

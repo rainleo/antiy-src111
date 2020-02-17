@@ -1,18 +1,22 @@
 package com.antiy.controller.sse;
 
+import com.alibaba.fastjson.JSONObject;
 import com.antiy.common.utils.LogUtils;
 import com.antiy.response.vul.SseVulResponse;
 import com.antiy.service.vul.IVulExamineInfoService;
 import com.antiy.service.vul.IVulInfoService;
 import com.antiy.util.LoginUserUtil;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -27,27 +31,60 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 @RequestMapping("/api/v1/sse")
 public class SseEmitterController {
-    private Logger                     logger        = LogUtils.get(this.getClass());
+    private Logger                   logger        = LogUtils.get(this.getClass());
     @Resource
-    private LoginUserUtil              loginUserUtil;
+    private LoginUserUtil            loginUserUtil;
     // 用于保存每个请求对应的 SseEmitter
-    private static Map<String, Result> sseEmitterMap = new ConcurrentHashMap<>();
+    private static Map<Long, Result> sseEmitterMap = new ConcurrentHashMap<>();
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
-    public SseEmitter testSseEmitter(@RequestParam("clientId") String clientId) {
+    public SseEmitter testSseEmitter(HttpServletResponse response) {
         // 默认30秒超时,设置为0L则永不超时
         SseEmitter sseEmitter = new SseEmitter(0L);
-        sseEmitterMap.put(clientId, new Result(clientId, loginUserUtil.getUser().getRoleId(), sseEmitter));
+        response.addHeader("X-Accel-Buffering", "no");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setContentType("text/event-stream");
+        response.setCharacterEncoding("UTF-8");
+        Long clientId = loginUserUtil.getUser().getBusinessId();
+        if (!sseEmitterMap.containsKey(clientId)) {
+            sseEmitterMap.put(clientId, new Result(clientId, loginUserUtil.getUser().getRoleId(), sseEmitter));
+        }
         return sseEmitter;
     }
 
-    @RequestMapping(value = "/end", method = RequestMethod.GET)
-    public String completeSseEmitter(@RequestParam("clientId") String clientId) {
-        Result result = sseEmitterMap.get(clientId);
+    @RequestMapping(value = "/end", method = RequestMethod.POST)
+    public String completeSseEmitter() {
+        Result result = sseEmitterMap.get(loginUserUtil.getUser().getBusinessId());
         if (result != null) {
-            sseEmitterMap.remove(clientId);
+            sseEmitterMap.remove(loginUserUtil.getUser().getBusinessId());
             result.sseEmitter.complete();
         }
+        return "Succeed!";
+    }
+
+    /**
+     * 向SseEmitter对象发送数据
+     *
+     * @return
+     */
+    @RequestMapping(value = "/send", method = RequestMethod.POST)
+    public String setSseEmitter() {
+        try {
+            Result result = sseEmitterMap.get(loginUserUtil.getUser().getBusinessId());
+            if (result != null && result.sseEmitter != null) {
+                SseVulResponse response = new SseVulResponse();
+                response.setNotice("测试结果");
+                response.setCommitDate(System.currentTimeMillis());
+                response.setVulName("sse测试漏洞");
+                response.setVulId(12);
+                result.sseEmitter.send(JSONObject.toJSONString(response));
+            }
+        } catch (IOException e) {
+            logger.error("IOException!", e);
+            return "error";
+        }
+
         return "Succeed!";
     }
 
@@ -58,11 +95,11 @@ public class SseEmitterController {
      */
     public static boolean sendall(SseVulResponse response) {
         boolean flag = true;
-        for (Map.Entry<String, Result> entry : sseEmitterMap.entrySet()) {
+        for (Map.Entry<Long, Result> entry : sseEmitterMap.entrySet()) {
             try {
                 // 向审核员发送通知
                 if (entry.getValue().role == 3) {
-                    entry.getValue().sseEmitter.send(response);
+                    entry.getValue().sseEmitter.send(JSONObject.toJSONString(response));
                 }
             } catch (IOException e) {
                 LogUtils.get().error("IOException!");
@@ -83,21 +120,22 @@ public class SseEmitterController {
         try {
             Result result = sseEmitterMap.get(clientId);
             if (result != null && result.sseEmitter != null) {
-                result.sseEmitter.send(response);
+                result.sseEmitter.send(JSONObject.toJSONString(response));
             }
         } catch (IOException e) {
             LogUtils.get().error("IOException!");
+            e.printStackTrace();
             return false;
         }
         return true;
     }
 
     private class Result {
-        private String     clientId;
+        private Long       clientId;
         private Integer    role;
         private SseEmitter sseEmitter;
 
-        public Result(String clientId, Integer role, SseEmitter sseEmitter) {
+        public Result(Long clientId, Integer role, SseEmitter sseEmitter) {
             this.clientId = clientId;
             this.role = role;
             this.sseEmitter = sseEmitter;

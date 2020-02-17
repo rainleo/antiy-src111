@@ -443,7 +443,7 @@
                 and v.vul_department = #{commitDept}
             </if>
             <if test="userId != null">
-                and create_user = #{userId}
+                and v.create_user = #{userId}
             </if>
         </trim>
     </select>
@@ -502,6 +502,9 @@
             </if>
             <if test="commitDept != null">
                 and v.vul_department = #{commitDept}
+            </if>
+            <if test="userId != null">
+                and v.create_user = #{userId}
             </if>
         </trim>
         order by v.gmt_create desc

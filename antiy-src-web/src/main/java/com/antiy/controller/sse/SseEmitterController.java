@@ -88,6 +88,7 @@ public class SseEmitterController {
             }
         } catch (IOException e) {
             LogUtils.get().error("IOException!");
+            e.printStackTrace();
             return false;
         }
         return true;

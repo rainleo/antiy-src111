@@ -95,8 +95,11 @@ public class VulInfoServiceImpl implements IVulInfoService {
 
     @Override
     public PageResult<VulInfoResponse> queryList(VulInfoQuery vulInfoQuery) {
-        /* Integer role = loginUserUtil.getUser().getRoleId(); if (role == 4) { //普通用户,只能查看自己提交的
-         * vulInfoQuery.setUserId(loginUserUtil.getUser().getBusinessId()); } */
+        // 普通用户,只能查看自己提交的
+        Integer role = loginUserUtil.getUser().getRoleId();
+        if (role == 4) {
+            vulInfoQuery.setUserId(loginUserUtil.getUser().getBusinessId());
+        }
         Integer count = vulInfoDao.queryCount(vulInfoQuery);
         if (count <= 0) {
             return new PageResult<>(vulInfoQuery.getPageSize(), 0, vulInfoQuery.getCurrentPage(), Lists.newArrayList());

@@ -1,9 +1,21 @@
 package com.antiy.response.vul;
 
 public class SseVulResponse {
+    /**
+     * 漏洞id
+     */
     private Integer vulId;
+    /**
+     * 漏洞名
+     */
     private String  vulName;
+    /**
+     * 提交日期
+     */
     private Long    commitDate;
+    /**
+     * 提示消息
+     */
     private String  notice;
 
     public SseVulResponse() {

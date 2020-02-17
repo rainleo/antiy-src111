@@ -209,6 +209,18 @@
         user u left join department d on u.department=d.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
         </trim>
+        <choose>
+            <!-- 支持多字段排序 -->
+            <when test="sortSql != null">
+                order by
+                <foreach collection="sortSql" item="s" separator=",">
+                    ${s}
+                </foreach>
+            </when>
+            <otherwise>
+                order by gmt_create desc
+            </otherwise>
+        </choose>
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>

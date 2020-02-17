@@ -218,6 +218,18 @@
     <select id="getScoreList" resultMap="BaseResultMap" parameterType="com.antiy.query.user.ScoreQuery">
      select  intergral_event , vul_id, vul_name, ip, vul_port, commit_date, grade, commit_user, department
      from vul_integral_info where commit_user = #{userId}
+    <choose>
+        <!-- 支持多字段排序 -->
+        <when test="sortSql != null">
+            order by
+            <foreach collection="sortSql" item="s" separator=",">
+                ${s}
+            </foreach>
+        </when>
+        <otherwise>
+            order by commit_date desc
+        </otherwise>
+    </choose>
      <if test="pageSize !=-1">
         LIMIT #{pageSize} offset #{pageOffset}
      </if>

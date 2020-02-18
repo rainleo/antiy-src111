@@ -13,6 +13,7 @@
 
  Date: 18/02/2020 09:40:17
 */
+drop database if EXISTS gzdx;
 CREATE DATABASE `gzdx` CHARACTER SET 'utf8';
 use gzdx;
 SET NAMES utf8mb4;

@@ -13,9 +13,12 @@
 
  Date: 18/02/2020 09:40:17
 */
-drop database if EXISTS gzdx;
-CREATE DATABASE `gzdx` CHARACTER SET 'utf8';
-use gzdx;
+
+CREATE  database
+IF NOT  EXISTS  `gzdx` DEFAULT  CHARACTER
+SET utf8mb4 COLLATE  utf8mb4_unicode_ci;
+
+use gzdx ;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -70,7 +73,7 @@ CREATE TABLE `event_level`  (
   `event_level` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '事件等级',
   `content` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '事件描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of event_level
@@ -113,7 +116,7 @@ CREATE TABLE `menu`  (
   `tag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '菜单标识',
   `type` tinyint(1) DEFAULT NULL COMMENT '菜单类型 1、菜单 2、按钮',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -148,7 +151,7 @@ CREATE TABLE `role`  (
   `tag` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '角色标识',
   `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -213,7 +216,7 @@ CREATE TABLE `task_info`  (
   `gmt_modify` bigint(20) DEFAULT NULL,
   `status` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of task_info
@@ -241,33 +244,12 @@ CREATE TABLE `user`  (
   `modified_user` int(11) DEFAULT NULL COMMENT '修改用户',
   `gmt_modified` bigint(20) DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 674713460738621440, 'admin', 'qBWzqgUZxbZ4bCLwsQA2Sw==', '刘三', 1, '510823199107147030', '18789092987', 1, NULL, 0, 1581931046915, 0, 1580905824610, NULL, NULL);
-INSERT INTO `user` VALUES (2, 677581395559710720, 'admin2', 'Sy93OjPDF5vwNrkTfL9AyA==', '111', 5, NULL, '15800882246', 1, NULL, 0, 1581589606986, 1111, 1581589593555, NULL, NULL);
-INSERT INTO `user` VALUES (3, 677623148866174976, 'admin3', 'Sy93OjPDF5vwNrkTfL9AyA==', '张三', 7, NULL, NULL, 1, NULL, 0, 1581655928183, 1111, 1581599548319, NULL, NULL);
-INSERT INTO `user` VALUES (4, 677823457165049856, 'lj2312763', 'Sy93OjPDF5vwNrkTfL9AyA==', NULL, 1, '652901198703284033', '17360096217', 1, NULL, 0, 1581935366684, 1111, 1581647305539, NULL, NULL);
-INSERT INTO `user` VALUES (5, 677869054702125056, 'normal', 'Sy93OjPDF5vwNrkTfL9AyA==', NULL, 5, NULL, '15800882246', 1, NULL, 0, 1581658203973, 1111, 1581658176839, NULL, NULL);
-INSERT INTO `user` VALUES (6, 677870377233285120, 'normalUser', 'Sy93OjPDF5vwNrkTfL9AyA==', '张三', 5, NULL, '18010621052', 1, NULL, 0, 1581918885206, 1111, 1581658492155, NULL, NULL);
-INSERT INTO `user` VALUES (7, 677870544044949504, 'normalUser2', 'Sy93OjPDF5vwNrkTfL9AyA==', '张三', 4, NULL, NULL, 1, NULL, NULL, NULL, 1111, 1581658531926, NULL, NULL);
-INSERT INTO `user` VALUES (8, 677902600011513856, 'normalAdmin', 'Sy93OjPDF5vwNrkTfL9AyA==', 'liusan', 1, '2222222', '', 1, NULL, NULL, NULL, 1111, 1581666174664, NULL, NULL);
-INSERT INTO `user` VALUES (9, 677940817368711168, 'baiyike', 'hmf/J+9sr235FF40vocwrg==', NULL, 1, NULL, NULL, 1, NULL, 0, 1581935343878, 1111, 1581675286392, NULL, NULL);
-INSERT INTO `user` VALUES (10, 677949304924536832, 'jcqy', 'Sy93OjPDF5vwNrkTfL9AyA==', NULL, 6, '513902199402262345', NULL, 1, NULL, 0, 1581677323314, NULL, 1581677309983, NULL, NULL);
-INSERT INTO `user` VALUES (11, 677951315669680128, 'normalAdminjcqy', 'Sy93OjPDF5vwNrkTfL9AyA==', '张三', 5, NULL, NULL, 1, NULL, 0, 1581931579393, 1111, 1581677789382, NULL, NULL);
-INSERT INTO `user` VALUES (12, 678914128978378752, 'lvliang', 'qBWzqgUZxbZ4bCLwsQA2Sw==', '吕梁', 1, '510123199306233714', '13551185326', 1, NULL, 0, 1581907383569, 1111, 1581907341963, NULL, NULL);
-INSERT INTO `user` VALUES (13, 678916900561879040, 'auditorjcqy', 'Sy93OjPDF5vwNrkTfL9AyA==', NULL, 4, NULL, NULL, 1, NULL, 0, 1581908026473, 1111, 1581908002760, NULL, NULL);
-INSERT INTO `user` VALUES (14, 678920707152805888, 'liyongjiang', 'C446k7kuYFG4zVfuPFe75w==', NULL, 6, NULL, NULL, 1, NULL, 0, 1581937383565, NULL, 1581908910322, NULL, NULL);
-INSERT INTO `user` VALUES (15, 678927166217388032, 'adminZYH', 'Sy93OjPDF5vwNrkTfL9AyA==', NULL, 4, NULL, NULL, 1, NULL, 0, 1581933811493, 1111, 1581910450283, NULL, NULL);
-INSERT INTO `user` VALUES (16, 678927470698692608, 'shy', 'qBWzqgUZxbZ4bCLwsQA2Sw==', '审核员', 1, '510123199306233741', '13551185326', 1, NULL, 0, 1581932737994, 1111, 1581910522877, NULL, NULL);
-INSERT INTO `user` VALUES (17, 678929798956843008, 'apple', 'C446k7kuYFG4zVfuPFe75w==', NULL, 22, '', NULL, 1, NULL, 0, 1581933265545, NULL, 1581911077977, NULL, NULL);
-INSERT INTO `user` VALUES (18, 678971557057396736, 'baiyi', 'hmf/J+9sr235FF40vocwrg==', NULL, 1, NULL, NULL, 1, NULL, 0, 1581922339584, 1111, 1581921033884, NULL, NULL);
-INSERT INTO `user` VALUES (19, 678978486903242752, 'hejianbo', '1ygfWGZIUskiL+HddlqdJw==', NULL, 1, NULL, NULL, 1, NULL, 0, 1581930726900, NULL, 1581922686088, NULL, NULL);
-INSERT INTO `user` VALUES (20, 679000352778878976, 'lxq', 'C446k7kuYFG4zVfuPFe75w==', 'lxq', 1, '510322199300214', NULL, 1, NULL, 0, 1581935477407, 1111, 1581927899319, NULL, NULL);
-INSERT INTO `user` VALUES (21, 679013847146692608, 'liyongjiang2', 'C446k7kuYFG4zVfuPFe75w==', NULL, 7, NULL, NULL, 1, NULL, 0, 1581932729092, 1111, 1581931116627, NULL, NULL);
-INSERT INTO `user` VALUES (22, 679018398482432000, 'liyongjiang3', 'C446k7kuYFG4zVfuPFe75w==', NULL, 6, NULL, NULL, 1, NULL, 0, 1581932254939, 1111, 1581932201750, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for user_role
@@ -319,7 +301,7 @@ CREATE TABLE `vul_examine_info`  (
   `examine_material_url` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审批材料url',
   `examine_date` bigint(20) DEFAULT NULL COMMENT '审批日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vul_examine_info
@@ -356,7 +338,7 @@ CREATE TABLE `vul_info`  (
   `gmt_modify` bigint(20) DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1 COMMENT '0删除1正常',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vul_info
@@ -378,11 +360,10 @@ CREATE TABLE `vul_integral_info`  (
   `commit_user` bigint(20) NOT NULL COMMENT '提交人',
   `department` int(11) NOT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vul_integral_info
 -- ----------------------------
-INSERT INTO `vul_integral_info` VALUES (4, 1, '提交漏洞', 4, '扫雷漏洞001', '192.168.17.25', 8282, 1581324312506, 1000, 0, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

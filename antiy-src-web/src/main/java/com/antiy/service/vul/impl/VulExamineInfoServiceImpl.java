@@ -93,7 +93,7 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
             sb.append("您于").append(format.format(vulInfo.getCommitDate())).append("提交的").append(vulInfo.getVulName())
                 .append("漏洞审核未通过,请核对后再次提交");
             response.setNotice(sb.toString());
-            SseEmitterController.sendByClientID(String.valueOf(vulInfo.getCommitUser()), response);
+            SseEmitterController.sendByClientID(vulInfo.getCommitUser(), response);
         }
         // 漏洞状态
         VulInfo v = new VulInfo();

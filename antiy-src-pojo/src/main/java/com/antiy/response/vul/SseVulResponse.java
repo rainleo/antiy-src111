@@ -17,6 +17,18 @@ public class SseVulResponse {
      * 提示消息
      */
     private String  notice;
+    /**
+     * 当前用户角色（3.审核员;4。普通用户）
+     */
+    private Integer currentUserRole;
+
+    public Integer getCurrentUserRole() {
+        return currentUserRole;
+    }
+
+    public void setCurrentUserRole(Integer currentUserRole) {
+        this.currentUserRole = currentUserRole;
+    }
 
     public SseVulResponse() {
     }

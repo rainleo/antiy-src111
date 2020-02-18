@@ -8,12 +8,12 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @program antiy-src-parent
  * @description 存储token和用户信息
- * @author wangqian
- * created on 2020-02-06
- * @version  1.0.0
+ * @author wangqian created on 2020-02-06
+ * @version 1.0.0
  */
 public class TokenStoreUtil {
     public final static ConcurrentHashMap<String, UserData> map = new ConcurrentHashMap<>();
+
     public static void put(String token, Long expired, LoginUser userinfo) {
         map.forEach((tk, user) -> {
             Long curTime = System.currentTimeMillis();
@@ -21,21 +21,22 @@ public class TokenStoreUtil {
                 map.remove(tk);
             }
         });
-       UserData user = new UserData(expired, userinfo);
-       map.put(token, user);
+        UserData user = new UserData(expired, userinfo);
+        map.put(token, user);
     }
 
     public static LoginUser get(String token) {
         UserData user = map.get(token);
         return user.getUserinfo();
     }
+
     /** 通过用户id获取token **/
     public static String get(Long userId) {
         for (Map.Entry<String, UserData> user : map.entrySet()) {
             if (userId.equals(user.getValue().getUserinfo().getBusinessId())) {
                 long expired = user.getValue().getExpired();
                 if (System.currentTimeMillis() > expired) {
-                    //token已过期
+                    // token已过期
                     map.remove(user.getKey());
                     return null;
                 }
@@ -55,7 +56,7 @@ public class TokenStoreUtil {
      * @param userId
      */
     public static Boolean existToken(Long userId) {
-       for (Map.Entry<String, UserData> user : map.entrySet()) {
+        for (Map.Entry<String, UserData> user : map.entrySet()) {
             if (userId.equals(user.getValue().getUserinfo().getBusinessId())) {
                 return true;
             }
@@ -68,9 +69,23 @@ public class TokenStoreUtil {
      * @param token
      */
     public static void removeToken(String token) {
-       map.remove(token);
+        map.remove(token);
     }
 
+    /**
+     * 判断token是否有效
+     * @param token
+     * @return true未过期 false过期
+     */
+    public static boolean checkTokenIsValid(String token) {
+        UserData userData = map.get(token);
+        if (userData == null || System.currentTimeMillis() > userData.getExpired()) {
+            // token已过期
+            map.remove(token);
+            return false;
+        }
+        return true;
+    }
 
     private static class UserData {
 
@@ -82,7 +97,7 @@ public class TokenStoreUtil {
         /**
          * token过期时间
          */
-        private Long expired;
+        private Long      expired;
         /**
          * token对应的用户信息
          */

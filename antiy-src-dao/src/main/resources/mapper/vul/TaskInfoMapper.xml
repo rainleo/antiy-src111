@@ -235,7 +235,7 @@
         task_info
         where
         status = 1
-        order by gmt_create
+        order by gmt_create desc
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>

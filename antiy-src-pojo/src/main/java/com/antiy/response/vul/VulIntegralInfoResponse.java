@@ -20,6 +20,7 @@ public class VulIntegralInfoResponse {
     private Integer grade;
     private Long    commitUser;
     private Integer department;
+    private String vulAddress;
 
 
     public String getIntergralEvent() {
@@ -92,5 +93,13 @@ public class VulIntegralInfoResponse {
 
     public void setDepartment(Integer department) {
         this.department = department;
+    }
+
+    public String getVulAddress() {
+        return vulAddress;
+    }
+
+    public void setVulAddress(String vulAddress) {
+        this.vulAddress = vulAddress;
     }
 }

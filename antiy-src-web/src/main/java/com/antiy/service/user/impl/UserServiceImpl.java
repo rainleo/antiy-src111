@@ -202,8 +202,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         long userId = user.getBusinessId();
         query.setUserId(userId);
         Integer count = vulIntegralInfoDao.findCountScore(query);
+        List<VulIntegralInfo> scoreList = vulIntegralInfoDao.getScoreList(query);
         return new PageResult<>(query.getPageSize(), count, query.getCurrentPage(),
-                vulIntegralInfoResponseConverter.convert(vulIntegralInfoDao.getScoreList(query), VulIntegralInfoResponse.class));
+                vulIntegralInfoResponseConverter.convert(scoreList, VulIntegralInfoResponse.class));
     }
 
     @Override

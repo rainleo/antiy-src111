@@ -2,8 +2,10 @@ package com.antiy.controller.user;
 
 import com.alibaba.fastjson.JSON;
 import com.antiy.base.ActionResponse;
+import com.antiy.base.PageResult;
 import com.antiy.common.utils.AesEncryptUtil;
 import com.antiy.entity.user.TaskIdQuery;
+import com.antiy.entity.user.User;
 import com.antiy.query.user.BusinessIdQuery;
 import com.antiy.query.user.ScoreQuery;
 import com.antiy.query.user.UserQuery;
@@ -97,7 +99,8 @@ public class UserController {
     @PostMapping("/list")
     public ActionResponse userList(@RequestBody(required = false) UserQuery query) {
         logger.info("用户列表入参:{}", JSON.toJSONString(query));
-        return ActionResponse.success(userService.findPage(query));
+        PageResult<User> page = userService.findPage(query);
+        return ActionResponse.success(page);
     }
 
 

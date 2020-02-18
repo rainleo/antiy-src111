@@ -20,6 +20,7 @@ public class VulIntegralInfo {
     private Integer grade;
     private Long    commitUser;
     private Integer department;
+    private String vulAddress;
 
     public Integer getId() {
         return id;
@@ -107,6 +108,14 @@ public class VulIntegralInfo {
 
     public void setDepartment(Integer department) {
         this.department = department;
+    }
+
+    public String getVulAddress() {
+        return vulAddress;
+    }
+
+    public void setVulAddress(String vulAddress) {
+        this.vulAddress = vulAddress;
     }
 
     @Override

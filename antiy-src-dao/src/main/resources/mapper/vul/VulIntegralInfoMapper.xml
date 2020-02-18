@@ -15,6 +15,7 @@
         <result column="grade" property="grade"/>
         <result column="commit_user" property="commitUser"/>
         <result column="department" property="department"/>
+        <result column="vul_address" property="vulAddress"/>
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -216,8 +217,8 @@
      from vul_integral_info where commit_user = #{userId}
     </select>
     <select id="getScoreList" resultMap="BaseResultMap" parameterType="com.antiy.query.user.ScoreQuery">
-     select  intergral_event , vul_id, vul_name, ip, vul_port, commit_date, grade, commit_user, department
-     from vul_integral_info where commit_user = #{userId}
+     select  vi.intergral_event, vi.vul_id, vi.vul_name, vi.ip, vi.vul_port, vi.commit_date, vi.grade, vi.commit_user, vi.department,v.vul_address
+     from vul_integral_info vi,vul_info v where vi.vul_id=v.id and commit_user = #{userId}
     <choose>
         <!-- 支持多字段排序 -->
         <when test="sortSql != null">

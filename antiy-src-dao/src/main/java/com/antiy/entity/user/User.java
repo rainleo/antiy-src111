@@ -60,6 +60,7 @@ private static final long serialVersionUID = 1L;
     private Long gmtModified;
     private Long modifiedUser;
     private Long lastLoginTime;
+    private String roleName;
 
     public Integer getId() {
         return id;
@@ -200,6 +201,14 @@ private static final long serialVersionUID = 1L;
 
     public void setLastLoginTime(Long lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override

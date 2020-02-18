@@ -70,6 +70,26 @@ public class VulInfoResponse {
     private Integer department;
     @ApiModelProperty("部门名")
     private String  departmentName;
+    @ApiModelProperty("证明材料名称")
+    private String  vulMaterialName;
+    @ApiModelProperty("证明材料url")
+    private String  vulMaterialUrl;
+
+    public String getVulMaterialName() {
+        return vulMaterialName;
+    }
+
+    public void setVulMaterialName(String vulMaterialName) {
+        this.vulMaterialName = vulMaterialName;
+    }
+
+    public String getVulMaterialUrl() {
+        return vulMaterialUrl;
+    }
+
+    public void setVulMaterialUrl(String vulMaterialUrl) {
+        this.vulMaterialUrl = vulMaterialUrl;
+    }
 
     public String getEventLevelDetail() {
         return eventLevelDetail;

@@ -1,6 +1,8 @@
 package com.antiy.controller.sse;
 
 import com.alibaba.fastjson.JSONObject;
+import com.antiy.base.ActionResponse;
+import com.antiy.base.RespBasicCode;
 import com.antiy.common.utils.LogUtils;
 import com.antiy.response.vul.SseVulResponse;
 import com.antiy.service.vul.IVulExamineInfoService;
@@ -8,10 +10,8 @@ import com.antiy.service.vul.IVulInfoService;
 import com.antiy.util.LoginUserUtil;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import springfox.documentation.spring.web.json.Json;
 
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -30,22 +31,23 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @RestController
 @RequestMapping("/api/v1/sse")
+@CrossOrigin
 public class SseEmitterController {
-    private Logger                   logger        = LogUtils.get(this.getClass());
+    private Logger                  logger        = LogUtils.get(this.getClass());
     @Resource
-    private LoginUserUtil            loginUserUtil;
+    private LoginUserUtil           loginUserUtil;
     // 用于保存每个请求对应的 SseEmitter
-    private static Map<Long, Result> sseEmitterMap = new ConcurrentHashMap<>();
+    public static Map<Long, Result> sseEmitterMap = new ConcurrentHashMap<>();
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public SseEmitter testSseEmitter(HttpServletResponse response) {
-        // 默认30秒超时,设置为0L则永不超时
-        SseEmitter sseEmitter = new SseEmitter(0L);
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/event-stream");
         response.addHeader("X-Accel-Buffering", "no");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control", "no-cache");
-        response.setContentType("text/event-stream");
-        response.setCharacterEncoding("UTF-8");
+        // 默认30秒超时,设置为0L则永不超时
+        SseEmitter sseEmitter = new SseEmitter(0L);
         Long clientId = loginUserUtil.getUser().getBusinessId();
         if (!sseEmitterMap.containsKey(clientId)) {
             sseEmitterMap.put(clientId, new Result(clientId, loginUserUtil.getUser().getRoleId(), sseEmitter));
@@ -54,13 +56,13 @@ public class SseEmitterController {
     }
 
     @RequestMapping(value = "/end", method = RequestMethod.POST)
-    public String completeSseEmitter() {
+    public ActionResponse completeSseEmitter() {
         Result result = sseEmitterMap.get(loginUserUtil.getUser().getBusinessId());
         if (result != null) {
             sseEmitterMap.remove(loginUserUtil.getUser().getBusinessId());
             result.sseEmitter.complete();
         }
-        return "Succeed!";
+        return ActionResponse.success();
     }
 
     /**
@@ -69,7 +71,7 @@ public class SseEmitterController {
      * @return
      */
     @RequestMapping(value = "/send", method = RequestMethod.POST)
-    public String setSseEmitter() {
+    public ActionResponse setSseEmitter() {
         try {
             Result result = sseEmitterMap.get(loginUserUtil.getUser().getBusinessId());
             if (result != null && result.sseEmitter != null) {
@@ -78,14 +80,16 @@ public class SseEmitterController {
                 response.setCommitDate(System.currentTimeMillis());
                 response.setVulName("sse测试漏洞");
                 response.setVulId(12);
-                result.sseEmitter.send(JSONObject.toJSONString(response));
+                SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
+                    .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
+                result.sseEmitter.send(builder);
             }
         } catch (IOException e) {
             logger.error("IOException!", e);
-            return "error";
+            return ActionResponse.fail(RespBasicCode.BUSINESS_EXCEPTION);
         }
 
-        return "Succeed!";
+        return ActionResponse.success();
     }
 
     /**
@@ -99,7 +103,9 @@ public class SseEmitterController {
             try {
                 // 向审核员发送通知
                 if (entry.getValue().role == 3) {
-                    entry.getValue().sseEmitter.send(JSONObject.toJSONString(response));
+                    SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
+                            .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
+                    entry.getValue().sseEmitter.send(builder);
                 }
             } catch (IOException e) {
                 LogUtils.get().error("IOException!");
@@ -120,7 +126,9 @@ public class SseEmitterController {
         try {
             Result result = sseEmitterMap.get(clientId);
             if (result != null && result.sseEmitter != null) {
-                result.sseEmitter.send(JSONObject.toJSONString(response));
+                SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
+                        .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
+                result.sseEmitter.send(builder);
             }
         } catch (IOException e) {
             LogUtils.get().error("IOException!");
@@ -130,10 +138,34 @@ public class SseEmitterController {
         return true;
     }
 
-    private class Result {
+    public class Result {
         private Long       clientId;
         private Integer    role;
         private SseEmitter sseEmitter;
+
+        public Long getClientId() {
+            return clientId;
+        }
+
+        public void setClientId(Long clientId) {
+            this.clientId = clientId;
+        }
+
+        public Integer getRole() {
+            return role;
+        }
+
+        public void setRole(Integer role) {
+            this.role = role;
+        }
+
+        public SseEmitter getSseEmitter() {
+            return sseEmitter;
+        }
+
+        public void setSseEmitter(SseEmitter sseEmitter) {
+            this.sseEmitter = sseEmitter;
+        }
 
         public Result(Long clientId, Integer role, SseEmitter sseEmitter) {
             this.clientId = clientId;

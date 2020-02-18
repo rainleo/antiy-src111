@@ -528,6 +528,8 @@
             v.vul_level as vulLevel,
             event_level_detail as eventLevelDetail,
             v.vul_desc as vulDesc,
+            v.vul_material_name as vulMaterialName,
+            v.vul_material_url as vulMaterialUrl,
             v.repair_suggest as repairSuggest,
             v.ip,
             v.task_id as taskId,

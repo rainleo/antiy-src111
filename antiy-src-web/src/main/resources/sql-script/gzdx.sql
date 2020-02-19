@@ -174,6 +174,7 @@ CREATE TABLE `role_menu`  (
 -- ----------------------------
 -- Records of role_menu
 -- ----------------------------
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (1, 1);
 INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (1, 2);
 INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 3);
 INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 4);

@@ -28,7 +28,7 @@ public class TaskInfoRequest implements ObjectValidator {
     /**
      * 1.排雷2.扫雷
      */
-    @ApiModelProperty("1.排雷2.扫雷")
+    @ApiModelProperty("1.扫雷2.排雷")
     @NotNull(message = "任务类型不能为空")
     private Integer taskType;
     @NotNull(message = "开始时间不能为空")

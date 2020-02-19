@@ -29,16 +29,22 @@ import java.util.List;
 @Service
 public class TaskInfoServiceImpl implements ITaskInfoService {
 
-    private Logger                           logger        = LogUtils.get(this.getClass());
+    private Logger                            logger         = LogUtils.get(this.getClass());
     @Resource
-    private LoginUserUtil                    loginUserUtil;
+    private LoginUserUtil                     loginUserUtil;
     @Resource
-    private TaskInfoDao                      taskInfoDao;
+    private TaskInfoDao                       taskInfoDao;
 
-    BaseConverter<TaskInfoRequest, TaskInfo> baseConverter = new BaseConverter();
+    BaseConverter<TaskInfoRequest, TaskInfo>  baseConverter  = new BaseConverter();
     BaseConverter<TaskInfo, TaskInfoResponse> baseConverter2 = new BaseConverter();
+
     @Override
     public void saveSingle(TaskInfoRequest taskInfoRequest) {
+        Integer count = taskInfoDao.checkRepeatTask(taskInfoRequest.getTaskName(), taskInfoRequest.getTaskType(),
+            System.currentTimeMillis());
+        if (count > 0) {
+            BusinessExceptionUtils.isTrue(false, "已存在该任务!");
+        }
         TaskInfo taskInfo = baseConverter.convert(taskInfoRequest, TaskInfo.class);
         taskInfo.setTaskNo(getTaskNo(taskInfoRequest.getTaskType()));
         taskInfo.setCreateUser(loginUserUtil.getUser().getBusinessId());
@@ -87,7 +93,7 @@ public class TaskInfoServiceImpl implements ITaskInfoService {
                 Lists.newArrayList());
         }
         List<TaskInfo> taskInfoList = taskInfoDao.queryList(taskInfoQuery);
-        List<TaskInfoResponse> taskInfoResponses = baseConverter2.convert(taskInfoList,TaskInfoResponse.class);
+        List<TaskInfoResponse> taskInfoResponses = baseConverter2.convert(taskInfoList, TaskInfoResponse.class);
         return new PageResult<>(taskInfoQuery.getPageSize(), count, taskInfoQuery.getCurrentPage(), taskInfoResponses);
     }
 

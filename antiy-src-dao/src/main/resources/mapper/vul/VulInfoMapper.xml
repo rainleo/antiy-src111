@@ -391,7 +391,7 @@
         id = #{id}
     </update>
     <update id="updateVulStatus">
-        update vul_info set vul_status = #{vulStatus}, system_type = #{systemType},modify_user = #{modifyUser},gmt_modify=#{gmtModify}
+        update vul_info set vul_status = #{vulStatus}, system_type = #{systemType},modify_user = #{modifyUser},gmt_modify=#{gmtModify} where id = #{id}
     </update>
     <!--检查漏洞重复-->
     <select id="checkRepeat" resultType="java.lang.Integer">
@@ -453,9 +453,11 @@
         v.vul_no as vulNo,
         v.vul_level as vulLevel,
         v.vul_name as vulName,
+        v.type,
         v.vul_status as vulStatus,
         v.vul_type as vulType,
         v.ip,
+        v.task_id as taskId,
         t.task_name as taskName,
         v.vul_port as vulPort,
         v.vul_address as vul_Address,
@@ -469,7 +471,7 @@
         from
         vul_info v left join task_info t on v.task_id = t.id
         left join department d on v.vul_department = d.id
-        left join user u on v.modify_user = u.business_id
+        left join user u on v.create_user = u.business_id
         left join department d2 on v.address_owner = d2.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1

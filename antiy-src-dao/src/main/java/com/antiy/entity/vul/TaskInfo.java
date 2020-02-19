@@ -12,7 +12,7 @@ public class TaskInfo {
     private Integer id;
     private String  taskName;
     /**
-     * 1.排雷2.扫雷
+     * 1.扫雷2.排雷
      */
     private Integer taskType;
     private String  taskNo;

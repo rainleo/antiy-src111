@@ -67,7 +67,7 @@ public class SseEmitterController {
                 }
             });
         }
-        //当前是否存在与用户绑定的sseEmitter对象
+        // 当前是否存在与用户绑定的sseEmitter对象
         if (!sseEmitterMap.containsKey(token)) {
             // 默认30秒超时,设置为0L则永不超时
             SseEmitter sseEmitter = new SseEmitter(0L);
@@ -151,11 +151,13 @@ public class SseEmitterController {
     public static boolean sendByClientID(Long userId, SseVulResponse response) {
         try {
             String token = TokenStoreUtil.get(userId);
-            Result result = sseEmitterMap.get(token);
-            if (result != null && result.sseEmitter != null) {
-                SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
-                    .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
-                result.sseEmitter.send(builder);
+            if (StringUtils.isNotBlank(token)) {
+                Result result = sseEmitterMap.get(token);
+                if (result != null && result.sseEmitter != null) {
+                    SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
+                        .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
+                    result.sseEmitter.send(builder);
+                }
             }
         } catch (IOException e) {
             LogUtils.get().error("IOException!");

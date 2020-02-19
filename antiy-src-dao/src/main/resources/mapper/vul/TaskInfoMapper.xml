@@ -240,4 +240,7 @@
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
     </select>
+    <select id="checkRepeatTask" resultType="java.lang.Integer">
+        select count(1) from task_info where end_time > #{time} and task_name = #{taskName} and task_type = #{taskType} and status = 1
+    </select>
 </mapper>

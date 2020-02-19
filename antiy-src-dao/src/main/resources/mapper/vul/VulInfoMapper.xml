@@ -453,6 +453,7 @@
         v.vul_no as vulNo,
         v.vul_level as vulLevel,
         v.vul_name as vulName,
+        v.type,
         v.vul_status as vulStatus,
         v.vul_type as vulType,
         v.ip,

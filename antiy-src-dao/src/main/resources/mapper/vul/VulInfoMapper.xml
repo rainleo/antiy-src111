@@ -551,7 +551,7 @@
     <select id="getVulSubmitTrend" resultType="map">
         SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info
         <where>
-            gmt_create &gt; #{start} and gmt_create &lt; #{end} and type = 1
+            gmt_create &gt;= #{start} and gmt_create &lt;= #{end} and type = 1
             <if test="taskId != null">
                 and task_id = #{taskId}
             </if>
@@ -562,7 +562,7 @@
     <select id="getVulRepairTrend" resultType="map">
         SELECT FROM_UNIXTIME(gmt_create/1000, '%m月%d日') days,count(id) num FROM vul_info
         <where>
-            gmt_create &gt; #{start} and gmt_create &lt; #{end} and type = 2
+            gmt_create &gt;= #{start} and gmt_create &lt;= #{end} and type = 2
             <if test="taskId != null">
                 and task_id = #{taskId}
             </if>

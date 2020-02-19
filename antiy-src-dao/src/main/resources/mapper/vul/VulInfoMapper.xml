@@ -469,7 +469,7 @@
         from
         vul_info v left join task_info t on v.task_id = t.id
         left join department d on v.vul_department = d.id
-        left join user u on v.modify_user = u.business_id
+        left join user u on v.create_user = u.business_id
         left join department d2 on v.address_owner = d2.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             v.status = 1

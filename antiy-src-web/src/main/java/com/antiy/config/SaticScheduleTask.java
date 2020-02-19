@@ -25,7 +25,7 @@ public class SaticScheduleTask {
     private LoginUserUtil loginUserUtil;
 
     // 3.添加定时任务
-    @Scheduled(cron = "0/10 * * * * ?")
+    //@Scheduled(cron = "0/10 * * * * ?")
     // 或直接指定时间间隔，例如：5秒
     // @Scheduled(fixedRate=5000)
     private void configureTasks() {

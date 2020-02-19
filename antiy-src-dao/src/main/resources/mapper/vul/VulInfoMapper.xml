@@ -456,6 +456,7 @@
         v.vul_status as vulStatus,
         v.vul_type as vulType,
         v.ip,
+        v.task_id as taskId,
         t.task_name as taskName,
         v.vul_port as vulPort,
         v.vul_address as vul_Address,

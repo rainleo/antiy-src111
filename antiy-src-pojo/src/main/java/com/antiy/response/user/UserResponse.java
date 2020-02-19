@@ -29,6 +29,11 @@ public class UserResponse {
      * 所属单位
      */
     private Integer department;
+
+    /**
+     * 部门名称
+     */
+    private String departmentName;
     /**
      * 身份证号
      */
@@ -46,6 +51,8 @@ public class UserResponse {
     private Long createUser;
 
     private Long lastLoginTime;
+
+    private String roleName;
 
 
     public String getBusinessId() {
@@ -126,5 +133,21 @@ public class UserResponse {
 
     public void setLastLoginTime(Long lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

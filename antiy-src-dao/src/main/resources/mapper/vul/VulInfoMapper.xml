@@ -462,7 +462,7 @@
         v.gmt_create as commitDate,
         d.id as vulDepartment,
         d.name as vulDepartmentName,
-        v.modify_user as commitUser,
+        v.create_user as commitUser,
         u.username as commitUserName,
         v.address_owner as addressOwner,
         d.name as addressOwnerName

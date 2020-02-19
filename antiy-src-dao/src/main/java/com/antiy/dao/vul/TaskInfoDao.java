@@ -1,6 +1,5 @@
 package com.antiy.dao.vul;
 
-
 import com.antiy.entity.vul.TaskInfo;
 import com.antiy.query.vul.TaskInfoQuery;
 import org.apache.ibatis.annotations.Param;
@@ -8,9 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * <p>
- * Mapper 接口
- * </p>
+ * <p> Mapper 接口 </p>
  *
  * @author lvliang
  * @since 2020-02-06
@@ -36,4 +33,7 @@ public interface TaskInfoDao {
     Integer queryCount(TaskInfoQuery taskInfoQuery);
 
     List<TaskInfo> queryList(TaskInfoQuery taskInfoQuery);
+
+    Integer checkRepeatTask(@Param("taskName") String taskName, @Param("taskType") Integer taskType,
+                            @Param("time") long time);
 }

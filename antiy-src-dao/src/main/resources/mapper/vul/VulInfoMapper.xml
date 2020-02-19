@@ -437,7 +437,7 @@
                 and v.address_owner = #{addressOwner}
             </if>
             <if test="commitUser != null">
-                and v.modify_user = #{commitUser}
+                and v.create_user = #{commitUser}
             </if>
             <if test="commitDept != null">
                 and v.vul_department = #{commitDept}
@@ -498,7 +498,7 @@
                 and v.address_owner = #{addressOwner}
             </if>
             <if test="commitUser != null">
-                and v.modify_user = #{commitUser}
+                and v.create_user = #{commitUser}
             </if>
             <if test="commitDept != null">
                 and v.vul_department = #{commitDept}

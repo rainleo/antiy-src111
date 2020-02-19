@@ -35,7 +35,7 @@ public interface IUserService extends IBaseService<User> {
      * @param request
      * @return
      */
-    Long saveUser(UserRequest request) throws Exception;
+    String saveUser(UserRequest request) throws Exception;
 
     /**
      * 修改
@@ -132,5 +132,5 @@ public interface IUserService extends IBaseService<User> {
      */
     Integer getTotalScore();
 
-    Long register(NormalUserRequest request);
+    String register(NormalUserRequest request);
 }

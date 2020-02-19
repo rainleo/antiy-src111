@@ -20,12 +20,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @program kbms-parent
@@ -100,7 +104,16 @@ public class UserController {
     public ActionResponse userList(@RequestBody(required = false) UserQuery query) {
         logger.info("用户列表入参:{}", JSON.toJSONString(query));
         PageResult<User> page = userService.findPage(query);
-        return ActionResponse.success(page);
+        List<User> users = page.getItems();
+        List<UserResponse> reps = new ArrayList<>();
+        for (User user : users) {
+            UserResponse r = new UserResponse();
+            BeanUtils.copyProperties(user, r);
+            r.setBusinessId(user.getBusinessId().toString());
+            reps.add(r);
+        }
+        PageResult<UserResponse> result = new PageResult(page.getPageSize(),page.getTotalRecords(),page.getCurrentPage(),reps);
+        return ActionResponse.success(result);
     }
 
 

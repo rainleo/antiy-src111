@@ -13,7 +13,7 @@ public class UserBasicResponse {
 	/**
 	 * 用户标识
 	 */
-	private Long businessId;
+	private String businessId;
 	/**
 	 * 用户名
 	 */
@@ -70,11 +70,11 @@ public class UserBasicResponse {
 		this.department = department;
 	}
 
-	public Long getBusinessId() {
+	public String getBusinessId() {
 		return businessId;
 	}
 
-	public void setBusinessId(Long businessId) {
+	public void setBusinessId(String businessId) {
 		this.businessId = businessId;
 	}
 

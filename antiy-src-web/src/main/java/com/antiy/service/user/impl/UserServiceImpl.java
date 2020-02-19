@@ -36,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     private LoginUserUtil loginUserUtil = new LoginUserUtil();
 
     @Override
-    public Long saveUser(UserRequest request) throws Exception {
+    public String saveUser(UserRequest request) throws Exception {
         LoginUser curUser = loginUserUtil.getUser();
         if (curUser instanceof NullLoginUser) {
             throw new BusinessException("当前用户不存在");
@@ -112,11 +113,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         param.put("roleId", requestRole != null ? requestRole : 4);
         roleDao.saveUserRole(param);
         logger.info("创建用户成功");
-        return user.getBusinessId();
+        return user.getBusinessId().toString();
     }
 
     @Override
-    public Long register(NormalUserRequest request) {
+    public String register(NormalUserRequest request) {
         User user = new User();
         int num = userDao.findCountByUsername(request.getUsername());
         logger.info("检查用户名是否重复");
@@ -137,8 +138,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         param.put("roleId", 4);
         roleDao.saveUserRole(param);
         logger.info("创建用户成功");
-        return user.getBusinessId();
+        return user.getBusinessId().toString();
     }
+
+
 
     @Override
     public String updateUser(UserRequest request) throws Exception {
@@ -183,6 +186,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         User user = userDao.getById(businessId);
         UserResponse userResponse = responseConverter
                 .convert(user, UserResponse.class);
+        userResponse.setBusinessId(user.getBusinessId().toString());
         return userResponse;
     }
 
@@ -263,6 +267,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 
     @Override
     public List<UserResponse> getAllUser() {
-        return responseConverter.convert(userDao.getALlUser(), UserResponse.class);
+        List<User> users = userDao.getALlUser();
+        responseConverter.convert(users, UserResponse.class);
+        List<UserResponse> reps = new ArrayList<>();
+        for (User user : users) {
+            UserResponse r = new UserResponse();
+            BeanUtils.copyProperties(user, r);
+            r.setBusinessId(user.getBusinessId().toString());
+            reps.add(r);
+        }
+        return reps;
     }
 }

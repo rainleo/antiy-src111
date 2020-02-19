@@ -110,6 +110,7 @@ public class LoginServiceImpl implements ILoginService {
             userResponse.setRoleId(role.getId());
             userResponse.setRoleName(role.getName());
             BeanUtils.copyProperties(currentUser, userResponse);
+            userResponse.setBusinessId(currentUser.getBusinessId().toString());
             List<String> menus = menuDao.findMenusOfUser(currentUser.getBusinessId());
             userResponse.setMenus(menus);
             result.put("userInfo", userResponse);
@@ -117,7 +118,7 @@ public class LoginServiceImpl implements ILoginService {
             if (TokenStoreUtil.existToken(tokenKey)) {
                 log.info("当前用户{}已登录，踢出之前登录客户端权限", currentUser.getUsername());
             }
-            LoginUser userinfo = new LoginUser(userResponse.getBusinessId(),
+            LoginUser userinfo = new LoginUser(currentUser.getBusinessId(),
                     userResponse.getUsername(), userResponse.getName(), userResponse.getDepartment());
             userinfo.setRoleId(role.getId());
             userinfo.setRoleName(role.getName());

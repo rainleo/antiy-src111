@@ -15,7 +15,7 @@ public class UserResponse {
     /**
      * 业务编号
      */
-    private Long businessId;
+    private String businessId;
     /**
      * 用户名
      */
@@ -48,11 +48,11 @@ public class UserResponse {
     private Long lastLoginTime;
 
 
-    public Long getBusinessId() {
+    public String getBusinessId() {
         return businessId;
     }
 
-    public void setBusinessId(Long businessId) {
+    public void setBusinessId(String businessId) {
         this.businessId = businessId;
     }
 

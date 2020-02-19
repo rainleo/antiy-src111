@@ -72,7 +72,7 @@ CREATE TABLE `event_level`  (
   `event_level` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '事件等级',
   `content` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '事件描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of event_level
@@ -115,7 +115,7 @@ CREATE TABLE `menu`  (
   `tag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '菜单标识',
   `type` tinyint(1) DEFAULT NULL COMMENT '菜单类型 1、菜单 2、按钮',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -150,7 +150,7 @@ CREATE TABLE `role`  (
   `tag` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '角色标识',
   `description` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -173,56 +173,29 @@ CREATE TABLE `role_menu`  (
 -- ----------------------------
 -- Records of role_menu
 -- ----------------------------
-INSERT INTO `role_menu` VALUES (1, 1);
-INSERT INTO `role_menu` VALUES (1, 2);
-INSERT INTO `role_menu` VALUES (1, 3);
-INSERT INTO `role_menu` VALUES (1, 4);
-INSERT INTO `role_menu` VALUES (1, 5);
-INSERT INTO `role_menu` VALUES (1, 7);
-INSERT INTO `role_menu` VALUES (1, 8);
-INSERT INTO `role_menu` VALUES (1, 10);
-INSERT INTO `role_menu` VALUES (1, 11);
-INSERT INTO `role_menu` VALUES (1, 12);
-INSERT INTO `role_menu` VALUES (1, 13);
-INSERT INTO `role_menu` VALUES (1, 14);
-INSERT INTO `role_menu` VALUES (1, 15);
-INSERT INTO `role_menu` VALUES (1, 16);
-INSERT INTO `role_menu` VALUES (1, 17);
-INSERT INTO `role_menu` VALUES (1, 18);
-INSERT INTO `role_menu` VALUES (1, 19);
-INSERT INTO `role_menu` VALUES (1, 20);
-INSERT INTO `role_menu` VALUES (1, 21);
-INSERT INTO `role_menu` VALUES (2, 1);
-INSERT INTO `role_menu` VALUES (2, 2);
-INSERT INTO `role_menu` VALUES (2, 3);
-INSERT INTO `role_menu` VALUES (2, 4);
-INSERT INTO `role_menu` VALUES (2, 5);
-INSERT INTO `role_menu` VALUES (2, 7);
-INSERT INTO `role_menu` VALUES (2, 8);
-INSERT INTO `role_menu` VALUES (2, 10);
-INSERT INTO `role_menu` VALUES (2, 11);
-INSERT INTO `role_menu` VALUES (2, 12);
-INSERT INTO `role_menu` VALUES (2, 13);
-INSERT INTO `role_menu` VALUES (2, 14);
-INSERT INTO `role_menu` VALUES (2, 15);
-INSERT INTO `role_menu` VALUES (2, 16);
-INSERT INTO `role_menu` VALUES (2, 17);
-INSERT INTO `role_menu` VALUES (2, 18);
-INSERT INTO `role_menu` VALUES (2, 19);
-INSERT INTO `role_menu` VALUES (2, 20);
-INSERT INTO `role_menu` VALUES (2, 21);
-INSERT INTO `role_menu` VALUES (3, 7);
-INSERT INTO `role_menu` VALUES (3, 10);
-INSERT INTO `role_menu` VALUES (3, 12);
-INSERT INTO `role_menu` VALUES (3, 18);
-INSERT INTO `role_menu` VALUES (3, 20);
-INSERT INTO `role_menu` VALUES (4, 7);
-INSERT INTO `role_menu` VALUES (4, 8);
-INSERT INTO `role_menu` VALUES (4, 10);
-INSERT INTO `role_menu` VALUES (4, 15);
-INSERT INTO `role_menu` VALUES (4, 16);
-INSERT INTO `role_menu` VALUES (4, 18);
-INSERT INTO `role_menu` VALUES (4, 20);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (1, 2);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 3);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 4);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 7);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 10);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 11);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 18);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 19);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 20);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (2, 21);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (3, 7);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (3, 10);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (3, 12);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (3, 18);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (3, 20);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (4, 7);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (4, 8);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (4, 10);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (4, 15);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (4, 16);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (4, 18);
+INSERT INTO `role_menu`(`role_id`, `menu_id`) VALUES (4, 20);
+
 
 -- ----------------------------
 -- Table structure for task_info
@@ -242,7 +215,7 @@ CREATE TABLE `task_info`  (
   `gmt_modify` bigint(20) DEFAULT NULL,
   `status` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of task_info
@@ -270,7 +243,7 @@ CREATE TABLE `user`  (
   `modified_user` int(11) DEFAULT NULL COMMENT '修改用户',
   `gmt_modified` bigint(20) DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -307,7 +280,7 @@ CREATE TABLE `vul_examine_info`  (
   `examine_material_url` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '审批材料url',
   `examine_date` bigint(20) DEFAULT NULL COMMENT '审批日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vul_examine_info
@@ -344,7 +317,7 @@ CREATE TABLE `vul_info`  (
   `gmt_modify` bigint(20) DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1 COMMENT '0删除1正常',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vul_info
@@ -367,7 +340,7 @@ CREATE TABLE `vul_integral_info`  (
   `commit_user` bigint(20) NOT NULL COMMENT '提交人',
   `department` int(11) NOT NULL COMMENT '所属部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vul_integral_info

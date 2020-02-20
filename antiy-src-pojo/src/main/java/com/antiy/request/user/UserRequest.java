@@ -49,7 +49,7 @@ public class UserRequest implements ObjectValidator {
     /**
      * 所属单位
      */
-    @NotNull(message = "所属单位不能为空", groups = {Add.class, Update.class} )
+    @NotNull(message = "所属单位不能为空", groups = {Add.class} )
     @ApiModelProperty("所属单位")
     private Integer department;
     /**

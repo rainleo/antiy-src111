@@ -13,11 +13,13 @@ import com.antiy.entity.vul.VulExamineInfo;
 import com.antiy.entity.vul.VulInfo;
 import com.antiy.entity.vul.VulIntegralInfo;
 import com.antiy.enums.user.VulLevelEnum;
+import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.TaskInfoRequest;
 import com.antiy.request.vul.VulExamineInfoRequest;
 import com.antiy.response.vul.SseVulResponse;
 import com.antiy.response.vul.VulInfoResponse;
 import com.antiy.service.vul.IVulExamineInfoService;
+import com.antiy.util.BusinessExceptionUtils;
 import com.antiy.util.LoginUserUtil;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
@@ -43,13 +45,17 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
     @Resource
     private VulInfoDao                                   vulInfoDao;
     @Resource
-    private UserDao                                      userDao;
-    @Resource
     private LoginUserUtil                                loginUserUtil;
     BaseConverter<VulExamineInfoRequest, VulExamineInfo> baseConverter = new BaseConverter();
 
     @Override
     public void saveSingle(VulExamineInfoRequest vulExamineInfoRequest) {
+        // 判断漏洞是否已经被审核
+        BaseRequest request = new BaseRequest();
+        request.setId(vulExamineInfoRequest.getVulId());
+        if (vulExamineInfoDao.checkVulStatus(request) <= 0) {
+            BusinessExceptionUtils.isTrue(false, "该漏洞已经被审核");
+        }
         VulExamineInfo vulExamineInfo = baseConverter.convert(vulExamineInfoRequest, VulExamineInfo.class);
         vulExamineInfo.setExamineDate(System.currentTimeMillis());
         vulExamineInfo.setExaminer(loginUserUtil.getUser().getBusinessId());
@@ -76,12 +82,6 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
                     vulInfo.getType(), vulInfo.getAddressOwner(), vulInfo.getVulDepartment()));
             // 保存积分
             vulIntegralInfoDao.saveSingle(vulIntegralInfo);
-            // 审核通过,向审核员发送通知
-            SseVulResponse response = new SseVulResponse();
-            response.setVulId(vulInfo.getId());
-            response.setVulName(vulInfo.getVulName());
-            response.setCommitDate(vulInfo.getCommitDate());
-            SseEmitterController.sendall(response);
         } else if (vulExamineInfoRequest.getResult() == 3) {
             // 审核不通过,向提交漏洞用户发送通知
             SseVulResponse response = new SseVulResponse();
@@ -104,6 +104,11 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
         v.setModifyUser(loginUserUtil.getUser().getBusinessId());
         // 更新漏洞状态
         vulInfoDao.updateVulStatus(v);
+    }
+
+    @Override
+    public boolean checkVulStatus(BaseRequest baseRequest) {
+        return vulExamineInfoDao.checkVulStatus(baseRequest) > 0 ? true : false;
     }
 
     /**

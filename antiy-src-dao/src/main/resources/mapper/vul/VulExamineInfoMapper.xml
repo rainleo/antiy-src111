@@ -156,5 +156,8 @@
         where vul_id = #{vulId}
         order by v.examine_date desc
     </select>
+    <select id="checkVulStatus" resultType="java.lang.Integer">
+        select count(1) from vul_info where id = #{id} and vul_status = 1 and status = 1
+    </select>
 
 </mapper>

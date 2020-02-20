@@ -1,6 +1,7 @@
 package com.antiy.service.vul;
 
 
+import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.VulExamineInfoRequest;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface IVulExamineInfoService {
 
 
     void saveSingle(VulExamineInfoRequest vulExamineInfoRequest);
+
+    boolean checkVulStatus(BaseRequest baseRequest);
 }

@@ -1,6 +1,7 @@
 package com.antiy.controller.vul;
 
 import com.antiy.base.ActionResponse;
+import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.VulExamineInfoRequest;
 import com.antiy.service.vul.IVulExamineInfoService;
 import io.swagger.annotations.*;
@@ -35,6 +36,19 @@ public class VulExamineInfoController {
     public ActionResponse saveSingle(@ApiParam(value = "vulExamineInfo") @RequestBody VulExamineInfoRequest vulExamineInfoRequest) throws Exception {
         iVulExamineInfoService.saveSingle(vulExamineInfoRequest);
         return ActionResponse.success();
+    }
+
+    /**
+     * 判断漏洞是否能进行审核
+     *
+     * @param baseRequest
+     * @return actionResponse
+     */
+    @ApiOperation(value = "判断漏洞是否能进行审核", notes = "传入实体对象信息")
+    @RequestMapping(value = "/check/vulStatus", method = RequestMethod.POST)
+    public ActionResponse checkVulStatus(@ApiParam(value = "vulExamineInfo") @RequestBody BaseRequest baseRequest) throws Exception {
+        boolean flag = iVulExamineInfoService.checkVulStatus(baseRequest);
+        return ActionResponse.success(flag);
     }
 
 }

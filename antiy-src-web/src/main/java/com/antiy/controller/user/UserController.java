@@ -171,6 +171,6 @@ public class UserController {
     @ApiOperation("用户下拉选择数据")
     @PostMapping("/userDownList")
     public ActionResponse userDownList() {
-        return ActionResponse.success(userService.getAllUser());
+        return ActionResponse.success(userService.getNormalUserList());
     }
 }

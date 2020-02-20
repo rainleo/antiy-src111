@@ -40,4 +40,6 @@ public interface UserDao extends IBaseDao<User> {
     Integer getRoleByUserId(@Param("userId") long userId);
 
     List<String> getUserIdByRole(@Param("role") int role);
+
+    List<User> getNormalUserList();
 }

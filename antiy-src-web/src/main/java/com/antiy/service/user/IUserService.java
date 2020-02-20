@@ -133,4 +133,6 @@ public interface IUserService extends IBaseService<User> {
     Integer getTotalScore();
 
     String register(NormalUserRequest request);
+
+    List<UserResponse> getNormalUserList();
 }

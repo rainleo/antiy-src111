@@ -130,13 +130,13 @@ public class UserInterceptor implements HandlerInterceptor {
                 return isPass;
             }
 
-           /* if(!token.equals(oldToken)){
+            if(!token.equals(oldToken)){
                 log.debug("=====================user 用户已在其他设备登录============");
                 //token,用户已在其他设备登录
                 apiResult = ActionResponse.fail(RespBasicCode.ACCOUNT_REPEAT_LOGIN, RespBasicCode.ACCOUNT_REPEAT_LOGIN.getResultDes());
                 doReturn(response,apiResult);
                 return isPass;
-            }*/
+            }
             //未登录
             if(tokenKey == null ){
                 log.debug("====================user 未登录============================");

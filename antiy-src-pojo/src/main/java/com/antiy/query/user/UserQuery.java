@@ -12,5 +12,13 @@ import com.antiy.base.ObjectQuery;
  */
 
 public class UserQuery extends ObjectQuery {
+    private Boolean isAdmin;
 
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
 }

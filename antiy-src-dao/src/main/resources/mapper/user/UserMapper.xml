@@ -199,10 +199,12 @@
 
     <select id="findCount" resultType="int" parameterType="com.antiy.base.ObjectQuery">
         select count(1)
-        from
-        <include refid="Table_Name"></include>
+        from user u join user_role ur on u.business_id = ur.user_id join role r on ur.role_id = r.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
-                </trim>
+            <if test="!isAdmin">
+                r.id != 1
+            </if>
+        </trim>
     </select>
 
     <select id="findQuery" resultMap="BaseResultMap" parameterType="com.antiy.base.ObjectQuery">
@@ -210,6 +212,9 @@
         user u join department d on u.department=d.id join user_role ur on
         u.business_id = ur.user_id join role r on ur.role_id = r.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="!isAdmin">
+                r.id != 1
+            </if>
         </trim>
         <choose>
             <!-- 支持多字段排序 -->

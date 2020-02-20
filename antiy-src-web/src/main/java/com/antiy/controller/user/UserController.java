@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.antiy.base.ActionResponse;
 import com.antiy.base.PageResult;
 import com.antiy.common.utils.AesEncryptUtil;
+import com.antiy.consts.UserConstant;
 import com.antiy.entity.user.TaskIdQuery;
 import com.antiy.entity.user.User;
 import com.antiy.query.user.BusinessIdQuery;
@@ -16,6 +17,7 @@ import com.antiy.request.user.UserPasswordRequest;
 import com.antiy.request.user.UserRequest;
 import com.antiy.response.user.UserResponse;
 import com.antiy.service.user.IUserService;
+import com.antiy.util.LoginUserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -48,6 +50,9 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private LoginUserUtil loginUserUtil;
 
     @ApiOperation("创建用户")
     @PostMapping("/save")
@@ -103,6 +108,10 @@ public class UserController {
     @PostMapping("/list")
     public ActionResponse userList(@RequestBody(required = false) UserQuery query) {
         logger.info("用户列表入参:{}", JSON.toJSONString(query));
+        Integer roleId = loginUserUtil.getUser().getRoleId();
+        if (UserConstant.ROLE_TYPE_SUPERADMIN.equals(roleId)) {
+            query.setAdmin(true);
+        }
         PageResult<User> page = userService.findPage(query);
         List<User> users = page.getItems();
         List<UserResponse> reps = new ArrayList<>();

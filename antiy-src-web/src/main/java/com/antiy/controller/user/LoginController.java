@@ -61,7 +61,9 @@ public class LoginController {
 	@PostMapping("/logout")
 	public ActionResponse logout(@RequestHeader(value="token") String token) {
 		log.info("须注销token："+token);
-		return loginService.logout(token);
+		loginService.logout(token);
+		loginUserUtil.setUser(null);
+		return ActionResponse.success();
 	}
 
 	@HavePermission("user:add:sh")

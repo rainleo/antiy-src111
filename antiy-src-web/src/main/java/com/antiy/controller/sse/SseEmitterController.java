@@ -125,12 +125,13 @@ public class SseEmitterController {
      */
     public static boolean sendall(SseVulResponse response) {
         boolean flag = true;
+        response.setCurrentUserRole(3);
+        SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
+                .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
         for (Map.Entry<String, Result> entry : sseEmitterMap.entrySet()) {
             try {
                 // 向审核员发送通知
                 if (entry.getValue() != null && entry.getValue().role == 3) {
-                    SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
-                        .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
                     entry.getValue().sseEmitter.send(builder);
                 }
             } catch (IOException e) {
@@ -154,6 +155,7 @@ public class SseEmitterController {
             if (StringUtils.isNotBlank(token)) {
                 Result result = sseEmitterMap.get(token);
                 if (result != null && result.sseEmitter != null) {
+                    response.setCurrentUserRole(result.getRole());
                     SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
                         .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
                     result.sseEmitter.send(builder);

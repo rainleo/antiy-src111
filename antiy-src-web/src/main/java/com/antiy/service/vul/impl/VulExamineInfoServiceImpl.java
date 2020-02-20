@@ -111,17 +111,16 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
      * @param eventLevel 事件等级
      * @param vulLevel 漏洞等级
      * @param sysType 系统属性
-     * @param vulType 漏洞类型
+     * @param type 漏洞类型
      * @param vulDepartment 漏洞归属部门
      * @param commitDepartment 提交人归属部门
      * @return
      */
-    private static Integer getGrade(String eventLevel, Integer vulLevel, Integer sysType, Integer vulType,
+    private static Integer getGrade(String eventLevel, Integer vulLevel, Integer sysType, Integer type,
                                     Integer vulDepartment, Integer commitDepartment) {
         // 漏洞等级
         Integer vl = vulLevel;
         Integer result = 0;
-        Integer base = 0;
         // 系数
         float xishu = 0;
         // 获取最高事件等级
@@ -136,7 +135,7 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
             xishu = 0.5f;
         }
         // 漏洞挖掘/扫雷
-        if (vulType == 1) {
+        if (type == 1) {
             switch (vl) {
                 // 高危
                 case 1:
@@ -149,7 +148,7 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
             }
         }
         // 漏洞整治/排雷
-        else if (vulType == 2) {
+        else if (type == 2) {
             switch (vl) {
                 // 高危
                 case 1:

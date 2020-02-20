@@ -336,7 +336,6 @@
             system_type,
             create_user,
             gmt_create,
-            modify_user,
             status
         )
         values
@@ -361,7 +360,6 @@
             #{systemType },
             #{createUser },
             #{gmtCreate },
-            #{modifyUser},
             #{status }
         )
 
@@ -400,9 +398,11 @@
         from
             vul_info
         where
-            vul_name = #{vulName}
-            and vul_type = #{vulType}
+            task_id = #{taskId}
+            and vul_name = #{vulName}
+            and ip = #{ip}
             and vul_address = #{vulAddress}
+            and vul_port = #{vulPort}
             and status = 1
     </select>
     <select id="queryCount" resultType="java.lang.Integer" parameterType="com.antiy.query.vul.VulInfoQuery">

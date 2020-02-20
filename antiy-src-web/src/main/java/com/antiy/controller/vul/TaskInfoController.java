@@ -2,6 +2,7 @@ package com.antiy.controller.vul;
 
 import com.antiy.base.ActionResponse;
 import com.antiy.base.PageResult;
+import com.antiy.exception.BusinessException;
 import com.antiy.query.vul.TaskInfoQuery;
 import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.TaskInfoRequest;
@@ -34,6 +35,9 @@ public class TaskInfoController {
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
     @ResponseBody
     public ActionResponse saveSingle(@ApiParam(value = "taskInfo") @RequestBody TaskInfoRequest taskInfoRequest) throws Exception {
+        if (taskInfoRequest.getStartTime() >= taskInfoRequest.getEndTime()) {
+            throw new BusinessException("结束日期必须大于开始日期");
+        }
         iTaskInfoService.saveSingle(taskInfoRequest);
         return ActionResponse.success();
     }
@@ -48,6 +52,9 @@ public class TaskInfoController {
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
     @ResponseBody
     public ActionResponse updateSingle(@ApiParam(value = "taskInfo") @RequestBody TaskInfoRequest taskInfoRequest) throws Exception {
+        if (taskInfoRequest.getStartTime() >= taskInfoRequest.getEndTime()) {
+            throw new BusinessException("结束日期必须大于开始日期");
+        }
         return ActionResponse.success(iTaskInfoService.updateSingle(taskInfoRequest));
     }
 

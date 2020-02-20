@@ -75,18 +75,18 @@ public class VulInfoServiceImpl implements IVulInfoService {
             BusinessExceptionUtils.isTrue(false, "任务不存在或已过期,提交失败");
         }
         // 检查漏洞是否存在
-        Integer count = vulInfoDao.checkRepeat(vulInfoRequest.getVulName(), vulInfoRequest.getVulType(),
-            vulInfoRequest.getVulAddress());
+        Integer count = vulInfoDao.checkRepeat(vulInfoRequest.getTaskId(), vulInfoRequest.getVulName(),
+            vulInfoRequest.getIp(), vulInfoRequest.getVulAddress(), vulInfoRequest.getVulPort());
         if (count > 0) {
             logger.info("漏洞已存在");
             BusinessExceptionUtils.isTrue(false, "该漏洞已存在,提交失败");
         }
         VulInfo vulInfo = baseConverter.convert(vulInfoRequest, VulInfo.class);
+        vulInfo.setType(taskInfo.getTaskType());
         vulInfo.setVulStatus(VulStatusEnum.WAIT_EXAMINE.getCode());
         vulInfo.setVulDepartment(loginUserUtil.getUser().getDepartmentId());
         vulInfo.setCreateUser(loginUserUtil.getUser().getBusinessId());
         vulInfo.setGmtCreate(System.currentTimeMillis());
-        vulInfo.setModifyUser(loginUserUtil.getUser().getBusinessId());
         vulInfo.setStatus(1);
         vulInfoDao.saveSingle(vulInfo);
         // 更新编号

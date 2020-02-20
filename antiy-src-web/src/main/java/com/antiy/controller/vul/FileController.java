@@ -30,7 +30,8 @@ public class FileController {
     @ResponseBody
     public ActionResponse upload(@RequestParam("file") MultipartFile file) {
         // 获取原始名字
-        String fileName = file.getOriginalFilename();
+        String[] fs = file.getOriginalFilename().split("\\\\");
+        String fileName = fs[fs.length - 1];
         // 获取后缀名
         // String suffixName = fileName.substring(fileName.lastIndexOf("."));
         // 文件重命名，防止重复

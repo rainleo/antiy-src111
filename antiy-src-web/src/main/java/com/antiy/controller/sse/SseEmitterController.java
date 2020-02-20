@@ -46,6 +46,10 @@ public class SseEmitterController {
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public SseEmitter start(HttpServletResponse response) {
+        // 普通用户才会推送消息通知
+        if (loginUserUtil.getUser().getRoleId() != 4) {
+            return null;
+        }
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/event-stream");
         response.addHeader("X-Accel-Buffering", "no");
@@ -92,42 +96,14 @@ public class SseEmitterController {
     }
 
     /**
-     * 向SseEmitter对象发送数据
-     *
-     * @return
-     */
-    @RequestMapping(value = "/send", method = RequestMethod.POST)
-    public ActionResponse setSseEmitter() {
-        try {
-            Result result = sseEmitterMap.get(loginUserUtil.getUser().getBusinessId());
-            if (result != null && result.sseEmitter != null) {
-                SseVulResponse response = new SseVulResponse();
-                response.setNotice("测试结果");
-                response.setCommitDate(System.currentTimeMillis());
-                response.setVulName("sse测试漏洞");
-                response.setVulId(12);
-                SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
-                    .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
-                result.sseEmitter.send(builder);
-            }
-        } catch (IOException e) {
-            logger.error("IOException!", e);
-            return ActionResponse.fail(RespBasicCode.BUSINESS_EXCEPTION);
-        }
-
-        return ActionResponse.success();
-    }
-
-    /**
      *
      * @param response 漏洞id
      * @return
      */
     public static boolean sendall(SseVulResponse response) {
         boolean flag = true;
-        response.setCurrentUserRole(3);
         SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
-                .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
+            .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
         for (Map.Entry<String, Result> entry : sseEmitterMap.entrySet()) {
             try {
                 // 向审核员发送通知
@@ -155,7 +131,6 @@ public class SseEmitterController {
             if (StringUtils.isNotBlank(token)) {
                 Result result = sseEmitterMap.get(token);
                 if (result != null && result.sseEmitter != null) {
-                    response.setCurrentUserRole(result.getRole());
                     SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
                         .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
                     result.sseEmitter.send(builder);

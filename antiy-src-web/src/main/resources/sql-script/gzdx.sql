@@ -235,7 +235,7 @@ CREATE TABLE `user`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '姓名',
   `department` int(11) NOT NULL COMMENT '所属单位部门',
   `idcard` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '身份证号',
-  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '联系电话',
+  `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '联系电话',
   `status` tinyint(1) DEFAULT NULL COMMENT '状态 1、可用 2、锁定 3、禁用',
   `locked_time` bigint(20) DEFAULT NULL COMMENT '账号锁定时间',
   `error_count` int(11) DEFAULT NULL COMMENT '密码已输错次数',

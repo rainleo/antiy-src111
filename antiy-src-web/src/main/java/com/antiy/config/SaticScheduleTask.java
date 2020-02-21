@@ -35,9 +35,6 @@ public class SaticScheduleTask {
                 if (result != null && result.getSseEmitter() != null) {
                     SseVulResponse response = new SseVulResponse();
                     response.setNotice("测试结果");
-                    response.setCommitDate(System.currentTimeMillis());
-                    response.setVulName("sse测试漏洞");
-                    response.setVulId(12);
                     SseEmitter.SseEventBuilder builder = SseEmitter.event().id(UUID.randomUUID().toString())
                         .data(JSONObject.toJSONString(response), MediaType.APPLICATION_JSON);
                     try {

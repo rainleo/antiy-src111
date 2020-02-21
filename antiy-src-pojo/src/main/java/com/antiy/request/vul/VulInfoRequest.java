@@ -85,6 +85,17 @@ public class VulInfoRequest implements ObjectValidator {
     @ApiModelProperty("1.普通系统2.重要或设计用户敏感信息系统")
     private Integer systemType;
 
+    @ApiModelProperty("1.修改,2.重新提交")
+    private Integer commitOrUpdate;
+
+    public Integer getCommitOrUpdate() {
+        return commitOrUpdate;
+    }
+
+    public void setCommitOrUpdate(Integer commitOrUpdate) {
+        this.commitOrUpdate = commitOrUpdate;
+    }
+
     public Integer getId() {
         return id;
     }

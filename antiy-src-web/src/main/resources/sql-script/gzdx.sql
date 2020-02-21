@@ -349,3 +349,13 @@ CREATE TABLE `vul_integral_info`  (
 -- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
+ALTER TABLE `gzdx`.`vul_info`
+ADD INDEX `N_TASK_INDEX`(`task_id`) USING BTREE,
+ADD INDEX `D_ADD_CL_C_INDEX`(`vul_department`, `address_owner`, `vul_level`, `create_user`, `vul_status`) USING BTREE,
+ADD INDEX `NAME_NO_ADD_INDEX`(`vul_no`, `vul_name`, `vul_address`) USING BTREE;
+
+ALTER TABLE `gzdx`.`vul_integral_info`
+ADD INDEX `TASK_VUL_INDEX`(`task_id`, `commit_user`, `department`) USING BTREE;
+
+ALTER TABLE `gzdx`.`vul_examine_info`
+ADD INDEX `VUL_INDEX`(`vul_id`) USING BTREE;

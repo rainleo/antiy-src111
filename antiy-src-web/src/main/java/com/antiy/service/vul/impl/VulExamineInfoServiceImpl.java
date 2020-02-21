@@ -85,9 +85,11 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
         } else if (vulExamineInfoRequest.getResult() == 3) {
             // 审核不通过,向提交漏洞用户发送通知
             SseVulResponse response = new SseVulResponse();
-            response.setVulId(vulInfo.getId());
-            response.setVulName(vulInfo.getVulName());
-            response.setCommitDate(vulInfo.getCommitDate());
+            SseVulResponse.Item item = new SseVulResponse.Item();
+            item.setTaskId(vulInfo.getTaskId());
+            item.setTaskType(vulInfo.getType());
+            item.setVulId(vulInfo.getId());
+            response.setItem(item);
             SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
             StringBuilder sb = new StringBuilder();
             sb.append("您于").append(format.format(vulInfo.getCommitDate())).append("提交的").append(vulInfo.getVulName())

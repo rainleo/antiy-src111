@@ -1,56 +1,15 @@
 package com.antiy.response.vul;
 
 public class SseVulResponse {
-    /**
-     * 漏洞id
-     */
-    private Integer vulId;
-    /**
-     * 漏洞名
-     */
-    private String  vulName;
-    /**
-     * 提交日期
-     */
-    private Long    commitDate;
+
     /**
      * 提示消息
      */
-    private String  notice;
-
-    public SseVulResponse() {
-    }
-
-    public SseVulResponse(Integer vulId, String vulName, Long commitDate, String notice) {
-        this.vulId = vulId;
-        this.vulName = vulName;
-        this.commitDate = commitDate;
-        this.notice = notice;
-    }
-
-    public Integer getVulId() {
-        return vulId;
-    }
-
-    public void setVulId(Integer vulId) {
-        this.vulId = vulId;
-    }
-
-    public String getVulName() {
-        return vulName;
-    }
-
-    public void setVulName(String vulName) {
-        this.vulName = vulName;
-    }
-
-    public Long getCommitDate() {
-        return commitDate;
-    }
-
-    public void setCommitDate(Long commitDate) {
-        this.commitDate = commitDate;
-    }
+    private String notice;
+    /**
+     * 漏洞信息
+     */
+    private Item   item;
 
     public String getNotice() {
         return notice;
@@ -58,5 +17,58 @@ public class SseVulResponse {
 
     public void setNotice(String notice) {
         this.notice = notice;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public SseVulResponse() {
+    }
+
+    public static class Item {
+        /**
+         * 漏洞id
+         */
+        private Integer vulId;
+        /**
+         * 任务id
+         */
+        private Integer taskId;
+        /**
+         * 任务类型
+         */
+        private Integer taskType;
+
+        public Integer getVulId() {
+            return vulId;
+        }
+
+        public Item() {
+        }
+
+        public void setVulId(Integer vulId) {
+            this.vulId = vulId;
+        }
+
+        public Integer getTaskId() {
+            return taskId;
+        }
+
+        public void setTaskId(Integer taskId) {
+            this.taskId = taskId;
+        }
+
+        public Integer getTaskType() {
+            return taskType;
+        }
+
+        public void setTaskType(Integer taskType) {
+            this.taskType = taskType;
+        }
     }
 }

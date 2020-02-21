@@ -95,8 +95,15 @@ public class VulInfoServiceImpl implements IVulInfoService {
 
     @Override
     public PageResult<VulInfoResponse> queryList(VulInfoQuery vulInfoQuery) {
-        // 普通用户,只能查看自己提交的
         Integer role = loginUserUtil.getUser().getRoleId();
+        // 普通用户和审核员不能进入已经过期的任务
+        if (role == 3 || role == 4) {
+            TaskInfo taskInfo = taskInfoDao.queryById(vulInfoQuery.getTaskId());
+            if (System.currentTimeMillis() > taskInfo.getEndTime()) {
+                BusinessExceptionUtils.isTrue(false, "任务不在时间内");
+            }
+        }
+        // 普通用户,只能查看自己提交的
         if (role == 4) {
             vulInfoQuery.setUserId(loginUserUtil.getUser().getBusinessId());
         }
@@ -111,6 +118,9 @@ public class VulInfoServiceImpl implements IVulInfoService {
     @Override
     public Integer updateSingle(VulInfoRequest vulInfoRequest) {
         VulInfo vulInfo = baseConverter.convert(vulInfoRequest, VulInfo.class);
+        if (vulInfoRequest.getCommitOrUpdate() == 2) {
+            vulInfo.setGmtCreate(System.currentTimeMillis());
+        }
         vulInfo.setVulStatus(VulStatusEnum.WAIT_EXAMINE.getCode());
         vulInfo.setGmtModify(System.currentTimeMillis());
         vulInfo.setModifyUser(loginUserUtil.getUser().getBusinessId());
@@ -134,7 +144,7 @@ public class VulInfoServiceImpl implements IVulInfoService {
         String[] header = { "漏洞编号", "漏洞名称", "漏洞等级", "任务名称", "漏洞状态", "提交时间", "提交人员", "漏洞地址", "漏洞端口", "漏洞所属部门" };
         List<VulInfoResponse> vulInfoList = vulInfoDao.queryList(vulInfoQuery);
         if (CollectionUtils.isEmpty(vulInfoList)) {
-            BusinessExceptionUtils.isTrue(false, "暂无数据");
+            BusinessExceptionUtils.isTrue(false, "导出数据为空");
         }
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("漏洞信息");

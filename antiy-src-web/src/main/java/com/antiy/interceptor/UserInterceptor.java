@@ -108,6 +108,14 @@ public class UserInterceptor implements HandlerInterceptor {
             return isPass;
 
         }else {
+            if(LoginTipHolder.containsKey(token)){
+                LoginTipHolder.removeTip(token);
+                log.debug("=====================user 用户已在其他设备登录============");
+                //token,用户已在其他设备登录
+                apiResult = ActionResponse.fail(RespBasicCode.ACCOUNT_REPEAT_LOGIN, RespBasicCode.ACCOUNT_REPEAT_LOGIN.getResultDes());
+                doReturn(response,apiResult);
+                return isPass;
+            }
             claims = jwtUtil.getClaims(token);
             //令牌无效
             if(claims ==null){
@@ -130,13 +138,6 @@ public class UserInterceptor implements HandlerInterceptor {
                 return isPass;
             }
 
-            if(!token.equals(oldToken)){
-                log.debug("=====================user 用户已在其他设备登录============");
-                //token,用户已在其他设备登录
-                apiResult = ActionResponse.fail(RespBasicCode.ACCOUNT_REPEAT_LOGIN, RespBasicCode.ACCOUNT_REPEAT_LOGIN.getResultDes());
-                doReturn(response,apiResult);
-                return isPass;
-            }
             //未登录
             if(tokenKey == null ){
                 log.debug("====================user 未登录============================");
@@ -145,8 +146,8 @@ public class UserInterceptor implements HandlerInterceptor {
                 doReturn(response,apiResult);
                 return isPass;
             }else{
-                if (LoginTipHolder.containsKey(tokenKey)) {
-                    apiResult = ActionResponse.fail(RespBasicCode.ACCOUNT_FORCED_RETURN, LoginTipHolder.getTip(tokenKey));
+                if (LoginTipHolder.containsKey(token)) {
+                    apiResult = ActionResponse.fail(RespBasicCode.ACCOUNT_FORCED_RETURN, LoginTipHolder.getTip(token));
                     doReturn(response,apiResult);
                     TokenStoreUtil.removeToken(token);
                     log.warn("您的账号{}已被禁用或权限被修改,您已被强制退出,注销token",tokenKey);

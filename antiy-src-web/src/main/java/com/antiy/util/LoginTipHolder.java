@@ -11,30 +11,30 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LoginTipHolder {
 
-    private final static ConcurrentHashMap<Long, String> USER_TIP = new ConcurrentHashMap<>();
+    private final static ConcurrentHashMap<String, String> USER_TIP = new ConcurrentHashMap<>();
 
     /**
     * 通过用户编号获取提示信息
-    * @param userBh 用户编号
+    * @param token 用户编号
     * @return java.lang.String
     * @author wangqian
     * @date 2019/7/31
     */
-    public static String getTip(Long userBh) {
-        String tip = USER_TIP.get(userBh);
-        USER_TIP.remove(userBh);
+    public static String getTip(String token) {
+        String tip = USER_TIP.get(token);
+        USER_TIP.remove(token);
         return tip;
     }
 
     /** 
     * 移除某个用户的提示信息 
-    * @param userId 用户编号
+    * @param token 用户编号
     * @return void 
     * @author wangqian
     * @date 2019/7/31 
     */ 
-    public static void removeTip(Long userId) {
-        USER_TIP.remove(userId);
+    public static void removeTip(String token) {
+        USER_TIP.remove(token);
     }
 
     /** 
@@ -50,17 +50,17 @@ public class LoginTipHolder {
 
     /**
     * 放提示信息
-    * @param userId 用户编号
+    * @param token 用户编号
     * @param  tip 提示语
     * @return void
     * @author wangqian
     * @date 2019/7/31
     */
-    public static void putTip(Long userId, String tip) {
-        USER_TIP.put(userId, tip);
+    public static void putTip(String token, String tip) {
+        USER_TIP.put(token, tip);
     }
 
-    public static boolean containsKey(Object key) {
+    public static boolean containsKey(String key) {
         return USER_TIP.containsKey(key);
     }
 }

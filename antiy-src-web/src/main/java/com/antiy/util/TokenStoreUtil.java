@@ -27,7 +27,10 @@ public class TokenStoreUtil {
 
     public static LoginUser get(String token) {
         UserData user = map.get(token);
-        return user.getUserinfo();
+        if (user != null) {
+            return user.getUserinfo();
+        }
+        return null;
     }
 
     /** 通过用户id获取token **/
@@ -48,7 +51,9 @@ public class TokenStoreUtil {
 
     public static void relongExpired(String token, Long expired) {
         UserData user = map.get(token);
-        user.setExpired(expired);
+        if (user != null) {
+            user.setExpired(expired);
+        }
     }
 
     /**
@@ -70,6 +75,18 @@ public class TokenStoreUtil {
      */
     public static void removeToken(String token) {
         map.remove(token);
+    }
+
+    /**
+     * 根据用户id移除token
+     * @param userId
+     */
+    public static void removeToken(Long userId) {
+        for (Map.Entry<String, UserData> user : map.entrySet()) {
+            if (userId.equals(user.getValue().getUserinfo().getBusinessId())) {
+               map.remove(user.getKey());
+            }
+        }
     }
 
     /**

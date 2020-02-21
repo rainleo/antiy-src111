@@ -99,10 +99,6 @@ public class LoginServiceImpl implements ILoginService {
 
             currentUser.setLastLoginTime(System.currentTimeMillis());
             currentUser.setErrorCount(0);
-            if (LoginTipHolder.containsKey(tokenKey)) {
-                LoginTipHolder.removeTip(currentUser.getBusinessId());
-                log.info("用户{}重新登录后，清除存在的强制提出tip", currentUser.getUsername());
-            }
             userDao.update(currentUser);
             Map<String, Object> result = mapUtil.getMap("token", token);
             UserBasicResponse userResponse = new UserBasicResponse();
@@ -123,6 +119,10 @@ public class LoginServiceImpl implements ILoginService {
             userinfo.setRoleId(role.getId());
             userinfo.setRoleName(role.getName());
             userinfo.setMenus(menus);
+            if (TokenStoreUtil.existToken(currentUser.getBusinessId())) {
+                LoginTipHolder.putTip(TokenStoreUtil.get(currentUser.getBusinessId()), "当前账号已有其他人使用，您被退出，请检查账号信息或联系管理员");
+                TokenStoreUtil.removeToken(currentUser.getBusinessId());
+            }
             TokenStoreUtil.put(token, System.currentTimeMillis() + UserConstant.EXPIRE, userinfo);
         }
         return actionResponse;

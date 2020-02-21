@@ -40,7 +40,7 @@ public class VulInfoQuery extends ObjectQuery {
     @ApiModelProperty("漏洞所属部门")
     private Integer addressOwner;
     @ApiModelProperty("提交人")
-    private Integer commitUser;
+    private Long    commitUser;
     @ApiModelProperty("提交人所属部门")
     private Integer commitDept;
 
@@ -70,11 +70,11 @@ public class VulInfoQuery extends ObjectQuery {
         this.addressOwner = addressOwner;
     }
 
-    public Integer getCommitUser() {
+    public Long getCommitUser() {
         return commitUser;
     }
 
-    public void setCommitUser(Integer commitUser) {
+    public void setCommitUser(Long commitUser) {
         this.commitUser = commitUser;
     }
 

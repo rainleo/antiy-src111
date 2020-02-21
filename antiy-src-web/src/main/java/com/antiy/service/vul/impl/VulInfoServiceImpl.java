@@ -118,6 +118,9 @@ public class VulInfoServiceImpl implements IVulInfoService {
     @Override
     public Integer updateSingle(VulInfoRequest vulInfoRequest) {
         VulInfo vulInfo = baseConverter.convert(vulInfoRequest, VulInfo.class);
+        if (vulInfoRequest.getCommitOrUpdate() == 2) {
+            vulInfo.setGmtCreate(System.currentTimeMillis());
+        }
         vulInfo.setVulStatus(VulStatusEnum.WAIT_EXAMINE.getCode());
         vulInfo.setGmtModify(System.currentTimeMillis());
         vulInfo.setModifyUser(loginUserUtil.getUser().getBusinessId());

@@ -384,6 +384,9 @@
             vul_material_name = #{vulMaterialName },
             vul_material_url = #{vulMaterialUrl },
             modify_user = #{modifyUser },
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
             gmt_modify = #{gmtModify }
         where
         id = #{id}
@@ -467,7 +470,7 @@
         v.create_user as commitUser,
         u.name as commitUserName,
         v.address_owner as addressOwner,
-        d.name as addressOwnerName
+        d2.name as addressOwnerName
         from
         vul_info v left join task_info t on v.task_id = t.id
         left join department d on v.vul_department = d.id

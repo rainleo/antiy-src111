@@ -35,7 +35,7 @@ public class FileController {
         // 获取后缀名
         // String suffixName = fileName.substring(fileName.lastIndexOf("."));
         // 文件重命名，防止重复
-        fileName = filePath + "//" + UUID.randomUUID() + "//" + fileName;
+        fileName = filePath + "/" + UUID.randomUUID() + "/" + fileName;
         // 文件对象
         File dest = new File(fileName);
         // 判断路径是否存在，如果不存在则创建

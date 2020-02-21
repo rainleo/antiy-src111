@@ -155,11 +155,9 @@ public class UserInterceptor implements HandlerInterceptor {
                 log.debug("=====================更新 user token有效期===================");
                 //更新令牌有效期
                 TokenStoreUtil.relongExpired(token, System.currentTimeMillis() + UserConstant.EXPIRE);
-                if (loginUserUtil.isSystem()) {
-                    LoginUser userinfo = TokenStoreUtil.get(token);
-                    loginUserUtil.setUser(userinfo);
-                    log.warn("当前登录用户为："+userName);
-                }
+                LoginUser userinfo = TokenStoreUtil.get(token);
+                loginUserUtil.setUser(userinfo);
+                log.warn("当前登录用户为："+userName);
             }
         }
         return true;

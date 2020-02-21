@@ -38,6 +38,7 @@ public class LoginController {
 	@ApiOperation("用户登录")
 	@PostMapping("/login")
 	public ActionResponse login(@RequestBody UserLoginRequest loginRequest, HttpServletRequest servletRequest) {
+		loginUserUtil.setUser(null);
 		Long startTime = System.currentTimeMillis();
 		ActionResponse response;
 		if (ValidateImageCode.validate(servletRequest, loginRequest.getCode())) {

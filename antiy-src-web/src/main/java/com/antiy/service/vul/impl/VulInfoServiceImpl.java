@@ -104,7 +104,7 @@ public class VulInfoServiceImpl implements IVulInfoService {
             }
         }*/
         // 普通用户,只能查看自己提交的
-        if (role == 4) {
+        if (4 == role) {
             vulInfoQuery.setUserId(loginUserUtil.getUser().getBusinessId());
         }
         Integer count = vulInfoDao.queryCount(vulInfoQuery);

@@ -29,6 +29,7 @@ import com.antiy.service.user.IUserService;
 import com.antiy.util.DateUtil;
 import com.antiy.util.LoginUserUtil;
 import com.antiy.util.SnowFlake;
+import com.antiy.util.TokenStoreUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
@@ -154,6 +155,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Override
     public void updatePassword(Long businessId, String newPassword) throws Exception {
         userDao.updateUserPassword(businessId, newPassword);
+        TokenStoreUtil.removeToken(businessId);
         logger.info("管理员更新用户密码成功");
     }
 

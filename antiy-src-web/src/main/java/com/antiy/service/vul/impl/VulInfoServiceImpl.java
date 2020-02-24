@@ -117,6 +117,13 @@ public class VulInfoServiceImpl implements IVulInfoService {
 
     @Override
     public Integer updateSingle(VulInfoRequest vulInfoRequest) {
+        // 检查漏洞是否存在
+        Integer count = vulInfoDao.checkRepeat(vulInfoRequest.getTaskId(), vulInfoRequest.getVulName(),
+                vulInfoRequest.getIp(), vulInfoRequest.getVulAddress(), vulInfoRequest.getVulPort());
+        if (count > 0) {
+            logger.info("漏洞已存在");
+            BusinessExceptionUtils.isTrue(false, "该漏洞已存在,提交失败");
+        }
         VulInfo vulInfo = baseConverter.convert(vulInfoRequest, VulInfo.class);
         if (Objects.isNull(vulInfoRequest.getCommitOrUpdate()) || vulInfoRequest.getCommitOrUpdate() == 2) {
             vulInfo.setGmtCreate(System.currentTimeMillis());

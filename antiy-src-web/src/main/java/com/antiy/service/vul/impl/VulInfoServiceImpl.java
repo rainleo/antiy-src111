@@ -75,7 +75,7 @@ public class VulInfoServiceImpl implements IVulInfoService {
             BusinessExceptionUtils.isTrue(false, "任务不存在或已过期,提交失败");
         }
         // 检查漏洞是否存在
-        Integer count = vulInfoDao.checkRepeat(vulInfoRequest.getTaskId(), vulInfoRequest.getVulName(),
+        Integer count = vulInfoDao.checkRepeat(null, vulInfoRequest.getTaskId(), vulInfoRequest.getVulName(),
             vulInfoRequest.getIp(), vulInfoRequest.getVulAddress(), vulInfoRequest.getVulPort());
         if (count > 0) {
             logger.info("漏洞已存在");
@@ -97,12 +97,9 @@ public class VulInfoServiceImpl implements IVulInfoService {
     public PageResult<VulInfoResponse> queryList(VulInfoQuery vulInfoQuery) {
         Integer role = loginUserUtil.getUser().getRoleId();
         // 普通用户和审核员不能进入已经过期的任务
-       /* if (role == 3 || role == 4) {
-            TaskInfo taskInfo = taskInfoDao.queryById(vulInfoQuery.getTaskId());
-            if (System.currentTimeMillis() > taskInfo.getEndTime()) {
-                BusinessExceptionUtils.isTrue(false, "任务不在时间内");
-            }
-        }*/
+        /* if (role == 3 || role == 4) { TaskInfo taskInfo = taskInfoDao.queryById(vulInfoQuery.getTaskId()); if
+         * (System.currentTimeMillis() > taskInfo.getEndTime()) { BusinessExceptionUtils.isTrue(false, "任务不在时间内"); }
+         * } */
         // 普通用户,只能查看自己提交的
         if (4 == role) {
             vulInfoQuery.setUserId(loginUserUtil.getUser().getBusinessId());
@@ -118,13 +115,15 @@ public class VulInfoServiceImpl implements IVulInfoService {
     @Override
     public Integer updateSingle(VulInfoRequest vulInfoRequest) {
         // 检查漏洞是否存在
-        Integer count = vulInfoDao.checkRepeat(vulInfoRequest.getTaskId(), vulInfoRequest.getVulName(),
-                vulInfoRequest.getIp(), vulInfoRequest.getVulAddress(), vulInfoRequest.getVulPort());
+        Integer count = vulInfoDao.checkRepeat(vulInfoRequest.getId(), vulInfoRequest.getTaskId(),
+            vulInfoRequest.getVulName(), vulInfoRequest.getIp(), vulInfoRequest.getVulAddress(),
+            vulInfoRequest.getVulPort());
         if (count > 0) {
             logger.info("漏洞已存在");
             BusinessExceptionUtils.isTrue(false, "该漏洞已存在,提交失败");
         }
         VulInfo vulInfo = baseConverter.convert(vulInfoRequest, VulInfo.class);
+        // 重新提交的
         if (Objects.isNull(vulInfoRequest.getCommitOrUpdate()) || vulInfoRequest.getCommitOrUpdate() == 2) {
             vulInfo.setGmtCreate(System.currentTimeMillis());
         }

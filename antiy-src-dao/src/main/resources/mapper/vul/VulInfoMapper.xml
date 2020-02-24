@@ -407,6 +407,9 @@
             and vul_address = #{vulAddress}
             and vul_port = #{vulPort}
             and status = 1
+            <if test="id != null">
+                and id != #{id}
+            </if>
     </select>
     <select id="queryCount" resultType="java.lang.Integer" parameterType="com.antiy.query.vul.VulInfoQuery">
         select

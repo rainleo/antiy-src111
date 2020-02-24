@@ -16,8 +16,9 @@ import java.util.Map;
  */
 public interface VulInfoDao {
 
-    Integer checkRepeat(@Param("taskId") Integer taskId, @Param("vulName") String vulName, @Param("ip") String ip,
-                        @Param("vulAddress") String vulAddress, @Param("vulPort") Integer vulPort);
+    Integer checkRepeat(@Param("id") Integer id, @Param("taskId") Integer taskId, @Param("vulName") String vulName,
+                        @Param("ip") String ip, @Param("vulAddress") String vulAddress,
+                        @Param("vulPort") Integer vulPort);
 
     void saveSingle(VulInfo vulInfo);
 

@@ -146,7 +146,7 @@
             v.id,
             v.vul_id as vulId,
             v.examiner,
-            u.username as examinerName,
+            u.name as examinerName,
             v.result,
             v.reason,
             v.examine_material_name as examineMaterialName,

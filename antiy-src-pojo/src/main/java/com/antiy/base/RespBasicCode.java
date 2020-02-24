@@ -28,7 +28,7 @@ public enum RespBasicCode {
     NOT_PERMISSION("403", "没有权限"),
     SYS_TOKEN_EXPIRE("421", "您的登录状态已经失效,请重新登录"),
     ACCOUNT_REPEAT_LOGIN("422","当前账号已有其他人使用，您被退出，请检查账号信息或联系管理员"),
-    ACCOUNT_NOT_LOGIN("423","没有登录"),
+    ACCOUNT_NOT_LOGIN("423","登录已过期，请重新登录"),
     ACCOUNT_LOGIN_ERROR("424","用户名或密码错误"),
     ACCOUNT_FORBIDDEN_OR_LOCKED("425", "您的账号状态已被禁用/锁定，请联系管理员"),
     ACCOUNT_FORCED_RETURN("426", "您的账号权限被修改，请重新登录"),

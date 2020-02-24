@@ -97,12 +97,12 @@ public class VulInfoServiceImpl implements IVulInfoService {
     public PageResult<VulInfoResponse> queryList(VulInfoQuery vulInfoQuery) {
         Integer role = loginUserUtil.getUser().getRoleId();
         // 普通用户和审核员不能进入已经过期的任务
-        if (role == 3 || role == 4) {
+       /* if (role == 3 || role == 4) {
             TaskInfo taskInfo = taskInfoDao.queryById(vulInfoQuery.getTaskId());
             if (System.currentTimeMillis() > taskInfo.getEndTime()) {
                 BusinessExceptionUtils.isTrue(false, "任务不在时间内");
             }
-        }
+        }*/
         // 普通用户,只能查看自己提交的
         if (role == 4) {
             vulInfoQuery.setUserId(loginUserUtil.getUser().getBusinessId());
@@ -118,7 +118,7 @@ public class VulInfoServiceImpl implements IVulInfoService {
     @Override
     public Integer updateSingle(VulInfoRequest vulInfoRequest) {
         VulInfo vulInfo = baseConverter.convert(vulInfoRequest, VulInfo.class);
-        if (vulInfoRequest.getCommitOrUpdate() == 2) {
+        if (Objects.isNull(vulInfoRequest.getCommitOrUpdate()) || vulInfoRequest.getCommitOrUpdate() == 2) {
             vulInfo.setGmtCreate(System.currentTimeMillis());
         }
         vulInfo.setVulStatus(VulStatusEnum.WAIT_EXAMINE.getCode());

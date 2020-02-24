@@ -3,6 +3,7 @@ package com.antiy.request.vul;
 import com.antiy.exception.RequestParamValidateException;
 import com.antiy.validation.ObjectValidator;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Max;
 
@@ -23,7 +24,7 @@ public class VulExamineInfoRequest implements ObjectValidator {
     @ApiModelProperty("2通过3未通过")
     private Integer result;
     @ApiModelProperty("审批理由")
-    @Max(value = 512, message = "审核理由不能超过512")
+    @Length(max = 512, message = "审核理由不能超过512")
     private String  reason;
     @ApiModelProperty("审批材料名称")
     private String  examineMaterialName;

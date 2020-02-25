@@ -1,6 +1,7 @@
 package com.antiy.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 
 public class StringLengthUtils {
     /**
@@ -14,6 +15,7 @@ public class StringLengthUtils {
         System.out.println(getWordCountRegex(str));  // 6
         System.out.println(getWordCountCode(str, "GBK"));
         System.out.println(getWordCountCode(str, "UTF-8")); // 9
+        System.out.println(System.getProperty("file.encoding"));
     }
 
     /**

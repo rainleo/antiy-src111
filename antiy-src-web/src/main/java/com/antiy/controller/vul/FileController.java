@@ -1,6 +1,8 @@
 package com.antiy.controller.vul;
 
 import com.antiy.base.RespBasicCode;
+import com.antiy.util.BusinessExceptionUtils;
+import com.antiy.util.StringLengthUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import com.antiy.base.ActionResponse;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.UUID;
 
@@ -28,10 +31,14 @@ public class FileController {
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
     @ResponseBody
-    public ActionResponse upload(@RequestParam("file") MultipartFile file) {
+    public ActionResponse upload(@RequestParam("file") MultipartFile file) throws UnsupportedEncodingException {
         // 获取原始名字
         String[] fs = file.getOriginalFilename().split("\\\\");
         String fileName = fs[fs.length - 1];
+        int length = StringLengthUtils.getWordCountCode(fileName, "UTF-8");
+        if (length > 255) {
+            BusinessExceptionUtils.isTrue(false,"文件名长度不能查过255");
+        }
         // 获取后缀名
         // String suffixName = fileName.substring(fileName.lastIndexOf("."));
         // 文件重命名，防止重复

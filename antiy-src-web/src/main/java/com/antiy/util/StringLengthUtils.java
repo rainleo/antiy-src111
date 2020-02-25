@@ -1,7 +1,6 @@
 package com.antiy.util;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Locale;
 
 public class StringLengthUtils {
     /**

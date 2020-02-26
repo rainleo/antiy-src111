@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -47,7 +48,7 @@ public class SseEmitterController {
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public SseEmitter start(HttpServletResponse response) {
         // 普通用户才会推送消息通知
-        if (loginUserUtil.getUser().getRoleId() != 4) {
+        if (Objects.isNull(loginUserUtil.getUser()) || loginUserUtil.getUser().getRoleId() != 4) {
             return null;
         }
         response.setCharacterEncoding("UTF-8");
@@ -71,7 +72,7 @@ public class SseEmitterController {
                 }
             });
         }
-        //token不存在或者登录已经超时
+        // token不存在或者登录已经超时
         if (StringUtils.isBlank(token)) {
             return null;
         }

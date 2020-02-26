@@ -1,5 +1,5 @@
-package com.antiy.interceptor;
 
+package com.antiy.interceptor;
 import com.antiy.base.ActionResponse;
 import com.antiy.base.RespBasicCode;
 import com.antiy.common.utils.LogUtils;
@@ -108,12 +108,11 @@ public class UserInterceptor implements HandlerInterceptor {
             return isPass;
 
         }else {
-            if(LoginTipHolder.containsKey(token)){
-                LoginTipHolder.removeTip(token);
+            if (LoginTipHolder.containsKey(token) && LoginTipHolder.removeTip(token)) {
                 log.debug("=====================user 用户已在其他设备登录============");
                 //token,用户已在其他设备登录
                 apiResult = ActionResponse.fail(RespBasicCode.ACCOUNT_REPEAT_LOGIN, RespBasicCode.ACCOUNT_REPEAT_LOGIN.getResultDes());
-                doReturn(response,apiResult);
+                doReturn(response, apiResult);
                 return isPass;
             }
             claims = jwtUtil.getClaims(token);
@@ -129,9 +128,9 @@ public class UserInterceptor implements HandlerInterceptor {
             Long tokenKey = (Long) claims.get("userId");
             String name = (String) claims.get("name");
             log.info("当前访问用户token信息为bh:{},username:{},name:{}",tokenKey,userName,name);
-            String oldToken = TokenStoreUtil.get(tokenKey);
+            LoginUser tokenUser = TokenStoreUtil.get(token);
             //令牌过期
-            if(oldToken == null){
+            if(tokenUser == null){
                 log.debug("=====================user 登录信息过期====================");
                 apiResult = ActionResponse.fail(RespBasicCode.SYS_TOKEN_EXPIRE, RespBasicCode.SYS_TOKEN_EXPIRE.getResultDes());
                 doReturn(response,apiResult);
@@ -146,13 +145,6 @@ public class UserInterceptor implements HandlerInterceptor {
                 doReturn(response,apiResult);
                 return isPass;
             }else{
-                if (LoginTipHolder.containsKey(token)) {
-                    apiResult = ActionResponse.fail(RespBasicCode.ACCOUNT_FORCED_RETURN, LoginTipHolder.getTip(token));
-                    doReturn(response,apiResult);
-                    TokenStoreUtil.removeToken(token);
-                    log.warn("您的账号{}已被禁用或权限被修改,您已被强制退出,注销token",tokenKey);
-                    return isPass;
-                }
                 log.debug("=====================更新 user token有效期===================");
                 //更新令牌有效期
                 TokenStoreUtil.relongExpired(token, System.currentTimeMillis() + UserConstant.EXPIRE);

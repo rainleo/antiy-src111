@@ -33,8 +33,9 @@ public class LoginTipHolder {
     * @author wangqian
     * @date 2019/7/31 
     */ 
-    public static void removeTip(String token) {
+    public static boolean removeTip(String token) {
         USER_TIP.remove(token);
+        return true;
     }
 
     /** 
@@ -61,6 +62,6 @@ public class LoginTipHolder {
     }
 
     public static boolean containsKey(String key) {
-        return USER_TIP.containsKey(key);
+         return USER_TIP.containsKey(key);
     }
 }

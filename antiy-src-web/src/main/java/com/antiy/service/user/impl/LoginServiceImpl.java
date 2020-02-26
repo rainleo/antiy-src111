@@ -121,8 +121,8 @@ public class LoginServiceImpl implements ILoginService {
             userinfo.setMenus(menus);
             if (TokenStoreUtil.existToken(currentUser.getBusinessId())) {
                 LoginTipHolder.putTip(TokenStoreUtil.get(currentUser.getBusinessId()), "当前账号已有其他人使用，您被退出，请检查账号信息或联系管理员");
-                TokenStoreUtil.removeToken(currentUser.getBusinessId());
             }
+            TokenStoreUtil.removeToken(currentUser.getBusinessId());
             TokenStoreUtil.put(token, System.currentTimeMillis() + UserConstant.EXPIRE, userinfo);
         }
         return actionResponse;

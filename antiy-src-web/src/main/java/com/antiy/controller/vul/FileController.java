@@ -37,7 +37,7 @@ public class FileController {
         String fileName = fs[fs.length - 1];
         int length = StringLengthUtils.getWordCountCode(fileName, "UTF-8");
         if (length > 255) {
-            BusinessExceptionUtils.isTrue(false,"文件名长度不能查过255");
+            BusinessExceptionUtils.isTrue(false, "文件名长度不能查过255");
         }
         // 获取后缀名
         // String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -69,7 +69,10 @@ public class FileController {
         // 设置相关格式
         response.setContentType("application/force-download");
         // 设置下载后的文件名以及header
-        response.addHeader("Content-disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));
+        // response.addHeader("Content-disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));
+        response.setHeader("Content-Disposition",
+            "attachment;filename*=utf-8'zh_cn'" + URLEncoder.encode(fileName, "UTF-8"));
+
         // 创建输出对象
         OutputStream os = response.getOutputStream();
         // 常规操作

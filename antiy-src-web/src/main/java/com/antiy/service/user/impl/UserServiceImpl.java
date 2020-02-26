@@ -242,19 +242,21 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     public Map<String, Integer> vulSubmitTrend(TaskIdQuery query) {
         long start;
         long end;
+        Map<String, Integer> last30DayMap;
         if (query.getTaskId() == null) {
-             start = DateUtil.getBefore30Day();
-             end = DateUtil.getToday235959();
+            start = DateUtil.getBefore30Day();
+            end = DateUtil.getToday235959();
+            last30DayMap = DateUtil.getLast30DayMap();
         } else {
             TaskInfo taskInfo = taskInfoDao.queryById(query.getTaskId());
             start = taskInfo.getStartTime();
             end = taskInfo.getEndTime();
+            last30DayMap = DateUtil.getDateRangeMap(start, end);
         }
-        Map<String, Integer> last30DayMap = DateUtil.getLast30DayMap();
         List<Map<String, Object>> data = vulInfoDao.getVulSubmitTrend(start, end, query.getTaskId());
         if (CollectionUtils.isNotEmpty(data)) {
             for (Map<String, Object> en : data) {
-                last30DayMap.put(en.get("days").toString(), ((Long)en.get("num")).intValue());
+                last30DayMap.replace(en.get("days").toString(), ((Long)en.get("num")).intValue());
             }
         }
         return last30DayMap;
@@ -264,19 +266,21 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     public Map<String, Integer> vulRepairTrend(TaskIdQuery query) {
         long start;
         long end;
+        Map<String, Integer> last30DayMap;
         if (query.getTaskId() == null) {
             start = DateUtil.getBefore30Day();
             end = DateUtil.getToday235959();
+            last30DayMap = DateUtil.getLast30DayMap();
         } else {
             TaskInfo taskInfo = taskInfoDao.queryById(query.getTaskId());
             start = taskInfo.getStartTime();
             end = taskInfo.getEndTime();
+            last30DayMap = DateUtil.getDateRangeMap(start, end);
         }
-        Map<String, Integer> last30DayMap = DateUtil.getLast30DayMap();
         List<Map<String, Object>> data = vulInfoDao.getVulRepairTrend(start, end, query.getTaskId());
         if (CollectionUtils.isNotEmpty(data)) {
             for (Map<String, Object> en : data) {
-                last30DayMap.put(en.get("days").toString(), ((Long)en.get("num")).intValue());
+                last30DayMap.replace(en.get("days").toString(), ((Long)en.get("num")).intValue());
             }
         }
         return last30DayMap;

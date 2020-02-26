@@ -1,5 +1,6 @@
 package com.antiy.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,7 +17,7 @@ public class DateUtil {
 
     private static DateUtil instance = new DateUtil();
     private static SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd");
-    private static SimpleDateFormat sdf_mm_dd  = new SimpleDateFormat("MM月dd日");
+
 
     private DateUtil(){}
 
@@ -240,26 +241,32 @@ public class DateUtil {
      * @return
      */
     public static Integer dayNumberBetweenToDate(Date now , Date past){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String pastString = simpleDateFormat.format(past);
-            Date pastDate = simpleDateFormat.parse(pastString);
-            return (int)(((now.getTime() - pastDate.getTime() )/ (1000 * 3600 * 24)));
-        }catch (Exception e){
+            now = sdf.parse(sdf.format(now));
+            past = sdf.parse(sdf.format(past));
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-        return null;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now);
+        long nowTime = cal.getTimeInMillis();
+        cal.setTime(past);
+        long pastTime = cal.getTimeInMillis();
+        long between_days=(nowTime - pastTime) / (1000 * 3600 * 24);
+        return Integer.parseInt(String.valueOf(between_days));
     }
 
     /**
      * 获取当前日期前30天的日期
      */
     public static Map<String, Integer> getLast30DayMap(){
+        SimpleDateFormat sdf_mm_dd  = new SimpleDateFormat("MM月dd日");
         try {
             Calendar calc =Calendar.getInstance();    
-            Map<String, Integer> bloodMap = new LinkedHashMap<>();
-             for(int i=0;i<30;i++){  
-                   calc.setTime(new Date());    
+            Map<String, Integer> bloodMap = new LinkedHashMap<>(30);
+             for(int i = 0;i < 30; i++){
+                   calc.setTime(new Date());
                    calc.add(Calendar.DATE, -i);
                    Date minDate = calc.getTime();    
                    bloodMap.put(sdf_mm_dd.format(minDate), 0);
@@ -293,6 +300,26 @@ public class DateUtil {
         return today;
     }
 
+    public static Map<String, Integer> getDateRangeMap(long start, long end) {
+        SimpleDateFormat sdf_mm_dd  = new SimpleDateFormat("MM月dd日");
+        Date s = new Date(start);
+        Date e = new Date(end);
+        try {
+            Calendar calc =Calendar.getInstance();
+            Map<String, Integer> bloodMap = new LinkedHashMap<>();
+            for(int i = 0;i <= dayNumberBetweenToDate(e, s);i++){
+                calc.setTime(e);
+                calc.add(Calendar.DATE, -i);
+                Date minDate = calc.getTime();
+                bloodMap.put(sdf_mm_dd.format(minDate), 0);
+            }
+            return bloodMap;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         Map<String, Integer> last30DayMap = getLast30DayMap();
         for (Map.Entry<String, Integer> en : last30DayMap.entrySet()) {
@@ -309,4 +336,5 @@ public class DateUtil {
         long t1 = today.getTime().getTime();
         System.out.println(t1);
     }
+
 }

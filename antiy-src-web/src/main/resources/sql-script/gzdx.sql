@@ -278,8 +278,8 @@ CREATE TABLE `vul_examine_info`  (
   `examiner` bigint(20) NOT NULL COMMENT '审批人',
   `result` int(11) NOT NULL COMMENT '2通过3未通过',
   `reason` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '审批理由',
-  `examine_material_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '审批材料名',
-  `examine_material_url` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '审批材料url',
+  `examine_material_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '审批材料名',
+  `examine_material_url` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '审批材料url',
   `examine_date` bigint(20) DEFAULT NULL COMMENT '审批日期',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -308,7 +308,7 @@ CREATE TABLE `vul_info`  (
      `event_level_detail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '事件等级详细',
      `vul_desc` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '漏洞描述',
      `repair_suggest` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '修复建议',
-     `vul_material_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '漏洞材料名称',
+     `vul_material_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '漏洞材料名称',
      `vul_material_url` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '漏洞材料url',
      `vul_status` tinyint(4) DEFAULT NULL COMMENT '1待审核2通过3未通过',
      `task_id` int(11) NOT NULL COMMENT '任务id',

@@ -7,6 +7,7 @@ import com.antiy.common.utils.LogUtils;
 import com.antiy.consts.UserConstant;
 import com.antiy.dao.user.RoleDao;
 import com.antiy.dao.user.UserDao;
+import com.antiy.dao.vul.TaskInfoDao;
 import com.antiy.dao.vul.VulInfoDao;
 import com.antiy.dao.vul.VulIntegralInfoDao;
 import com.antiy.entity.user.Department;
@@ -15,6 +16,7 @@ import com.antiy.entity.user.NullLoginUser;
 import com.antiy.entity.user.TaskIdQuery;
 import com.antiy.entity.user.User;
 import com.antiy.entity.vul.EventLevel;
+import com.antiy.entity.vul.TaskInfo;
 import com.antiy.entity.vul.VulIntegralInfo;
 import com.antiy.exception.BusinessException;
 import com.antiy.query.user.ScoreQuery;
@@ -59,6 +61,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     private UserDao userDao;
     @Resource
     private RoleDao roleDao;
+    @Resource
+    private TaskInfoDao taskInfoDao;
     @Resource
     private VulIntegralInfoDao vulIntegralInfoDao;
     @Resource
@@ -236,8 +240,16 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 
     @Override
     public Map<String, Integer> vulSubmitTrend(TaskIdQuery query) {
-        long start = DateUtil.getBefore30Day();
-        long end = DateUtil.getToday235959();
+        long start;
+        long end;
+        if (query.getTaskId() == null) {
+             start = DateUtil.getBefore30Day();
+             end = DateUtil.getToday235959();
+        } else {
+            TaskInfo taskInfo = taskInfoDao.queryById(query.getTaskId());
+            start = taskInfo.getStartTime();
+            end = taskInfo.getEndTime();
+        }
         Map<String, Integer> last30DayMap = DateUtil.getLast30DayMap();
         List<Map<String, Object>> data = vulInfoDao.getVulSubmitTrend(start, end, query.getTaskId());
         if (CollectionUtils.isNotEmpty(data)) {
@@ -250,8 +262,16 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 
     @Override
     public Map<String, Integer> vulRepairTrend(TaskIdQuery query) {
-        long start = DateUtil.getBefore30Day();
-        long end = DateUtil.getToday235959();
+        long start;
+        long end;
+        if (query.getTaskId() == null) {
+            start = DateUtil.getBefore30Day();
+            end = DateUtil.getToday235959();
+        } else {
+            TaskInfo taskInfo = taskInfoDao.queryById(query.getTaskId());
+            start = taskInfo.getStartTime();
+            end = taskInfo.getEndTime();
+        }
         Map<String, Integer> last30DayMap = DateUtil.getLast30DayMap();
         List<Map<String, Object>> data = vulInfoDao.getVulRepairTrend(start, end, query.getTaskId());
         if (CollectionUtils.isNotEmpty(data)) {

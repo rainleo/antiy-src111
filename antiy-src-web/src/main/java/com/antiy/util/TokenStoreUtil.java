@@ -26,9 +26,11 @@ public class TokenStoreUtil {
     }
 
     public static LoginUser get(String token) {
-        UserData user = map.get(token);
-        if (user != null) {
-            return user.getUserinfo();
+        if (checkTokenIsValid(token)) {
+            UserData user = map.get(token);
+            if (user != null) {
+                return user.getUserinfo();
+            }
         }
         return null;
     }

@@ -47,15 +47,15 @@ public class SseEmitterController {
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public SseEmitter start(HttpServletResponse response) {
-        // 普通用户才会推送消息通知
-        if (Objects.isNull(loginUserUtil.getUser()) || loginUserUtil.getUser().getRoleId() != 4) {
-            return null;
-        }
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/event-stream");
         response.addHeader("X-Accel-Buffering", "no");
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control", "no-cache");
+        // 普通用户才会推送消息通知
+        if (Objects.isNull(loginUserUtil.getUser()) || loginUserUtil.getUser().getRoleId() != 4) {
+            return null;
+        }
         // 当前登录用户的id
         Long clientId = loginUserUtil.getUser().getBusinessId();
         // 当前登录用户的token

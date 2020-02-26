@@ -71,6 +71,10 @@ public class SseEmitterController {
                 }
             });
         }
+        //token不存在或者登录已经超时
+        if (StringUtils.isBlank(token)) {
+            return null;
+        }
         // 当前是否存在与用户绑定的sseEmitter对象
         if (!sseEmitterMap.containsKey(token)) {
             // 默认30秒超时,设置为0L则永不超时

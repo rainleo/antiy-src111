@@ -56,6 +56,9 @@ public class SseEmitterController {
         Long clientId = loginUserUtil.getUser().getBusinessId();
         // 当前登录用户的token
         String token = TokenStoreUtil.get(clientId);
+        if (StringUtils.isBlank(token)) {
+            return null;
+        }
         // 移除过期用户的sseEmitter连接
         if (MapUtils.isNotEmpty(sseEmitterMap)) {
             sseEmitterMap.keySet().stream().forEach(t -> {

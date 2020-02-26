@@ -54,7 +54,7 @@ public class SseEmitterController {
         response.setHeader("Cache-Control", "no-cache");
         // 普通用户才会推送消息通知
         if (Objects.isNull(loginUserUtil.getUser()) || loginUserUtil.getUser().getRoleId() != 4) {
-            return null;
+            return new SseEmitter();
         }
         // 当前登录用户的id
         Long clientId = loginUserUtil.getUser().getBusinessId();
@@ -74,7 +74,7 @@ public class SseEmitterController {
         }
         // token不存在或者登录已经超时
         if (StringUtils.isBlank(token)) {
-            return null;
+            return new SseEmitter();
         }
         // 当前是否存在与用户绑定的sseEmitter对象
         if (!sseEmitterMap.containsKey(token)) {

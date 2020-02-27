@@ -20,6 +20,7 @@ import com.antiy.service.user.IUserService;
 import com.antiy.util.LoginUserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -119,8 +120,18 @@ public class UserController {
             UserResponse r = new UserResponse();
             BeanUtils.copyProperties(user, r);
             String idcard = r.getIdcard();
-            String tm = idcard.substring(6, 15);
-            r.setIdcard(idcard.replace(tm, "********"));
+            if (StringUtils.isNotBlank(idcard) && idcard.length() >= 15) {
+                String tm;
+                String rep;
+                if (idcard.length() == 18) {
+                     tm = idcard.substring(6, 14);
+                     rep = "********";
+                } else {
+                     tm = idcard.substring(6, 12);
+                    rep = "******";
+                }
+                r.setIdcard(idcard.substring(0, 6) + rep + (idcard.substring(rep.length() + 6)));
+            }
             r.setBusinessId(user.getBusinessId().toString());
             reps.add(r);
         }

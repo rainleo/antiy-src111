@@ -337,7 +337,7 @@ CREATE TABLE `vul_integral_info`  (
   `task_id` int(11) DEFAULT NULL COMMENT '任务id',
   `intergral_event` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '获得积分事项',
   `vul_id` int(11) NOT NULL COMMENT '漏洞id',
-  `vul_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '漏洞名称',
+  `vul_name` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '漏洞名称',
   `ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '漏洞IP',
   `vul_port` int(11) NOT NULL COMMENT '漏洞端口',
   `commit_date` bigint(20) NOT NULL COMMENT '提交日期',

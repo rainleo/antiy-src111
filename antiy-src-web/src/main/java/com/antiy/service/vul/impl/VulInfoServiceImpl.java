@@ -148,6 +148,7 @@ public class VulInfoServiceImpl implements IVulInfoService {
     public void exportData(VulInfoQuery vulInfoQuery, HttpServletResponse response,
                            HttpServletRequest request) throws IOException {
         String[] header = { "漏洞编号", "漏洞名称", "漏洞等级", "任务名称", "漏洞状态", "提交时间", "提交人员", "漏洞地址", "漏洞端口", "漏洞所属部门" };
+        vulInfoQuery.setPageSize(-1);
         List<VulInfoResponse> vulInfoList = vulInfoDao.queryList(vulInfoQuery);
         if (CollectionUtils.isEmpty(vulInfoList)) {
             BusinessExceptionUtils.isTrue(false, "导出数据为空");

@@ -200,8 +200,6 @@
         update
             task_info
         set
-            task_name = #{taskName },
-            task_type = #{taskType },
             start_time = #{startTime },
             end_time = #{endTime },
             modify_user = #{modifyUser },

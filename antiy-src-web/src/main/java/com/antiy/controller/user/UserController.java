@@ -118,6 +118,9 @@ public class UserController {
         for (User user : users) {
             UserResponse r = new UserResponse();
             BeanUtils.copyProperties(user, r);
+            String idcard = r.getIdcard();
+            String tm = idcard.substring(6, 15);
+            r.setIdcard(idcard.replace(tm, "********"));
             r.setBusinessId(user.getBusinessId().toString());
             reps.add(r);
         }

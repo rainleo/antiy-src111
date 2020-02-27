@@ -62,6 +62,8 @@ INSERT INTO `department` VALUES (25, '网络发展部');
 INSERT INTO `department` VALUES (26, '客户服务部');
 INSERT INTO `department` VALUES (27, '审计部');
 INSERT INTO `department` VALUES (28, '党群部');
+INSERT INTO `department` VALUES (29, '网络与信息安全部');
+
 
 -- ----------------------------
 -- Table structure for event_level

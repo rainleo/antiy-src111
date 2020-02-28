@@ -105,11 +105,12 @@ public class FileController {
         // 创建输出对象
         OutputStream os = response.getOutputStream();
         // 常规操作
-        byte[] buf = new byte[1024];
+        byte[] buf = new byte[1024 * 1024];
         int len = 0;
         while ((len = fis.read(buf)) != -1) {
             os.write(buf, 0, len);
         }
+
         fis.close();
         System.out.println("下载耗时：" + (System.currentTimeMillis() - start));
     }

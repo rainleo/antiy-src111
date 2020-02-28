@@ -137,7 +137,11 @@ public class VulInfoServiceImpl implements IVulInfoService {
 
     @Override
     public VulInfoResponse queryDetail(Integer id) {
-        return vulInfoDao.queryDetail(id);
+        VulInfoResponse vulInfoResponse = vulInfoDao.queryDetail(id);
+        if (Objects.isNull(vulInfoResponse)) {
+            BusinessExceptionUtils.isTrue(false,"漏洞不存在");
+        }
+        return vulInfoResponse;
     }
 
     @Override

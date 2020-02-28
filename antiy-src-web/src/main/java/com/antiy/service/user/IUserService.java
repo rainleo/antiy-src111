@@ -134,5 +134,5 @@ public interface IUserService extends IBaseService<User> {
 
     String register(NormalUserRequest request);
 
-    List<UserResponse> getNormalUserList();
+    List<Map<String,Object>> getNormalUserList();
 }

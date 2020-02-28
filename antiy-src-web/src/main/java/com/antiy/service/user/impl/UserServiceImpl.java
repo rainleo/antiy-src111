@@ -306,15 +306,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
-    public List<UserResponse> getNormalUserList() {
-        List<User> users = userDao.getNormalUserList();
-        List<UserResponse> reps = new ArrayList<>();
-        for (User user : users) {
-            UserResponse r = new UserResponse();
-            BeanUtils.copyProperties(user, r);
-            r.setBusinessId(user.getBusinessId().toString());
-            reps.add(r);
-        }
+    public List<Map<String,Object>> getNormalUserList() {
+        List<Map<String,Object>> reps = userDao.getNormalUserList();
+
         return reps;
     }
 }

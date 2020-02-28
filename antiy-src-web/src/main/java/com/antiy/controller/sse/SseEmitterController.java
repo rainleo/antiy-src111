@@ -49,9 +49,9 @@ public class SseEmitterController {
     public SseEmitter start(HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/event-stream");
-        response.addHeader("X-Accel-Buffering", "no");
+        /*response.addHeader("X-Accel-Buffering", "no");
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");*/
         // 当前登录用户的id
         Long clientId = loginUserUtil.getUser().getBusinessId();
         // 当前登录用户的token

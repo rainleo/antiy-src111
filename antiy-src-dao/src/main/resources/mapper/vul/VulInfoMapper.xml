@@ -537,7 +537,6 @@
             event_level_detail as eventLevelDetail,
             v.vul_desc as vulDesc,
             v.vul_material_name as vulMaterialName,
-            v.vul_material_url as vulMaterialUrl,
             v.repair_suggest as repairSuggest,
             v.ip,
             v.task_id as taskId,
@@ -579,5 +578,13 @@
     </select>
     <select id="queryNoPassVulByUserId" resultType="java.lang.String">
         select vul_name from vul_info where create_user = #{userId} and vul_status = 3
+    </select>
+    <select id="queryFilePath" resultType="com.antiy.entity.vul.FileInfo">
+        select
+         vul_material_url as filePath,
+         vul_material_name as fileName
+         from
+         vul_info
+         where id = #{id}
     </select>
 </mapper>

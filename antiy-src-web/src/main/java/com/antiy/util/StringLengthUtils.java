@@ -15,6 +15,8 @@ public class StringLengthUtils {
         System.out.println(getWordCountCode(str, "GBK"));
         System.out.println(getWordCountCode(str, "UTF-8")); // 9
         System.out.println(System.getProperty("file.encoding"));
+
+        System.out.println("吕梁.doc".substring("吕梁.doc".lastIndexOf(".")+1));
     }
 
     /**

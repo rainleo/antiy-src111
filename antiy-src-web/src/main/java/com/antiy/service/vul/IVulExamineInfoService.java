@@ -1,6 +1,7 @@
 package com.antiy.service.vul;
 
 
+import com.antiy.entity.vul.FileInfo;
 import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.VulExamineInfoRequest;
 
@@ -20,4 +21,6 @@ public interface IVulExamineInfoService {
     void saveSingle(VulExamineInfoRequest vulExamineInfoRequest);
 
     boolean checkVulStatus(BaseRequest baseRequest);
+
+    FileInfo queryFilePath(BaseRequest request);
 }

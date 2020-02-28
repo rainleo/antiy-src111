@@ -8,10 +8,7 @@ import com.antiy.dao.user.UserDao;
 import com.antiy.dao.vul.VulExamineInfoDao;
 import com.antiy.dao.vul.VulInfoDao;
 import com.antiy.dao.vul.VulIntegralInfoDao;
-import com.antiy.entity.vul.TaskInfo;
-import com.antiy.entity.vul.VulExamineInfo;
-import com.antiy.entity.vul.VulInfo;
-import com.antiy.entity.vul.VulIntegralInfo;
+import com.antiy.entity.vul.*;
 import com.antiy.enums.user.VulLevelEnum;
 import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.TaskInfoRequest;
@@ -111,6 +108,11 @@ public class VulExamineInfoServiceImpl implements IVulExamineInfoService {
     @Override
     public boolean checkVulStatus(BaseRequest baseRequest) {
         return vulExamineInfoDao.checkVulStatus(baseRequest) > 0 ? true : false;
+    }
+
+    @Override
+    public FileInfo queryFilePath(BaseRequest request) {
+        return vulExamineInfoDao.queryFilePath(request);
     }
 
     /**

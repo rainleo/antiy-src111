@@ -1,8 +1,10 @@
 package com.antiy.service.vul;
 
 import com.antiy.base.PageResult;
+import com.antiy.entity.vul.FileInfo;
 import com.antiy.entity.vul.VulInfo;
 import com.antiy.query.vul.VulInfoQuery;
+import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.VulInfoRequest;
 import com.antiy.response.vul.VulExamineInfoResponse;
 import com.antiy.response.vul.VulInfoResponse;
@@ -33,4 +35,6 @@ public interface IVulInfoService {
     void exportData(VulInfoQuery vulInfoQuery, HttpServletResponse response, HttpServletRequest request) throws IOException;
 
     List<String> getExamineInfo(String clientId);
+
+    FileInfo queryFilePath(BaseRequest request);
 }

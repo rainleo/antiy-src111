@@ -1,6 +1,7 @@
 package com.antiy.dao.vul;
 
 
+import com.antiy.entity.vul.FileInfo;
 import com.antiy.entity.vul.VulExamineInfo;
 import com.antiy.request.BaseRequest;
 import com.antiy.response.vul.VulExamineInfoResponse;
@@ -23,4 +24,6 @@ public interface VulExamineInfoDao {
     void saveSingle(VulExamineInfo vulExamineInfo);
 
     Integer checkVulStatus(BaseRequest baseRequest);
+
+    FileInfo queryFilePath(BaseRequest request);
 }

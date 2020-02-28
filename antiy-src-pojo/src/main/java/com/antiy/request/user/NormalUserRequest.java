@@ -63,6 +63,9 @@ public class NormalUserRequest implements ObjectValidator {
     @ApiModelProperty("联系电话")
     private String phone;
 
+    @ApiModelProperty("验证码")
+    private String code;
+
 
     public Long getBusinessId() {
         return businessId;
@@ -129,6 +132,14 @@ public class NormalUserRequest implements ObjectValidator {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override

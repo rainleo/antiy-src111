@@ -3,6 +3,7 @@ package com.antiy.controller.user;
 import com.alibaba.fastjson.JSON;
 import com.antiy.base.ActionResponse;
 import com.antiy.base.PageResult;
+import com.antiy.base.RespBasicCode;
 import com.antiy.common.utils.AesEncryptUtil;
 import com.antiy.consts.UserConstant;
 import com.antiy.entity.user.TaskIdQuery;
@@ -18,6 +19,7 @@ import com.antiy.request.user.UserRequest;
 import com.antiy.response.user.UserResponse;
 import com.antiy.service.user.IUserService;
 import com.antiy.util.LoginUserUtil;
+import com.antiy.util.code.ValidateImageCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,9 +68,16 @@ public class UserController {
 
     @ApiOperation("普通用户注册")
     @PostMapping("/register")
-    public ActionResponse register(@Validated(value = Add.class) @RequestBody NormalUserRequest request) throws Exception {
-        AesEncryptUtil.aesDecrypt(request.getPassword());
-        return ActionResponse.success(userService.register(request));
+    public ActionResponse register(@Validated(value = Add.class) @RequestBody NormalUserRequest request, HttpServletRequest httpServletRequest) throws Exception {
+        ActionResponse response;
+        if (ValidateImageCode.validate(httpServletRequest, request.getCode())) {
+            AesEncryptUtil.aesDecrypt(request.getPassword());
+            response = ActionResponse.success(userService.register(request));
+        } else {
+            logger.warn("用户验证码输入错误");
+            response = ActionResponse.fail(RespBasicCode.IMAGE_CODE_ERROR, RespBasicCode.IMAGE_CODE_ERROR.getResultDes());
+        }
+        return response;
     }
 
     @ApiOperation("修改用户")

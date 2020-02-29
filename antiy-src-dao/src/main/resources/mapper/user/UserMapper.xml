@@ -253,7 +253,7 @@
     <select id="getUserIdByRole" resultType="java.lang.String">
         select business_id from user_role where role_id = #{role}
     </select>
-    <select id="getNormalUserList" resultMap="BaseResultMap">
-        select u.business_id, u.name from user u join user_role ur on u.business_id = ur.user_id where ur.role_id = 4
+    <select id="getNormalUserList" resultType="map">
+        select   CONCAT(u.business_id,'') businessId, u.name from user u join user_role ur on u.business_id = ur.user_id where ur.role_id = 4
     </select>
 </mapper>

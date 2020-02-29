@@ -8,6 +8,7 @@ import com.antiy.service.vul.IVulInfoService;
 import com.antiy.util.BusinessExceptionUtils;
 import com.antiy.util.StringLengthUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import com.antiy.base.ActionResponse;
@@ -89,6 +90,10 @@ public class FileController {
             fileInfo = vulInfoService.queryFilePath(request);
         } else if (request.getType() == 2) {
             fileInfo = vulExamineInfoService.queryFilePath(request);
+        }
+        if (Objects.isNull(fileInfo) || StringUtils.isBlank(fileInfo.getFileName())
+            || StringUtils.isBlank(fileInfo.getFilePath())) {
+            BusinessExceptionUtils.isTrue(false, "文件不存在或已被删除,请联系管理员");
         }
         // 文件地址，真实环境是存放在数据库中的
         File file = new File(fileInfo.getFilePath());

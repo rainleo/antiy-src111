@@ -382,7 +382,9 @@
             vul_desc = #{vulDesc },
             repair_suggest = #{repairSuggest },
             vul_material_name = #{vulMaterialName },
-            vul_material_url = #{vulMaterialUrl },
+            <if test="vulMaterialUrl != null">
+                vul_material_url = #{vulMaterialUrl },
+            </if>
             modify_user = #{modifyUser },
             <if test="gmtCreate != null">
                 gmt_create = #{gmtCreate},

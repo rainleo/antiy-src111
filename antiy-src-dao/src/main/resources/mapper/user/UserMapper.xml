@@ -208,7 +208,7 @@
     </select>
 
     <select id="findQuery" resultMap="BaseResultMap" parameterType="com.antiy.base.ObjectQuery">
-        select u.*,d.name departmentName,r.name roleName from
+        select u.business_id, u.username, u.name, u.idcard, d.name departmentName,r.name roleName from
         user u join department d on u.department=d.id join user_role ur on
         u.business_id = ur.user_id join role r on ur.role_id = r.id
         <trim prefix="WHERE" prefixOverrides="AND |OR ">

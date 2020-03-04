@@ -62,6 +62,8 @@ public class UserController {
     @PostMapping("/save")
     public ActionResponse addUser(@Validated(value = Add.class) @RequestBody UserRequest request) throws Exception {
         AesEncryptUtil.aesDecrypt(request.getPassword());
+        AesEncryptUtil.aesDecrypt(request.getIdcard());
+        AesEncryptUtil.aesDecrypt(request.getPhone());
         userService.saveUser(request);
         return ActionResponse.success();
     }
@@ -70,8 +72,11 @@ public class UserController {
     @PostMapping("/register")
     public ActionResponse register(@Validated(value = Add.class) @RequestBody NormalUserRequest request, HttpServletRequest httpServletRequest) throws Exception {
         ActionResponse response;
+
         if (ValidateImageCode.validate(httpServletRequest, request.getCode())) {
             AesEncryptUtil.aesDecrypt(request.getPassword());
+            AesEncryptUtil.aesDecrypt(request.getIdcard());
+            AesEncryptUtil.aesDecrypt(request.getPhone());
             response = ActionResponse.success(userService.register(request));
         } else {
             logger.warn("用户验证码输入错误");
@@ -84,6 +89,8 @@ public class UserController {
     @PostMapping("/update")
     public ActionResponse updateUser(@Validated(value = Update.class) @RequestBody UserRequest request) throws Exception {
         logger.info("修改用户入参:{}", JSON.toJSONString(request));
+        AesEncryptUtil.aesDecrypt(request.getIdcard());
+        AesEncryptUtil.aesDecrypt(request.getPhone());
         userService.updateUser(request);
         return ActionResponse.success();
     }
@@ -117,7 +124,7 @@ public class UserController {
 
     @ApiOperation("用户列表")
     @PostMapping("/list")
-    public ActionResponse userList(@RequestBody(required = false) UserQuery query) {
+    public ActionResponse userList(@RequestBody(required = false) UserQuery query) throws Exception {
         logger.info("用户列表入参:{}", JSON.toJSONString(query));
         Integer roleId = loginUserUtil.getUser().getRoleId();
         if (UserConstant.ROLE_TYPE_SUPERADMIN.equals(roleId)) {
@@ -129,7 +136,7 @@ public class UserController {
         for (User user : users) {
             UserResponse r = new UserResponse();
             BeanUtils.copyProperties(user, r);
-            String idcard = r.getIdcard();
+            String idcard = AesEncryptUtil.aesDecrypt(r.getIdcard());
             if (StringUtils.isNotBlank(idcard) && idcard.length() >= 15) {
                 String tm;
                 String rep;

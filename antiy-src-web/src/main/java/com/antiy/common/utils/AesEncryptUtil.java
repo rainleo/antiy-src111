@@ -37,8 +37,8 @@ public class AesEncryptUtil {
       String decrypt = aesDecrypt(ciphertext, KEY);
       return decrypt;
     } catch (Exception e) {
-      logger.info("用户登录密码解密失败={}", ciphertext);
-      throw new BusinessException("用户密码解密失败");
+      logger.info("解密失败");
+      throw new BusinessException("解密失败");
     }
   }
 

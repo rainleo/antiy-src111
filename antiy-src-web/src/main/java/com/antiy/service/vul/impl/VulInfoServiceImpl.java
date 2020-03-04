@@ -7,11 +7,13 @@ import com.antiy.dao.user.UserDao;
 import com.antiy.dao.vul.TaskInfoDao;
 import com.antiy.dao.vul.VulExamineInfoDao;
 import com.antiy.dao.vul.VulInfoDao;
+import com.antiy.entity.vul.FileInfo;
 import com.antiy.entity.vul.TaskInfo;
 import com.antiy.entity.vul.VulInfo;
 import com.antiy.enums.user.VulStatusEnum;
 import com.antiy.enums.user.VulTypeEnum;
 import com.antiy.query.vul.VulInfoQuery;
+import com.antiy.request.BaseRequest;
 import com.antiy.request.vul.VulInfoRequest;
 import com.antiy.response.vul.VulExamineInfoResponse;
 import com.antiy.response.vul.VulInfoResponse;
@@ -135,7 +137,11 @@ public class VulInfoServiceImpl implements IVulInfoService {
 
     @Override
     public VulInfoResponse queryDetail(Integer id) {
-        return vulInfoDao.queryDetail(id);
+        VulInfoResponse vulInfoResponse = vulInfoDao.queryDetail(id);
+        if (Objects.isNull(vulInfoResponse)) {
+            BusinessExceptionUtils.isTrue(false,"漏洞不存在");
+        }
+        return vulInfoResponse;
     }
 
     @Override
@@ -210,6 +216,11 @@ public class VulInfoServiceImpl implements IVulInfoService {
             return results;
         }
         return null;
+    }
+
+    @Override
+    public FileInfo queryFilePath(BaseRequest request) {
+        return vulInfoDao.queryFilePath(request);
     }
 
     private static String getVulNo(Integer type, Integer id) {

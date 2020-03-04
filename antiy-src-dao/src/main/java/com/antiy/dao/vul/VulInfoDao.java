@@ -1,7 +1,9 @@
 package com.antiy.dao.vul;
 
+import com.antiy.entity.vul.FileInfo;
 import com.antiy.entity.vul.VulInfo;
 import com.antiy.query.vul.VulInfoQuery;
+import com.antiy.request.BaseRequest;
 import com.antiy.response.vul.VulInfoResponse;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,4 +43,6 @@ public interface VulInfoDao {
                                                 @Param("taskId") Integer taskId);
 
     List<String> queryNoPassVulByUserId(@Param("userId") long userId);
+
+    FileInfo queryFilePath(BaseRequest request);
 }

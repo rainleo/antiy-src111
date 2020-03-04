@@ -1,20 +1,30 @@
 package com.antiy.controller.vul;
 
 import com.antiy.base.RespBasicCode;
+import com.antiy.entity.vul.FileInfo;
+import com.antiy.request.BaseRequest;
+import com.antiy.service.vul.IVulExamineInfoService;
+import com.antiy.service.vul.IVulInfoService;
 import com.antiy.util.BusinessExceptionUtils;
 import com.antiy.util.StringLengthUtils;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import com.antiy.base.ActionResponse;
 import io.swagger.annotations.Api;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -27,7 +37,14 @@ import java.util.UUID;
 public class FileController {
 
     @Value("${file_url}")
-    private String filePath;
+    private String                 filePath;
+    @Resource
+    private IVulInfoService        vulInfoService;
+    @Resource
+    private IVulExamineInfoService vulExamineInfoService;
+
+    private static List<String>    fileMatch = Arrays.asList("rar", "zip", "pdf", "doc", "docx", "txt", "7z", "jpg",
+        "png", "xlsx", "xls");
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
     @ResponseBody
@@ -35,6 +52,9 @@ public class FileController {
         // 获取原始名字
         String[] fs = file.getOriginalFilename().split("\\\\");
         String fileName = fs[fs.length - 1];
+        if (!fileMatch.contains(fileName.substring(fileName.lastIndexOf(".") + 1))) {
+            BusinessExceptionUtils.isTrue(false, "不支持该文件格式");
+        }
         int length = StringLengthUtils.getWordCountCode(fileName, "UTF-8");
         if (length > 255) {
             BusinessExceptionUtils.isTrue(false, "文件名长度不能查过255");
@@ -60,10 +80,24 @@ public class FileController {
     }
 
     @RequestMapping(value = "download", method = RequestMethod.GET)
-    public void download(@RequestParam("filePath") String filePath, HttpServletResponse response) throws Exception {
+    public void download(BaseRequest request, HttpServletResponse response) throws Exception {
+        long start = System.currentTimeMillis();
+        if (Objects.isNull(request.getId()) || Objects.isNull(request.getType())) {
+            BusinessExceptionUtils.isTrue(false, "参数不完整");
+        }
+        FileInfo fileInfo = null;
+        if (request.getType() == 1) {
+            fileInfo = vulInfoService.queryFilePath(request);
+        } else if (request.getType() == 2) {
+            fileInfo = vulExamineInfoService.queryFilePath(request);
+        }
+        if (Objects.isNull(fileInfo) || StringUtils.isBlank(fileInfo.getFileName())
+            || StringUtils.isBlank(fileInfo.getFilePath())) {
+            BusinessExceptionUtils.isTrue(false, "文件不存在或已被删除,请联系管理员");
+        }
         // 文件地址，真实环境是存放在数据库中的
-        File file = new File(filePath);
-        String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+        File file = new File(fileInfo.getFilePath());
+        String fileName = fileInfo.getFileName();
         // 穿件输入对象
         FileInputStream fis = new FileInputStream(file);
         // 设置相关格式
@@ -76,11 +110,13 @@ public class FileController {
         // 创建输出对象
         OutputStream os = response.getOutputStream();
         // 常规操作
-        byte[] buf = new byte[1024];
+        byte[] buf = new byte[1024 * 1024];
         int len = 0;
         while ((len = fis.read(buf)) != -1) {
             os.write(buf, 0, len);
         }
+
         fis.close();
+        System.out.println("下载耗时：" + (System.currentTimeMillis() - start));
     }
 }

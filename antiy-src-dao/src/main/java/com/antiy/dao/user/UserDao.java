@@ -7,6 +7,7 @@ import com.antiy.entity.vul.EventLevel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p> 用户表 Mapper 接口 </p>
@@ -41,5 +42,5 @@ public interface UserDao extends IBaseDao<User> {
 
     List<String> getUserIdByRole(@Param("role") int role);
 
-    List<User> getNormalUserList();
+    List<Map<String,Object>> getNormalUserList();
 }

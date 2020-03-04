@@ -150,7 +150,6 @@
             v.result,
             v.reason,
             v.examine_material_name as examineMaterialName,
-            v.examine_material_url as examineMaterialUrl,
             v.examine_date as examineDate
         from vul_examine_info v left join user u on v.examiner = u.business_id
         where vul_id = #{vulId}
@@ -158,6 +157,12 @@
     </select>
     <select id="checkVulStatus" resultType="java.lang.Integer">
         select count(1) from vul_info where id = #{id} and vul_status = 1 and status = 1
+    </select>
+    <select id="queryFilePath" resultType="com.antiy.entity.vul.FileInfo">
+        select
+            examine_material_url as filePath,
+            examine_material_name as fileName
+        from vul_examine_info where id = #{id}
     </select>
 
 </mapper>

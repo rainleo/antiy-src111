@@ -252,7 +252,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 674713460738621440, 'admin', 'qBWzqgUZxbZ4bCLwsQA2Sw==', '刘三', 1, '510823199107147030', '18789092987', 1, NULL, 0, 1582093693209, 0, 1580905824610, NULL, NULL);
+INSERT INTO `user` VALUES (1, 674713460738621440, 'admin', 'qBWzqgUZxbZ4bCLwsQA2Sw==', '刘三', 1, '2xheJ5d0TktHVVtlzYwvb3UOA/Y/psLt9Cc3Voi9Fas=', 'f88yeDoaTof3YQGBz+GbLA==', 1, NULL, 0, 1582093693209, 0, 1580905824610, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for user_role

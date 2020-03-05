@@ -141,13 +141,16 @@ public class UserController {
                 String tm;
                 String rep;
                 if (idcard.length() == 18) {
-                     tm = idcard.substring(6, 14);
+                     tm = idcard.substring(14);
                      rep = "********";
                 } else {
-                     tm = idcard.substring(6, 12);
-                    rep = "******";
+                     tm = idcard.substring(12);
+                     rep = "******";
                 }
-                r.setIdcard(idcard.substring(0, 6) + rep + (idcard.substring(rep.length() + 6)));
+                r.setIdcard(idcard.substring(0, 6) + rep + tm);
+            }
+            if (StringUtils.isNotBlank(idcard) && idcard.length() < 15) {
+                r.setIdcard(AesEncryptUtil.aesDecrypt(r.getIdcard()));
             }
             r.setBusinessId(user.getBusinessId().toString());
             reps.add(r);

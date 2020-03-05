@@ -3,6 +3,7 @@ package com.antiy.service.user.impl;
 import com.antiy.base.BaseConverter;
 import com.antiy.base.PageResult;
 import com.antiy.common.base.BaseServiceImpl;
+import com.antiy.common.utils.AesEncryptUtil;
 import com.antiy.common.utils.LogUtils;
 import com.antiy.consts.UserConstant;
 import com.antiy.dao.user.RoleDao;
@@ -33,6 +34,7 @@ import com.antiy.util.LoginUserUtil;
 import com.antiy.util.SnowFlake;
 import com.antiy.util.TokenStoreUtil;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -310,5 +312,18 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         List<Map<String,Object>> reps = userDao.getNormalUserList();
 
         return reps;
+    }
+
+    public void passwordEncode() throws Exception {
+        List<User> users = userDao.getAll();
+        for (User user : users) {
+                if (StringUtils.isNotBlank(user.getPhone())) {
+                    user.setPhone(AesEncryptUtil.aesEncrypt(user.getPhone()));
+                }
+                if (StringUtils.isNotBlank(user.getIdcard())) {
+                    user.setIdcard(AesEncryptUtil.aesEncrypt(user.getIdcard()));
+                }
+                userDao.update(user);
+        }
     }
 }

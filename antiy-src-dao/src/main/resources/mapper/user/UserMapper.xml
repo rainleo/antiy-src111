@@ -247,6 +247,9 @@
     <select id="getALlUser" resultMap="BaseResultMap">
         select business_id, name, department, phone from user
     </select>
+    <select id="getAll" resultMap="BaseResultMap">
+        select business_id, name, department, phone, idcard from user
+    </select>
     <select id="getRoleByUserId" resultType="java.lang.Integer">
         select role_id from user_role where user_id = #{userId}
     </select>

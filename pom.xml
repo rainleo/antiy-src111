@@ -61,7 +61,7 @@
         <csos.biz.common.version>1.0.2-SNAPSHOT</csos.biz.common.version>
         <protostuff-core.version>1.6.0</protostuff-core.version>
         <protostuff-runtime.version>1.6.0</protostuff-runtime.version>
-        <jackson-databind.version>2.9.6</jackson-databind.version>
+        <jackson-databind.version>2.12.6.1</jackson-databind.version>
         <jackson-core.version>2.9.6</jackson-core.version>
         <jackson-annotations.version>2.9.0</jackson-annotations.version>
         <logback-kafka-appender.vserion>0.1.0</logback-kafka-appender.vserion>
